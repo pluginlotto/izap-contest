@@ -23,6 +23,7 @@ $quiz_entity = izap_array_to_object(
 ?>
 
 <div class="contentWrapper">
+  <?php if(!$vars['quiz_entity']) {?>
   <div id="elgg_horizontal_tabbed_nav">
     <ul>
       <li class="<?php echo ($vars['mtype']=='simple')?'selected':'' ?>"><a href="?type=simple">Simple</a></li>
@@ -33,6 +34,7 @@ $quiz_entity = izap_array_to_object(
       <?php endif; ?>
     </ul>
   </div>
+  <?php }?>
   <form action="<?php echo $vars['url']; ?>action/quiz/save" method="post" enctype="multipart/form-data">
     <?php echo elgg_view('input/securitytoken');?>
     <p>

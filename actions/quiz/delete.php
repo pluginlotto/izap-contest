@@ -16,9 +16,10 @@
 gatekeeper();
 
 $quiz_guid = (int) get_input('guid');
-$challange_url = urldecode(get_input('curl'));
 
 $quiz_entity = get_entity($quiz_guid);
+$challange_url = get_entity($quiz_entity->container_guid)->getURL();
+
 if($quiz_guid) {
   if($quiz_entity->delete_me()) {
     system_message(elgg_echo('zcontest:quiz:deleted'));

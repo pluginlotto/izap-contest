@@ -31,7 +31,7 @@ class IZAPQuiz extends ZContest {
 
       $challenge_object = get_entity($this->container_guid);
       $quizzes = unserialize($challenge_object->quizzes);
-      
+
       foreach ($quizzes as $key => $guid) {
         if($guid != $this->guid) {
           $new_quizzes[] = $guid;
@@ -79,5 +79,19 @@ class IZAPQuiz extends ZContest {
   }
   public function get_options() {
     return array_flip(unserialize($this->options));
+  }
+
+  public function getEditURL() {
+    global $CONFIG;
+
+    return $CONFIG->url . "pg/quiz/edit/".$this->container_guid."/" . $this->guid . "/" . friendly_title($this->title);
+  }
+
+  public function getCorrectAnswer($force = FALSE) {
+    if(get_loggedin_userid() == $this->owner_guid || $force) {
+      return $this->correct_option;
+    }
+
+    return FALSE;
   }
 }

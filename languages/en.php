@@ -105,7 +105,7 @@ $english = array(
         'zcontest:challenge:not_enough_questions' => 'Users will not be able to take the challenge, as
     minimum number of required quiz are not provided. Or you can edit the Challenge. <b>Minimum required
     quizzes: ',
-        'zcontest:challenge:view_as_challenger' => 'View as Challenger',
+        'zcontest:challenge:view_as_challenger' => 'Preview challenge',
         'zcontest:challenge:error:timeout' => 'Time out. You have exceded the maximum time limit',
         'zcontest:challenge:river:created' => 'has added new challenge',
         'zcontest:challenge:river:updated' => 'has updated challenge',

@@ -45,7 +45,7 @@ foreach($quiz_form as $key => $val) {
 }
 if(is_array($options) && sizeof($options) && $quiz_entity->correct_option != '') {
   $quiz_entity->options = serialize($options);
-}else{
+}else {
   $error_message[] = elgg_echo('zcontest:quiz:error:no_options');
 }
 $quiz_entity->tags = string_to_tag_array($quiz_form['tags']);
@@ -94,5 +94,9 @@ system_message(elgg_echo('Quiz created successfully'));
 // Remove the album post cache
 unset($_SESSION['zcontest']['quiz']);
 // need to save some database queries first
-forward($challenge_entity->getUrl());
+if($quiz_form['guid']) {
+  forward($quiz_entity->getUrl());
+}else {
+  forward($challenge_entity->getUrl());
+}
 exit;

@@ -11,12 +11,11 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
 if(!$vars['quiz_entity'])
   return;
 ?>
-<?php echo elgg_view_title(trim($vars['quiz_entity']->title))?>
 <div class="contentWrapper">
   <form action="<?php echo $vars['url']; ?>action/quiz/answer" method="post">
     <?php echo elgg_view('input/securitytoken');?>
@@ -32,14 +31,31 @@ if(!$vars['quiz_entity'])
     }
 
     ?>
-    <?php if(!isset($quiz_metadata_array[$_SESSION['user']->username])): ?>
+    <?php
+    if($vars['quiz_entity']->canEdit()) {
+      ?>
+    <a href="<?php echo $vars['quiz_entity']->getEditURL();?>">
+        <?php echo elgg_echo('zcontest:quiz:edit');?>
+    </a>
+    /
+      <?php
+      echo elgg_view("output/confirmlink", array(
+      'href' => $vars['url'] . "action/quiz/delete?guid=" . $vars['quiz_entity']->getGUID().'&curl='.urlencode(current_page_url()),
+      'text' => elgg_echo('delete'),
+      'confirm' => elgg_echo('zcontest:quiz:delete'),
+      ));
+      ?>
+      <?php
+    }else {
+      if(!isset($quiz_metadata_array[$_SESSION['user']->username])): ?>
     <input type="hidden" name="quiz[guid]" value="<?php echo $vars['quiz_entity']->guid ?>" />
     <input type="hidden" name="quiz[container_guid]" value="<?php echo $vars['quiz_entity']->container_guid ?>" />
     <p style="float:right;">
       <input type="submit" name="quiz[answer]" value="<?php echo elgg_echo('zcontest:quiz:answer') ?>" />
       <input type="submit" name="quiz[skip]" value="<?php echo elgg_echo('zcontest:quiz:skip') ?>" />
     </p>
-    <?php endif; ?>
+      <?php endif;
+    }?>
     <div class="clearfloat"></div>
   </form>
 </div>
