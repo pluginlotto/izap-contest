@@ -84,7 +84,9 @@ class IZAPQuiz extends ZContest {
   public function getEditURL() {
     global $CONFIG;
 
-    return $CONFIG->url . "pg/quiz/edit/".$this->container_guid."/" . $this->guid . "/" . friendly_title($this->title);
+    return $CONFIG->url . "pg/quiz/edit/".$this->container_guid."/" . $this->guid . "/" . friendly_title($this->title) .
+            '?rurl=' . urlencode(current_page_url());
+            ;
   }
 
   public function getCorrectAnswer($force = FALSE) {

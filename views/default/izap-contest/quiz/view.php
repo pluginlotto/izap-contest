@@ -17,6 +17,12 @@ if(!$vars['quiz_entity'])
   return;
 ?>
 <div class="contentWrapper">
+  <?php
+  if(!$vars['quiz_entity']->canEdit()) {
+    elgg_view_title(sprintf(elgg_echo('zcontest:quiz'), $vars['quiz_entity']->title));
+    ;
+  }
+  ?>
   <form action="<?php echo $vars['url']; ?>action/quiz/answer" method="post">
     <?php echo elgg_view('input/securitytoken');?>
     <?php

@@ -87,7 +87,7 @@ if ($vars['full'] == true) {
   ?></div>
 
 <div class="contentWrapper"><?php echo $vars['challenge_entity']->description; ?></div>
-<?php if(isloggedin()) {?>
+<?php if(isloggedin() && get_loggedin_userid() != $vars['challenge_entity']->owner_guid) {?>
 <div class="contentWrapper">
   <form action="<?php echo $vars['url']; ?>action/challenge/accept" method="post">
     <?php echo elgg_view('input/securitytoken');?>

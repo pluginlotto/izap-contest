@@ -94,7 +94,11 @@ system_message(elgg_echo('Quiz created successfully'));
 // Remove the album post cache
 unset($_SESSION['zcontest']['quiz']);
 // need to save some database queries first
-if($quiz_form['guid']) {
+
+if($rurl = get_input('rurl', FALSE)){
+  forward($rurl);
+}
+elseif($quiz_form['guid']) {
   forward($quiz_entity->getUrl());
 }else {
   forward($challenge_entity->getUrl());

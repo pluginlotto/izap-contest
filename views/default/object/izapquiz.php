@@ -28,7 +28,7 @@
   )):'';
   ?>
    /
-   <a href="<?php echo $vars['url']?>pg/quiz/edit/<?php echo $vars['entity']->container_guid?>/<?php echo $vars['entity']->guid?>?type=<?php echo $vars['entity']->qtype;?>">
+   <a href="<?php echo $vars['entity']->getEditURL();?>">
      <?php echo elgg_echo('zcontest:quiz:edit');?>
    </a>
 </div>
