@@ -31,12 +31,15 @@ class IZAPQuiz extends ZContest {
 
       $challenge_object = get_entity($this->container_guid);
       $quizzes = unserialize($challenge_object->quizzes);
-      $key = array_search($this->guid, $quizzes);
-      if($key !== FALSE) {
-        unset($quizzes[$key]);
+      
+      foreach ($quizzes as $key => $guid) {
+        if($guid != $this->guid) {
+          $new_quizzes[] = $guid;
+        }
       }
-      $challenge_entity->total_questions = count($quizzes);
-      $quizzes_string = serialize($quizzes);
+
+      $challenge_object->total_questions = count($new_quizzes);
+      $quizzes_string = serialize($new_quizzes);
       $challenge_object->quizzes = $quizzes_string;
 
       return delete_entity($this->guid, TRUE);

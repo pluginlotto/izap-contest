@@ -49,7 +49,9 @@ $challenge_entity->re_attempt = ($challenge_form['re_attempt'])?1:0;
 $challenge_entity->could_edit = ($challenge_form['could_edit'])?1:0;
 $challenge_entity->negative_marking = ($challenge_form['negative_marking'])?1:0;
 $challenge_entity->tags = string_to_tag_array($challenge_form['tags']);
-
+if($challenge_entity->max_quizzes < 2) {
+  $challenge_entity->max_quizzes = 2;
+}
 
 
 if(!empty($_FILES['related_media']['name'])){

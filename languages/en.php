@@ -14,7 +14,7 @@
 */
 $english = array(
         'item:object:izap_challenge_results' => 'Challenge results',
-
+        'izapchallenge:river:annotate' => 'comment',
         /**
          * Menu items and titles
          */
@@ -72,7 +72,7 @@ $english = array(
         'zcontest:challenge:deleted' => 'Challenge deleted successfully.',
         'zcontest:challenge:media' => 'Image',
         'zcontest:challenge:reqcorrect' => 'Required to be correct (%)',
-        'zcontest:challenge:maxquizzes' => 'Maximum random quizzes to offer',
+        'zcontest:challenge:maxquizzes' => 'Minimum random quizzes to offer (minimum of 2 or just leave blank)',
         'zcontest:challenge:reattempt' => 'Enable re-attempt after 48hrs.',
         'zcontest:challenge:coundreanswer' => 'Could edit once answered',
         'zcontest:challenge:negativemarking' => 'Enable negative marking',
