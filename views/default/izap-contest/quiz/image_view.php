@@ -15,7 +15,7 @@
 
 ?>
 <div class="image_view">
-  <img src="<?php echo $vars['url'].'mod/izap-contest/content.php?id='.$vars['quiz_entity']->guid.'&size=large'?>" />
+  <img src="<?php echo $vars['url'].'mod/izap-contest/content.php?id='.$vars['quiz_entity']->guid.'&size=medium'?>" />
 </div>
 <div class="options_view">
   <?php

@@ -11,7 +11,7 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
 
 class IZAPChallenge extends ZContest {
@@ -37,8 +37,10 @@ class IZAPChallenge extends ZContest {
       // deleting all related quizzes
       if(count($quizzes_array)>0) {
         foreach($quizzes_array as $quiz_guid => $quiz_val) {
-          $quiz = new IZAPQuiz($quiz_val);
-          $quiz->delete_me();
+          $quiz = get_entity($quiz_val);
+          if($quiz) {
+            $quiz->delete_me();
+          }
         }
       }
 
@@ -95,7 +97,7 @@ class IZAPChallenge extends ZContest {
     }
 
     return TRUE;
-    // TODO: remove this... 
+    // TODO: remove this...
 
     // get the array of all the users who accepted the challenge
     $accepted_by = (array) $this->accepted_by;
@@ -121,13 +123,13 @@ class IZAPChallenge extends ZContest {
       $last_attempt = (int) $this->$user_var;
       if(time() > ($last_attempt + 48*60*60)) {
         return TRUE;
-      }else{
+      }else {
         return FALSE;
       }
     }else {
       return $return;
     }
-    
+
     // if it reaches here, then false
     return FALSE;
   }
@@ -143,13 +145,13 @@ class IZAPChallenge extends ZContest {
       $_SESSION['challenge']['start_time'] = time();
       $_SESSION['challenge']['completed'] = FALSE;
       $all_questions_array = unserialize($this->quizzes);
-      
+
       shuffle($all_questions_array);
       $randon_keys = array_rand($all_questions_array, $this->max_quizzes);
       foreach($randon_keys as $k => $q) {
         $questions_array[] = $all_questions_array[$q];
       }
-      
+
       if(sizeof($questions_array)) {
         foreach($questions_array as $question) {
           if($question_entity = get_entity($question)) {
@@ -172,7 +174,7 @@ class IZAPChallenge extends ZContest {
 
     return FALSE;
   }
-  
+
   public function current_question() {
     global $CONFIG;
     // get current question from the session

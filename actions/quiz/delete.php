@@ -11,17 +11,21 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
 gatekeeper();
 
 $quiz_guid = (int) get_input('guid');
 $challange_url = urldecode(get_input('curl'));
 
-$quiz_entity = new IZAPquiz($quiz_guid);
-if($quiz_entity->delete_me()){
-  system_message(elgg_echo('zcontest:quiz:deleted'));
-}else{
+$quiz_entity = get_entity($quiz_guid);
+if($quiz_guid) {
+  if($quiz_entity->delete_me()) {
+    system_message(elgg_echo('zcontest:quiz:deleted'));
+  }else {
+
+  }
+}else {
   register_error(elgg_echo('zcontest:quiz:notdeleted'));
 }
 forward($challange_url);
