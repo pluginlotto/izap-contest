@@ -19,7 +19,7 @@ $page_owner = page_owner_entity();
 
 $listing_options = array();
 $listing_options['type'] = 'object';
-$listing_options['subtype'] = 'izapchallenge';
+$listing_options['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
 if($page_owner == $_SESSION['user']) {
   $area2 = elgg_view_title(elgg_echo('zcontest:challenge:my'));
   $listing_options['container_guid'] = $page_owner->guid;

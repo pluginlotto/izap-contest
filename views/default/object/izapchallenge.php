@@ -13,6 +13,9 @@
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 global $IZAPTEMPLATE;
+if(get_context() == 'search') {
+  $IZAPTEMPLATE->render('challenge/listing', array('entity' => $vars['entity']));
+}else {
 $extra .= '<b>'.elgg_echo("zcontest:challenge:total_attempted").':</b> '.(int) $vars['entity']->total_attempted . '<br />';
 $extra .= '<b>'.elgg_echo("zcontest:challenge:total_passed").':</b> '.(int) $vars['entity']->total_passed . '<br />';
 if(!empty($vars['entity']->required_correct)) {
@@ -21,3 +24,4 @@ if(!empty($vars['entity']->required_correct)) {
       $extra .=  "<b>".elgg_echo("zcontest:challenge:must_answer").":</b> 100%</p>";
     }
 echo $IZAPTEMPLATE->render('output/entity_row', array('entity' => $vars['entity'], 'extra' => $extra));
+}

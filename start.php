@@ -44,6 +44,7 @@ function izap_zcontest_page_handler($tmp_page) {
 
   izap_process_uncompleted_challenge($page[0]);
   $action = empty($page[0])?null:$page[0];
+  set_input('username', get_loggedin_user()->username);
   if(isset($page[1]) && isset($page[2]) && is_numeric($page[1]) && is_numeric($page[2]) ) {
     set_input('container_guid',$page[1]);
     set_input('guid',$page[2]);
