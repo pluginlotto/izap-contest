@@ -163,7 +163,7 @@ class IZAPChallenge extends ZContest {
 
   public function timeLeft() {
     $diff = time() - ((int)$_SESSION['challenge']['start_time']);
-    $maximum_time = 60* ($this->timer) ? $this->timer : 10000;
+    $maximum_time = 60* (($this->timer) ? $this->timer : 10000);
 
     if($diff < $maximum_time) {
       return TRUE;
