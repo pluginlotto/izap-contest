@@ -79,6 +79,14 @@ if ($vars['full'] == true) {
   <p class="odd"><b><?php echo elgg_echo("zcontest:challenge:your_total_attempted"); ?>:</b> <?php echo (int) $vars['challenge_entity']->$user_var?></p>
   <p class="odd"><b><?php echo elgg_echo("zcontest:challenge:your_total_passed"); ?>:</b> <?php echo (int) $vars['challenge_entity']->$pass_var?></p>
   <?php }?>
+
+  <?php if($vars['challenge_entity']->canEdit()) {?>
+  <div align="right">
+    <?php
+    echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/edit_delete', array('entity' => $vars['challenge_entity']));
+    ?>
+  </div>
+  <?php }?>
 </div>
 
 

@@ -41,4 +41,4 @@ if((int)(get_input('guid'))) {
 $body = elgg_view_layout("two_column_left_sidebar", '', $area2);
 
 // Display page
-page_draw(elgg_echo('izap_offer_article:detail'),$body);
+page_draw($contest->title,$body);

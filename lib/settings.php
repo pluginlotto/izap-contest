@@ -98,7 +98,7 @@ return array(
                                 ),
 
                                 'pg/challenge/list/[PAGE_OWNER_USERNAME]/' =>array(
-                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"), "[PAGE_OWNER_USERNAME]'s"),
+                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"), "[PAGE_OWNER_NAME]'s"),
                                         'public'=>true,
                                         'page_owner_only' => TRUE,
                                         'groupby' => 'others',
@@ -123,7 +123,7 @@ return array(
                                         'public'=>false
                                 ),
                                 'pg/challenge/list/[PAGE_OWNER_USERNAME]/' =>array(
-                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"[PAGE_OWNER_USERNAME]'s"),
+                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"[PAGE_OWNER_NAME]'s"),
                                         'public'=>true,
                                         'page_owner_only' => TRUE,
                                         'groupby' => 'others'
