@@ -88,7 +88,13 @@ function izap_zcontest_challenge_url($entity) {
   if(!strpos($current_url, 'action') && !strpos($current_url, 'pg/challenge') && !strpos($current_url, 'pg/quiz') && $entity->owner_guid == get_loggedin_userid()) {
     $extra = '?view_as_challenger=yes';
   }
-  return $CONFIG->url . "pg/challenge/view/".$entity->container_username."/" . $entity->guid . "/" . $title . $extra;
+
+  $container_name = $entity->container_username;
+  if($container_name == '') {
+    $container_entity = get_entity($entity->container_guid);
+    $container_name = $container_entity->username;
+  }
+  return $CONFIG->url . "pg/challenge/view/".$container_name."/" . $entity->guid . "/" . $title . $extra;
 }
 
 

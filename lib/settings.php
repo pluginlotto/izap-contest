@@ -35,6 +35,7 @@ return array(
                                 'getUrl'=>"izap_zcontest_quiz_url",
                                 'class'=>"IZAPQuiz",
                                 'type' => 'object',
+                                'searchable' => FALSE,
                         ),
 
                         'izap_challenge_results'=>array(
