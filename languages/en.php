@@ -11,7 +11,7 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 $english = array(
         'item:object:izap_challenge_results' => 'Challenge results',
         'izapchallenge:river:annotate' => 'comment',
@@ -109,6 +109,23 @@ $english = array(
         'zcontest:challenge:error:timeout' => 'Time out. You have exceded the maximum time limit',
         'zcontest:challenge:river:created' => 'has added new challenge',
         'zcontest:challenge:river:updated' => 'has updated challenge',
+        'zcontest:challenge:owner' => 'Owner',
+        'zcontest:challenge:must_answer' => 'You must answer',
+        'zcontest:challenge:total_quiz' => 'Total quizzes',
+        'zcontest:challenge:max_time_in_min' => 'Maximum time in minutes',
+        'zcontest:challenge:can_re_attempt' => 'You can re-attempte the quiz after 48 hrs.',
+        'zcontest:challenge:cant_re_attempt' => 'You can not re-attempte the quiz.',
+        'zcontest:challenge:negative_marking' => 'Negative marking is applicable.',
+        'zcontest:challenge:no_negative_markting' => 'No negative marking.',
+        'zcontest:challenge:all_questions' => 'All questions',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
+        'zcontest:challenge:' => '',
         'zcontest:challenge:' => '',
 
 

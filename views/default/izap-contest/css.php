@@ -137,6 +137,24 @@ padding:10px;
 height:2px;
 }
 
+#group_stats {
+	width:190px;
+	background: #e9e9e9;
+	padding:5px;
+	margin:10px 0 20px 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#group_stats p {
+	margin:0;
+}
+
+#groups_info_column_right {
+	float:left;
+	width:230px;
+	margin:0 0 0 10px;
+}
+
 .river_object_izapchallenge_created{
 background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_post.png") no-repeat scroll left -1px transparent;
 }
