@@ -15,7 +15,7 @@ global $CONFIG;
 return array(
         'plugin'=>array(
                 'name'=>"izap-contest",
-
+                'version' => '1.0',
                 'title'=>"Contests",
 
                 'url_title'=>"",
