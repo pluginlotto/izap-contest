@@ -70,7 +70,7 @@
 </div>
 <?php endif;?>
 
-<?php if($vars['challenge_entity']->quizzes): c(unserialize($vars['challenge_entity']->quizzes));?>
+<?php if($vars['challenge_entity']->quizzes): ?>
   <?php echo elgg_view_title('Related quizzes' . ' ('.$vars['challenge_entity']->total_questions.')') ?>
 <div class="contentWrapper">
     <?php
