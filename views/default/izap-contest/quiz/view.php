@@ -18,9 +18,8 @@ if(!$vars['quiz_entity'])
 ?>
 <div class="contentWrapper">
   <?php
-  if(!$vars['quiz_entity']->canEdit()) {
-    elgg_view_title(sprintf(elgg_echo('zcontest:quiz'), $vars['quiz_entity']->title));
-    ;
+  if(get_loggedin_userid() != $vars['quiz_entity']->owner_guid) {
+    echo elgg_view_title($vars['quiz_entity']->title . ' ?');
   }
   ?>
   <form action="<?php echo $vars['url']; ?>action/quiz/answer" method="post">
@@ -38,7 +37,7 @@ if(!$vars['quiz_entity'])
 
     ?>
     <?php
-    if($vars['quiz_entity']->canEdit()) {
+    if($vars['quiz_entity']->canEdit() && get_loggedin_userid() == $vars['quiz_entity']->owner_guid) {
       ?>
     <a href="<?php echo $vars['quiz_entity']->getEditURL();?>">
         <?php echo elgg_echo('zcontest:quiz:edit');?>

@@ -108,6 +108,7 @@ $quiz_entity = izap_array_to_object(
     <input type="hidden" name="quiz[guid]" value="<?php echo $quiz_entity->getGUID() ?>" />
     <?php endif;?>
     <input type="hidden" name="quiz[container_guid]" value="<?php echo $vars['container_guid'] ?>" />
+    <input type="hidden" name="rurl" value="<?php echo get_input('rurl'); ?>" />
     <input type="hidden" name="quiz[qtype]" value="<?php echo ($vars['mtype'] == '') ? 'simple' : $vars['mtype'] ?>" />
     <p><input type="submit" name="submit" value="<?php echo elgg_echo('save') ?>" /></p>
   </form>

@@ -95,12 +95,14 @@ system_message(elgg_echo('Quiz created successfully'));
 unset($_SESSION['zcontest']['quiz']);
 // need to save some database queries first
 
-if($rurl = get_input('rurl', FALSE)){
-  forward($rurl);
-}
-elseif($quiz_form['guid']) {
-  forward($quiz_entity->getUrl());
+$rurl = get_input('rurl', FALSE);
+if($rurl){
+  
+}elseif($quiz_form['guid']) {
+  $rurl = ($quiz_entity->getUrl());
 }else {
-  forward($challenge_entity->getUrl());
+  $rurl = ($challenge_entity->getUrl());
 }
+
+forward($rurl);
 exit;
