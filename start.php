@@ -84,11 +84,7 @@ function izap_zcontest_page_handler($tmp_page) {
 function izap_zcontest_challenge_url($entity) {
   global $CONFIG;
   $title = friendly_title($entity->title);
-  $current_url =  current_page_url();
-  if(!strpos($current_url, 'action') && !strpos($current_url, 'pg/challenge') && !strpos($current_url, 'pg/quiz') && $entity->owner_guid == get_loggedin_userid()) {
-    $extra = '?view_as_challenger=yes';
-  }
-
+  
   $container_name = $entity->container_username;
   if($container_name == '') {
     $container_entity = get_entity($entity->container_guid);
