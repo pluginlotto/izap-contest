@@ -103,9 +103,12 @@ if ($vars['full'] == true) {
       <?php echo elgg_echo('zcontest:challenge:last_attempt') . friendly_time($time);?>
     </em>
     <?php }}?>
-    <a href="<?php echo $vars['url']. 'pg/challenge/result/'. $vars['challenge_entity']->guid ?>/
-            <?php echo friendly_title($vars['challenge_entity']->title);?>" class="cancel_button">
-            <?php echo elgg_echo('zcontest:challenge:my_results') ?></a>
+    <a
+      href="<?php echo $vars['url'].
+      'pg/challenge/result/'.
+      $vars['challenge_entity']->guid .'/'.
+              friendly_title($vars['challenge_entity']->title);?>"
+              class="cancel_button"><?php echo elgg_echo('zcontest:challenge:my_results') ?></a>
     
   </form>
 </div>
