@@ -23,6 +23,9 @@ if (!$quiz_entity = get_entity($id))
     forward();
 
 $challenge = get_entity($quiz_entity->container_guid);
+if(get_loggedin_userid() != $challenge->owner_guid && !$challenge->can_play()) {
+  forward($challenge->getURL());
+}
 set_page_owner($challenge->container_guid);
 
 $title = $quiz_entity->title;
