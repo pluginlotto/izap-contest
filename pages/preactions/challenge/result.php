@@ -16,7 +16,7 @@
 // only for the loggedin users
 gatekeeper();
 set_input('username', get_loggedin_user()->username);
-$contest = new IZAPChallenge(get_input('container_guid'));
+$contest = get_entity(get_input('container_guid'));
 if((int)(get_input('guid'))) {
   $result = get_entity(get_input('guid'));
   $area2 = elgg_view(func_get_template_path_byizap(array('type'=>'challenge', 'plugin' => 'izap-contest')). 'result', array('result' => $result));
