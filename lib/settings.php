@@ -134,6 +134,14 @@ return array(
 //                        ),
                 ),
 
+                'extend' => array(
+                        'groups/left_column' => array(
+                                GLOBAL_IZAP_CONTEST_PLUGIN . '/group_widget' => array(
+                                        'priority' => 1
+                                ),
+                        ),
+                ),
+
 
         ),
 
