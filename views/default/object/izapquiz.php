@@ -20,6 +20,7 @@
       <?php echo $vars['entity']->title;?>
     </a>
   </h3>
+  
   <?php
   echo ($vars['entity']->canEdit())?elgg_view("output/confirmlink", array(
   'href' => $vars['url'] . "action/quiz/delete?guid=" . $vars['entity']->getGUID().'&curl='.urlencode(current_page_url()),
@@ -31,4 +32,5 @@
    <a href="<?php echo $vars['entity']->getEditURL();?>">
      <?php echo elgg_echo('zcontest:quiz:edit');?>
    </a>
+   
 </div>

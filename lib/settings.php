@@ -11,7 +11,7 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
 
 global $CONFIG;
@@ -42,7 +42,7 @@ return array(
                                 'type' => 'object',
                                 'searchable' => FALSE,
                         ),
-                  
+
                 ),
 
                 'hooks'=>array(
@@ -70,30 +70,63 @@ return array(
                 ),
 
                 'menu'=>array(
-                        'pg/challenge/list/' . $_SESSION['user']->username . '/' =>array('title'=>"zcontest:contests",'public'=>false),
+                        'pg/challenge/list/all/' => array(
+                                'title'=>"zcontest:contests",
+                                'public'=>false
+                        ),
                 ),
 
                 'submenu'=>array(
                         'challenge' => array(
-                                'pg/challenge/list/all/'=>array('title'=>"zcontest:challenge:all",'public'=>true),
-                                'pg/challenge/new/'=>array('title'=>"zcontest:challenge:add",'public'=>false),
+                                'pg/challenge/list/all/'=>array(
+                                        'title'=>"zcontest:challenge:all",
+                                        'public'=>true
+                                ),
+                                'pg/challenge/new/'=>array(
+                                        'title'=>"zcontest:challenge:add",
+                                        'public'=>false
+                                ),
                                 'pg/challenge/accepted/[PAGE_OWNER_USERNAME]/' => array(
                                         'title' => 'zcontest:challenge:accepted',
                                         'public' => FALSE,
                                 ),
-                                'pg/challenge/list/' . $_SESSION['user']->username . '/' =>array('title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"My"),'public'=>false),
-                                'pg/challenge/list/[PAGE_OWNER_USERNAME]/' =>array('title'=>sprintf(elgg_echo("zcontest:chellenge:list"), "[PAGE_OWNER_USERNAME]'s"),'public'=>true),
+
+                                'pg/challenge/list/' . $_SESSION['user']->username . '/' =>array(
+                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"My"),
+                                        'public'=>false
+                                ),
+
+                                'pg/challenge/list/[PAGE_OWNER_USERNAME]/' =>array(
+                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"), "[PAGE_OWNER_USERNAME]'s"),
+                                        'public'=>true,
+                                        'page_owner_only' => TRUE,
+                                        'groupby' => 'others',
+                                ),
                         ),
 
                         'quiz' => array(
-                                'pg/challenge/list/all/'=>array('title'=>"zcontest:challenge:all",'public'=>true),
-                                'pg/challenge/new/'=>array('title'=>"zcontest:challenge:add",'public'=>false),
+                                'pg/challenge/list/all/'=>array(
+                                        'title'=>"zcontest:challenge:all",
+                                        'public'=>true
+                                ),
+                                'pg/challenge/new/'=>array(
+                                        'title'=>"zcontest:challenge:add",
+                                        'public'=>false
+                                ),
                                 'pg/challenge/accepted/[PAGE_OWNER_USERNAME]/' => array(
                                         'title' => 'zcontest:challenge:accepted',
                                         'public' => FALSE,
                                 ),
-                                'pg/challenge/list/' . $_SESSION['user']->username . '/' =>array('title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"My"),'public'=>false),
-                                'pg/challenge/list/[PAGE_OWNER_USERNAME]/' =>array('title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"[PAGE_OWNER_USERNAME]'s"),'public'=>false),
+                                'pg/challenge/list/' . $_SESSION['user']->username . '/' =>array(
+                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"My"),
+                                        'public'=>false
+                                ),
+                                'pg/challenge/list/[PAGE_OWNER_USERNAME]/' =>array(
+                                        'title'=>sprintf(elgg_echo("zcontest:chellenge:list"),"[PAGE_OWNER_USERNAME]'s"),
+                                        'public'=>true,
+                                        'page_owner_only' => TRUE,
+                                        'groupby' => 'others'
+                                ),
                         ),
 
 //                        'admin' => array(
@@ -119,7 +152,7 @@ return array(
                         'actions'=>$CONFIG->pluginspath."izap-contest/actions/",
                         'lib' => dirname(__FILE__) . '/',
                         'views'=>array(
-                                'home'=>"izap-contest/",
+                                'home'=> 'izap-contest/',
                                 'challenge' => 'izap-contest/challenge/',
                                 'quiz' => 'izap-contest/quiz/',
                         ),

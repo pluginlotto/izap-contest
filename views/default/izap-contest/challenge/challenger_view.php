@@ -82,9 +82,7 @@ if ($vars['full'] == true) {
 </div>
 
 
-<div class="clearfloat"><?php
-  //zp(unserialize($vars['challenge_entity']->quizzes));
-  ?></div>
+<div class="clearfloat"></div>
 
 <div class="contentWrapper"><?php echo $vars['challenge_entity']->description; ?></div>
 <?php if(isloggedin() && get_loggedin_userid() != $vars['challenge_entity']->owner_guid) {?>
@@ -115,6 +113,7 @@ if ($vars['full'] == true) {
 <?php }?>
 <div class="contentWrapper">
   <?php
+  func_increment_views_byizap($vars['challenge_entity']);
   echo elgg_view(func_get_template_path_byizap(array('plugin' => 'izap-contest', 'type' => 'challenge')) . 'tabs/index', array('entity' => $vars['challenge_entity']));
   ?>
 </div>

@@ -11,16 +11,16 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
-
+ */
+define('GLOBAL_IZAP_CONTEST_PLUGIN', 'izap-contest');
 
 function izap_zcontest_init() {
   global $CONFIG;
   if(is_plugin_enabled('izap-elgg-bridge')) {
-    func_init_plugin_byizap(array('plugin'=>array('name'=>'izap-contest')));
-  }else{
+    func_init_plugin_byizap(array('plugin'=>array('name' => GLOBAL_IZAP_CONTEST_PLUGIN)));
+  }else {
     register_error('This plugin needs izap-elgg-bridge');
-    disable_plugin('izap-contest');
+    disable_plugin(GLOBAL_IZAP_CONTEST_PLUGIN);
   }
 }
 
@@ -58,8 +58,12 @@ function izap_zcontest_page_handler($tmp_page) {
       }else {
         $izap_file_path = dirname(__FILE__).'/pages/preactions/';
       }
-      if(!include($izap_file_path . $action . '.php')) {
-        include(dirname(__FILE__).'/pages/preactions/list.php');
+      if(!izap_load_file($izap_file_path . $action . '.php', array(
+      'plugin' => GLOBAL_IZAP_CONTEST_PLUGIN
+      ))) {
+        izap_load_file(dirname(__FILE__).'/pages/preactions/list.php', array(
+                'plugin' => GLOBAL_IZAP_CONTEST_PLUGIN
+        ));
       }
       return true;
       break;

@@ -55,7 +55,7 @@ class IZAPChallenge extends ZContest {
     else
       return false;
   }
-
+  
   public function total_quizzes() {
     $quizzes = count(($this->quizzes)?unserialize($this->quizzes):null);
     return(($quizzes)?$quizzes:0);

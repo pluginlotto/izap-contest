@@ -16,26 +16,16 @@
 ?>
 
 .quizWrapper{
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
--moz-border-radius-bottomleft:8px;
--moz-border-radius-bottomright:8px;
--moz-border-radius-topleft:8px;
--moz-border-radius-topright:8px;
-background:#DEDEDE none repeat scroll 0 0;
+-moz-border-radius:8px;
+-webkit-border-radius:8px;
+background: #DEDEDE;
 margin:0 0 10px;
 padding:10px;
 }
 
 .challengeWrapper{
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
--moz-border-radius-bottomleft:8px;
--moz-border-radius-bottomright:8px;
--moz-border-radius-topleft:8px;
--moz-border-radius-topright:8px;
+-moz-border-radius:8px;
+-webkit-border-radius:8px;
 background:white none repeat scroll 0 0;
 margin:0 10px 10px;
 padding:10px;

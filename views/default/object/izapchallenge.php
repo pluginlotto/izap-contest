@@ -11,23 +11,13 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
-
-?>
-
-<div class="contentWrapper">
-  <h3>
-    <a href="<?php echo $vars['entity']->getUrl()?>" >
-      <?php echo $vars['entity']->title;?>
-    </a>
-  </h3>
-  <?php
-   if($vars['entity']->canEdit()){
-   echo elgg_view("output/confirmlink", array(
-                        'href' => $vars['url'] . "action/challenge/delete?guid=" . $vars['entity']->getGUID().'&curl='.urlencode(current_page_url()),
-                        'text' => elgg_echo('zcontest:challenge:delete'),
-                        'confirm' => elgg_echo('zcontest:challenge:delete'),
-                      ));
-   }
-   ?>
-</div>
+ */
+global $IZAPTEMPLATE;
+$extra .= '<b>'.elgg_echo("zcontest:challenge:total_attempted").':</b> '.(int) $vars['entity']->total_attempted . '<br />';
+$extra .= '<b>'.elgg_echo("zcontest:challenge:total_passed").':</b> '.(int) $vars['entity']->total_passed . '<br />';
+if(!empty($vars['entity']->required_correct)) {
+      $extra .=  "<b>".elgg_echo("zcontest:challenge:must_answer").":</b> ".$vars['entity']->required_correct."%</p>";
+    }else {
+      $extra .=  "<b>".elgg_echo("zcontest:challenge:must_answer").":</b> 100%</p>";
+    }
+echo $IZAPTEMPLATE->render('output/entity_row', array('entity' => $vars['entity'], 'extra' => $extra));
