@@ -96,9 +96,6 @@ class IZAPChallenge extends ZContest {
       return FALSE;
     }
 
-    return TRUE;
-    // TODO: remove this...
-
     // get the array of all the users who accepted the challenge
     $accepted_by = (array) $this->accepted_by;
 
@@ -166,7 +163,7 @@ class IZAPChallenge extends ZContest {
 
   public function timeLeft() {
     $diff = time() - ((int)$_SESSION['challenge']['start_time']);
-    $maximum_time = 60*$this->timer;
+    $maximum_time = 60* ($this->timer) ? $this->timer : 10000;
 
     if($diff < $maximum_time) {
       return TRUE;
