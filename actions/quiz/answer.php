@@ -52,7 +52,7 @@ if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_fo
   $_SESSION['challenge']['answers'][$quiz_entity->guid]['is_correct'] = TRUE;
   $_SESSION['challenge']['totals']++;
   $_SESSION['challenge']['total_correct_answers']++;
-  system_message(elgg_echo(':)! Correct answer.'));
+  //system_message(elgg_echo(':)! Correct answer.'));
 }else {
   $quiz_entity->$correct_var = 'no';
   $_SESSION['challenge']['answers'][$quiz_entity->guid]['is_correct'] = FALSE;
@@ -60,9 +60,9 @@ if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_fo
   if($challenge_entity->negative_marking) {
     $_SESSION['challenge']['totals']--;
   }
-  register_error(elgg_echo(':(! Wrong answer.'));
+  //register_error(elgg_echo(':(! Wrong answer.'));
   }elseif($quiz_form['skip'] == 'Skip'){
-    register_error(elgg_echo(':(! Skipped.'));
+    //register_error(elgg_echo(':(! Skipped.'));
   }
 }
 
