@@ -74,7 +74,10 @@
   <?php echo elgg_view_title('Related quizzes' . ' ('.$vars['challenge_entity']->total_questions.')') ?>
 <div class="contentWrapper">
     <?php
-    echo elgg_list_entities(array('type' => 'object', 'subtype' => 'izapquiz', 'container_guid' => $vars['challenge_entity']->guid));
+    echo elgg_list_entities(array(
+      'type' => 'object',
+      'subtype' => GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ,
+      'container_guid' => $vars['challenge_entity']->guid));
     ?>
 </div>
 <?php endif; ?>

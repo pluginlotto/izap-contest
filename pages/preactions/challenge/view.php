@@ -23,7 +23,6 @@ if (!$challenge_entity = get_entity($id))
     forward();
 
 set_context('quiz');
-set_page_owner($challenge_entity->owner_guid);
 $title = $challenge_entity->title;
 
 $area2 = elgg_view_title(sprintf(elgg_echo('zcontest:challenge'), $challenge_entity->title));

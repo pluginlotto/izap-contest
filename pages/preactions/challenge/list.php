@@ -22,10 +22,10 @@ $listing_options['type'] = 'object';
 $listing_options['subtype'] = 'izapchallenge';
 if($page_owner == $_SESSION['user']) {
   $area2 = elgg_view_title(elgg_echo('zcontest:challenge:my'));
-  $listing_options['owner_guid'] = $page_owner->guid;
+  $listing_options['container_guid'] = $page_owner->guid;
 }elseif($page_owner) {
   $area2 = elgg_view_title(sprintf(elgg_echo('zcontest:user'),$page_owner->name));
-  $listing_options['owner_guid'] = $page_owner->guid;
+  $listing_options['container_guid'] = $page_owner->guid;
 }else {
   set_input('username', get_loggedin_user()->username);
   $area2 = elgg_view_title(elgg_echo('zcontest:challenge:all'));

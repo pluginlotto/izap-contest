@@ -143,5 +143,9 @@ $english = array(
         'zcontest:result:status' => 'Status',
         'zcontest:result:total' => 'Total score',
 
+        // CHALLENGE group
+        'zcontest:challenge:group:enable' => 'Enable Challenge for Groups',
+        'zcontest:challenge:group:add' => 'Add Group Challenge',
+        'zcontest:challenge:group:list' => 'Group Challenges',
 );
 add_translation("en",$english);

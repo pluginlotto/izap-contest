@@ -32,5 +32,4 @@
    <a href="<?php echo $vars['entity']->getEditURL();?>">
      <?php echo elgg_echo('zcontest:quiz:edit');?>
    </a>
-   
 </div>

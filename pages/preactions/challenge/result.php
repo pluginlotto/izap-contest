@@ -15,7 +15,6 @@
 
 // only for the loggedin users
 gatekeeper();
-set_input('username', get_loggedin_user()->username);
 $contest = get_entity(get_input('container_guid'));
 if((int)(get_input('guid'))) {
   $result = get_entity(get_input('guid'));

@@ -15,7 +15,6 @@
 
 // only for the loggedin users
 gatekeeper();
-set_input('username', get_loggedin_user()->username);
 $guid = get_input('container_guid');
 $contest = new IZAPChallenge($guid,TRUE);
 

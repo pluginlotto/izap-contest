@@ -20,7 +20,7 @@ class IZAPChallenge extends ZContest {
 
   protected function initialise_attributes() {
     parent::initialise_attributes();
-    $this->attributes['subtype'] = "izapchallenge";
+    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
   }
 
   public function __construct($guid = null, $start_play = FALSE) {

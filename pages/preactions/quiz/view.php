@@ -22,11 +22,11 @@ $id = (int)get_input('guid');
 if (!$quiz_entity = get_entity($id))
     forward();
 
-set_page_owner($quiz_entity->owner_guid);
+$challenge = get_entity($quiz_entity->container_guid);
+set_page_owner($challenge->container_guid);
 
 $title = $quiz_entity->title;
-
-$area2 = elgg_view_title(sprintf(elgg_echo('zcontest:quiz'), $quiz_entity->title));
+$area2 = elgg_view_title('<a href="'.$challenge->getURL().'">' . $challenge->title . '</a> :' . sprintf(elgg_echo('zcontest:quiz'), $quiz_entity->title));
 $area2 .= elgg_view('izap-contest/quiz/view',array('quiz_entity' => $quiz_entity,'container_guid' => (int)get_input('container_guid')));
 
 $body = elgg_view_layout("two_column_left_sidebar", '', $area2);

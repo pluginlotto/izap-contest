@@ -99,7 +99,11 @@ $challenge_entity = izap_array_to_object(
     </p>
     <?php if($vars['challenge_entity']):  ?>
       <input type="hidden" name="challenge[guid]" value="<?php echo $challenge_entity->guid ?>">
-    <?php endif; ?>
+    <?php else:
+      ?>
+      <input type="hidden" name="challenge[container_guid]" value="<?php echo page_owner_entity()->guid ?>">
+        <?php
+      endif; ?>
     <p><input type="submit" name="submit" value="<?php echo elgg_echo('save') ?>" /></p>
   </form>
 </div>

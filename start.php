@@ -13,6 +13,10 @@
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 define('GLOBAL_IZAP_CONTEST_PLUGIN', 'izap-contest');
+define('GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE', 'challenge');
+define('GLOBAL_IZAP_CONTEST_PAGEHANDLER_QUIZ', 'quiz');
+define('GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE', 'izapchallenge');
+define('GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ', 'izapquiz');
 
 function izap_zcontest_init() {
   global $CONFIG;
@@ -21,6 +25,11 @@ function izap_zcontest_init() {
   }else {
     register_error('This plugin needs izap-elgg-bridge');
     disable_plugin(GLOBAL_IZAP_CONTEST_PLUGIN);
+  }
+
+  // asking group to include the izap_files
+  if(is_callable('add_group_tool_option')) {
+    add_group_tool_option(GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE, elgg_echo('zcontest:challenge:group:enable'), true);
   }
 }
 
@@ -78,7 +87,7 @@ function izap_zcontest_challenge_url($entity) {
   if(!strpos($current_url, 'action') && !strpos($current_url, 'pg/challenge') && !strpos($current_url, 'pg/quiz') && $entity->owner_guid == get_loggedin_userid()) {
     $extra = '?view_as_challenger=yes';
   }
-  return $CONFIG->url . "pg/challenge/view/".get_entity($entity->owner_guid)->username."/" . $entity->guid . "/" . $title . $extra;
+  return $CONFIG->url . "pg/challenge/view/".$entity->container_username."/" . $entity->guid . "/" . $title . $extra;
 }
 
 
@@ -104,4 +113,23 @@ function izap_challenge_icon_url($hook, $entity_type, $returnvalue, $params) {
     return $CONFIG->wwwroot.'mod/izap-contest/graphics/defaultlarge.gif';
 }
 
+function group_menus_izap_contest() {
+  global $CONFIG;
+  $pageowner = page_owner_entity();
+  // if the page owner is group and context is group
+  if($pageowner instanceof ElggGroup && (get_context() == 'groups' || get_context() == GLOBAL_IZAP_CONTEST_PAGEHANDLER_QUIZ || get_context() == GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE) && ($pageowner->izapchallenge_enable == 'yes' || empty($pageowner->izapchallenge_enable))) {
+    if(can_write_to_container(get_loggedin_userid(), $pageowner->guid)) {
+      add_submenu_item(
+              elgg_echo('zcontest:challenge:group:add'),
+              $CONFIG->wwwroot . 'pg/'.GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE.'/new/'.$pageowner->guid.'/'.$pageowner->username . '/',
+              GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE);
+    }
+    add_submenu_item(
+            elgg_echo('zcontest:challenge:group:list'),
+            $CONFIG->wwwroot . 'pg/'.GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE.'/list/'.$pageowner->guid.'/'.$pageowner->username . '/',
+            GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE);
+  }
+}
+
 register_elgg_event_handler('init', 'system', 'izap_zcontest_init');
+register_elgg_event_handler('pagesetup', 'system', 'group_menus_izap_contest');

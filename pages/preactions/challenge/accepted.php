@@ -13,9 +13,6 @@
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
 */
 
-require_once(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . "/engine/start.php");
-// get page owner entity
-
 $page_owner = page_owner_entity();
 if(!$page_owner) {
   set_input('username', get_loggedin_user()->username);

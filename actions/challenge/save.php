@@ -11,7 +11,7 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
 gatekeeper();
 
@@ -26,14 +26,14 @@ $required  = array(
 );
 
 
-if($challenge_entity->lock){
+if($challenge_entity->lock) {
   register_error("Locked challenge can not be updated.");
   unset($_SESSION['zcontest']['challenge']);
   forward($challenge_entity->getURL());
   exit;
- }
+}
 
-foreach($challenge_form as $key => $val){
+foreach($challenge_form as $key => $val) {
   if(in_array($key, $required) && $val == '') {
     $error_message[] = elgg_echo('zcontest:challenge:error:' . $key);
   }
@@ -54,20 +54,20 @@ if($challenge_entity->max_quizzes < 2) {
 }
 
 
-if(!empty($_FILES['related_media']['name'])){
-   $supproted_media = array('audio/mp3','image/jpeg','image/gif','image/png','image/jpg','image/jpe','image/pjpeg','image/x-png');
-  if(!in_array($_FILES['related_media']['type'],$supproted_media)){
+if(!empty($_FILES['related_media']['name'])) {
+  $supproted_media = array('audio/mp3','image/jpeg','image/gif','image/png','image/jpg','image/jpe','image/pjpeg','image/x-png');
+  if(!in_array($_FILES['related_media']['type'],$supproted_media)) {
     register_error(elgg_echo('There is no support for this uploaded file'));
     forward($_SERVER['HTTP_REFERER']); //failed, so forward to previous page
     exit;
   }
   $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/",$_FILES['related_media']['type'])?
-              array('medium' => '200'):
-              false;
+          array('medium' => '200'):
+          false;
   $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
 }
 
-if(!$challenge_entity->save_me()){
+if(!$challenge_entity->save_me()) {
   register_error("Error in challenge creation.");
   forward($_SERVER['HTTP_REFERER']);
   exit;
@@ -75,21 +75,27 @@ if(!$challenge_entity->save_me()){
 
 // This will inherit the access_id from challenge to quiz. Check if the entity is going to be edit
 //if so than check if the old access id same. if so than skip this process.
-if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_entity->access_id){
+if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_entity->access_id) {
   $quizzes_in_this_challenge = get_entities('object','izapquiz',$challenge_form['guid']);
-  foreach($quizzes_in_this_challenge as $quiz_key => $quiz_entity){
+  foreach($quizzes_in_this_challenge as $quiz_key => $quiz_entity) {
     $quiz_entity->access_id = $challenge_entity->access_id;
     $quiz_entity->save();
   }
 }
 
+// saving some extra metadata.. to save queries
+$challenge_entity->slug = friendly_title($challenge_entity->title);
+$challenge_entity->owner_username = get_loggedin_user()->username;
+$challenge_entity->owner_name = get_loggedin_user()->name;
+$challenge_entity->container_username = get_entity($challenge_entity->container_guid)->username;
+$challenge_entity->container_name = get_entity($challenge_entity->container_guid)->name;
 
 
 system_message($challenge_form['guid']?"Challenge updated successfully":"Challenge created successfully");
 
 if($challenge_form['guid']) {
   $river_action = 'updated';
-}else{
+}else {
   $river_action = 'created';
 }
 

@@ -77,7 +77,7 @@ return array(
                 ),
 
                 'submenu'=>array(
-                        'challenge' => array(
+                        GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE => array(
                                 'pg/challenge/list/all/'=>array(
                                         'title'=>"zcontest:challenge:all",
                                         'public'=>true
@@ -104,7 +104,7 @@ return array(
                                 ),
                         ),
 
-                        'quiz' => array(
+                        GLOBAL_IZAP_CONTEST_PAGEHANDLER_QUIZ => array(
                                 'pg/challenge/list/all/'=>array(
                                         'title'=>"zcontest:challenge:all",
                                         'public'=>true
