@@ -11,7 +11,7 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 class IZAPQuiz extends ZContest {
   protected function initialise_attributes() {
     parent::initialise_attributes();
@@ -31,7 +31,10 @@ class IZAPQuiz extends ZContest {
 
       $challenge_object = get_entity($this->container_guid);
       $quizzes = unserialize($challenge_object->quizzes);
-      unset($quizzes[$this->guid]);
+      $key = array_search($this->guid, $quizzes);
+      if($key !== FALSE) {
+        unset($quizzes[$key]);
+      }
       $challenge_entity->total_questions = count($quizzes);
       $quizzes_string = serialize($quizzes);
       $challenge_object->quizzes = $quizzes_string;
