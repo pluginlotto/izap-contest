@@ -87,6 +87,13 @@ if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_enti
 
 system_message($challenge_form['guid']?"Challenge updated successfully":"Challenge created successfully");
 
+if($challenge_form['guid']) {
+  $river_action = 'updated';
+}else{
+  $river_action = 'created';
+}
+
+add_to_river('river/object/zcontest/common', $river_action, get_loggedin_userid(), $challenge_entity->guid);
 unset($_SESSION['zcontest']['challenge']);
 forward($challenge_entity->getURL());
 exit;

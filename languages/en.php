@@ -107,8 +107,8 @@ $english = array(
     quizzes: ',
         'zcontest:challenge:view_as_challenger' => 'View as Challenger',
         'zcontest:challenge:error:timeout' => 'Time out. You have exceded the maximum time limit',
-        'zcontest:challenge:' => '',
-        'zcontest:challenge:' => '',
+        'zcontest:challenge:river:created' => 'has added new challenge',
+        'zcontest:challenge:river:updated' => 'has updated challenge',
         'zcontest:challenge:' => '',
 
 

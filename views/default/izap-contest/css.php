@@ -11,7 +11,7 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
 ?>
 
@@ -135,4 +135,16 @@ padding:10px;
 -webkit-border-radius: 8px;
 -moz-border-radius: 8px;
 height:2px;
+}
+
+.river_object_izapchallenge_created{
+background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_post.png") no-repeat scroll left -1px transparent;
+}
+
+.river_object_izapchallenge_updated{
+background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_post.png") no-repeat scroll left -1px transparent;
+}
+
+.river_object_izapchallenge_comment{
+background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_icon_comment.gif") no-repeat scroll left -1px transparent;
 }
