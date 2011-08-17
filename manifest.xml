@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin_manifest>
-  <field key="author" value="iZAP" />
-  <field key="version" value="1.0-rev34" />
-  <field key="description" value="Quiz-Contest plugin for the elgg1.7.x." />
-  <field key="website" value="http://www.izap.in/" />
-  <field key="copyright" value="(C) iZAP Web Solutions" />
-  <field key="licence" value="Commercial Licence. For more details browse http://www.pluginlotto.com/" />
-  <field key="elgg_version" value="2010030101" />
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+  <name>iZAP Contest test</name>
+  <author>iZAP Team</author>
+  <version>2.0</version>
+  <blurb>simple quiz contest plugin for elgg.</blurb>
+  <description>This plugin provides a quiz contest functionality` to elgg.</description>
+  <website>http://www.pluginlotto.com/pg/store</website>
+  <copyright>(C) iZAP Web Solutions</copyright>
+  <license>GNU Public License version 2</license>
+
+  <requires>
+    <type>elgg_version</type>
+    <version>2011010401</version>
+  </requires>
+
+  <requires>
+    <type>plugin</type>
+    <name>izap-elgg-bridge</name>
+    <version>2.0</version>
+  </requires>
+
+  <requires>
+    <type>priority</type>
+    <plugin>izap-elgg-bridge</plugin>
+    <priority>after</priority>
+  </requires>
+
+  <category>iZAP</category>
+  <admin_interface>advanced</admin_interface>
 </plugin_manifest>
