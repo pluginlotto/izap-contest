@@ -146,13 +146,13 @@ height:2px;
 }
 
 .river_object_izapchallenge_created{
-background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_post.png") no-repeat scroll left -1px transparent;
+background: url("<?php echo $vars['url'].'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_graphics/'?>river_post.png") no-repeat scroll left -1px transparent;
 }
 
 .river_object_izapchallenge_updated{
-background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_post.png") no-repeat scroll left -1px transparent;
+background: url("<?php echo $vars['url'].'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_graphics/'?>river_post.png") no-repeat scroll left -1px transparent;
 }
 
 .river_object_izapchallenge_comment{
-background: url("<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')); ?>river_icon_comment.gif") no-repeat scroll left -1px transparent;
+background: url("<?php echo $vars['url'].'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_graphics/'?>river_icon_comment.gif") no-repeat scroll left -1px transparent;
 }
