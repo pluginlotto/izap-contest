@@ -12,7 +12,7 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
-class ZContest extends ElggFile {
+class ZContest extends IzapObject {
   public function __construct($guid = null) {
     parent::__construct($guid);
   }

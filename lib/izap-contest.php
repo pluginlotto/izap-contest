@@ -125,3 +125,19 @@ function zp($attr) {
   print_r($attr);
   echo "</pre>";
 }
+
+
+function izap_process_uncompleted_challenge($page) {
+  global $CONFIG;
+  $context = get_context();
+  // if user is not on the play page
+  if(!($context == 'challenge' && ($page == 'play' || $page == 'result'))) {
+    // if user have left play page, the declare his/her result
+    if((int)$_SESSION['challenge']['contest'] > 0) {
+      $challenge = new IzapChallenge($_SESSION['challenge']['contest']);
+      $result = $challenge->save_results(FALSE);
+      forward($CONFIG->wwwroot . 'pg/challenge/result/' . $challenge->guid . '/' . $result->guid . '/');
+    }
+  }
+
+}

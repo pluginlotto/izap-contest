@@ -18,7 +18,7 @@ gatekeeper();
 $challenge_guid = get_input('guid');
 
 
-$challenge_entity = new IZAPChallenge($challenge_guid);
+$challenge_entity = new IzapChallenge($challenge_guid);
 
 $challenge_entity->lock = ($challenge_entity->lock)?0:1;
 

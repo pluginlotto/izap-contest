@@ -14,7 +14,7 @@
  */
 
 
-class IZAPChallenge extends ZContest {
+class IzapChallenge extends ZContest {
   protected $is_playing;
   protected $current_question;
 
@@ -29,6 +29,21 @@ class IZAPChallenge extends ZContest {
       $this->is_playing = TRUE;
       $this->start_playing();
     }
+      // set default form attributes
+    $this->form_attributes = array(
+        'title' => array(),
+        'description' => array(),
+        'container_guid' => array(),
+        'access_id' => array(),
+        'required_correct' => array(),
+        'max_quizzes' => array(),
+        'timer' =>array(),
+        're_attempt' => array(),
+        'negative_marking' => array(),
+        'terms' => array(),
+        'tags' => array(),
+        'comments_on' =>array()
+    );
   }
 
   public function delete_me($force = false) {
@@ -49,9 +64,9 @@ class IZAPChallenge extends ZContest {
     return false;
   }
 
-  public function save_me() {
+  public function save() {
     if(!$this->lock)
-      return $this->save();
+      return parent::save();
     else
       return false;
   }
@@ -244,21 +259,23 @@ class IZAPChallenge extends ZContest {
       }
     }
   }
-}
 
+  public function  getURL() {
+    global $CONFIG;
+  $title = friendly_title($this->title);
 
-
-function izap_process_uncompleted_challenge($page) {
-  global $CONFIG;
-  $context = get_context();
-  // if user is not on the play page
-  if(!($context == 'challenge' && ($page == 'play' || $page == 'result'))) {
-    // if user have left play page, the declare his/her result
-    if((int)$_SESSION['challenge']['contest'] > 0) {
-      $challenge = new IZAPChallenge($_SESSION['challenge']['contest']);
-      $result = $challenge->save_results(FALSE);
-      forward($CONFIG->wwwroot . 'pg/challenge/result/' . $challenge->guid . '/' . $result->guid . '/');
-    }
+  $container_name = $this->container_username;
+  if($container_name == '') {
+    $container_entity = get_entity($this->container_guid);
+    $container_name = $container_entity->username;
   }
+  
+  return IzapBase::setHref(array(
+      'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+      'action' => 'view',
+      'vars' => array($this->guid,$title)
+  ));
+//  $CONFIG->wwwroot . "challenge/view/".$container_name."/" . $this->guid . "/" . $title;
 
+  }
 }

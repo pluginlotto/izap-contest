@@ -46,10 +46,24 @@ class IzapChallengeController extends IzapController {
 
   public function actionAdd(){
     IzapBase::gatekeeper();
-
-    $this->page_elements['title'] = elgg_view_title(elgg_echo('zcontest:challenge:add'));
+$this->page_elements['filter'] ='';
+    $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:add'));
     $this->page_elements['content'] = elgg_view('forms/challenge/new_edit');
     $this->drawPage();
+  }
+
+  public function actionView(){
+    c($this->url_vars);exit;
+    $id = (int)get_input('guid');
+
+if (!$challenge_entity = get_entity($id))
+    forward();
+set_context('quiz');
+$title = $challenge_entity->title;
+
+$this->page_elements['title'] = elgg_view_title(sprintf(elgg_echo('zcontest:challenge'), $challenge_entity->title));
+$this->page_elements['content']= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN.'/challenge/view',array('challenge_entity' => $challenge_entity));
+$this->drawPage();
   }
 
 }

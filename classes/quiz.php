@@ -47,7 +47,7 @@ class IZAPQuiz extends ZContest {
     return false;
   }
 
-  public function save_me(IZAPChallenge $ch = null) {
+  public function save_me(IzapChallenge $ch = null) {
     if(!$ch->lock) {
       return $this->save();
     }

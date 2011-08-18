@@ -13,7 +13,7 @@
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
 */
 $challenge_entity = $vars['challenge_entity'];
-if ($challenge_entity instanceof IZAPChallenge) {
+if ($challenge_entity instanceof IzapChallenge) {
 if($vars['align']){
   $align = $vars['align'];
 }else{

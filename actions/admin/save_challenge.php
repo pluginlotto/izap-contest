@@ -15,16 +15,21 @@
 
 gatekeeper();
 
-$challenge_form = get_input('challenge');
+if(IzapBase::hasFormError()) {
+  if(sizeof(IzapBase::getFormErrors())) {
+    foreach(IzapBase::getFormErrors() as $error) {
+      register_error($error);
+    }
+  }
+  forward(REFERRER);
+  exit;
+}
+
+$challenge_form = IzapBase::getPostedAttributes();
 
 $_SESSION['zcontest']['challenge'] = $challenge_form;
 
-$challenge_entity = new IZAPChallenge($challenge_form['guid']);
-
-$required  = array(
-        'title', 'required_correct',
-);
-
+$challenge_entity = new IzapChallenge((int)$challenge_form['guid']);
 
 if($challenge_entity->lock) {
   register_error("Locked challenge can not be updated.");
@@ -34,16 +39,9 @@ if($challenge_entity->lock) {
 }
 
 foreach($challenge_form as $key => $val) {
-  if(in_array($key, $required) && $val == '') {
-    $error_message[] = elgg_echo('zcontest:challenge:error:' . $key);
-  }
   $challenge_entity->$key = $val;
 }
 
-if(sizeof($error_message)) {
-  register_error(implode("\n", $error_message));
-  forward($_SERVER['HTTP_REFERER']);
-}
 
 $challenge_entity->re_attempt = ($challenge_form['re_attempt'])?1:0;
 $challenge_entity->could_edit = ($challenge_form['could_edit'])?1:0;
@@ -53,30 +51,36 @@ if($challenge_entity->max_quizzes < 2) {
   $challenge_entity->max_quizzes = 2;
 }
 
+//  $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/",$_FILES['related_media']['type'])?
+//          array('medium' => '200'):
+//          false;
+//  $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
+  
+  
 
+
+if(!$challenge_entity->save(true,array('river' => true))) {
+  register_error("Error in challenge creation.");
+  forward(REFERER);
+  }
 if(!empty($_FILES['related_media']['name'])) {
   $supproted_media = array('audio/mp3','image/jpeg','image/gif','image/png','image/jpg','image/jpe','image/pjpeg','image/x-png');
   if(!in_array($_FILES['related_media']['type'],$supproted_media)) {
     register_error(elgg_echo('There is no support for this uploaded file'));
-    forward($_SERVER['HTTP_REFERER']); //failed, so forward to previous page
-    exit;
+    forward(REFERER); //failed, so forward to previous page
   }
-  $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/",$_FILES['related_media']['type'])?
-          array('medium' => '200'):
-          false;
-  $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
 }
-
-if(!$challenge_entity->save_me()) {
-  register_error("Error in challenge creation.");
-  forward($_SERVER['HTTP_REFERER']);
-  exit;
-}
+IzapBase::saveImageFile(array(
+    'destination' => 'contest/' . $challenge_entity->guid . '/icon',
+                'content' => file_get_contents($_FILES['related_media']['tmp_name']),
+                'owner_guid' => $challenge_entity->owner_guid,
+                'create_thumbs' => TRUE
+  ));
 
 // This will inherit the access_id from challenge to quiz. Check if the entity is going to be edit
 //if so than check if the old access id same. if so than skip this process.
 if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_entity->access_id) {
-  $quizzes_in_this_challenge = get_entities('object','izapquiz',$challenge_form['guid']);
+  $quizzes_in_this_challenge = get_entities('object',GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ,$challenge_form['guid']);
   foreach($quizzes_in_this_challenge as $quiz_key => $quiz_entity) {
     $quiz_entity->access_id = $challenge_entity->access_id;
     $quiz_entity->save();
@@ -84,22 +88,22 @@ if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_enti
 }
 
 // saving some extra metadata.. to save queries
-$challenge_entity->slug = friendly_title($challenge_entity->title);
-$challenge_entity->owner_username = get_loggedin_user()->username;
-$challenge_entity->owner_name = get_loggedin_user()->name;
+$challenge_entity->slug = elgg_get_friendly_title($challenge_entity->title);
+$challenge_entity->owner_username = elgg_get_logged_in_user_entity()->username;
+$challenge_entity->owner_name = elgg_get_logged_in_user_entity()->name;
 $challenge_entity->container_username = get_entity($challenge_entity->container_guid)->username;
 $challenge_entity->container_name = get_entity($challenge_entity->container_guid)->name;
 
 
 system_message($challenge_form['guid']?"Challenge updated successfully":"Challenge created successfully");
 
-if($challenge_form['guid']) {
-  $river_action = 'updated';
-}else {
-  $river_action = 'created';
-}
-
-add_to_river('river/object/zcontest/common', $river_action, get_loggedin_userid(), $challenge_entity->guid);
+//if($challenge_form['guid']) {
+//  $river_action = 'updated';
+//}else {
+//  $river_action = 'created';
+//}
+//
+//add_to_river('river/object/zcontest/common', $river_action, get_loggedin_userid(), $challenge_entity->guid);
 unset($_SESSION['zcontest']['challenge']);
 forward($challenge_entity->getURL());
 exit;

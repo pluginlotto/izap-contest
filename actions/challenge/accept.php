@@ -17,7 +17,7 @@ gatekeeper();
 global $CONFIG;
 
 $challenge_form = get_input('challenge');
-$challenge_entity = new IZAPChallenge($challenge_form['guid']);
+$challenge_entity = new IzapChallenge($challenge_form['guid']);
 
 func_hook_access_over_ride_byizap(array('status' => TRUE));
   $user_array = (array) $challenge_entity->accepted_by;

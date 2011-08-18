@@ -16,7 +16,7 @@
 // only for the loggedin users
 gatekeeper();
 $guid = get_input('container_guid');
-$contest = new IZAPChallenge($guid,TRUE);
+$contest = new IzapChallenge($guid,TRUE);
 
 if(!$contest->can_play()) {
   register_error(elgg_echo('zcontest:challenge:not_accepted_yet'));

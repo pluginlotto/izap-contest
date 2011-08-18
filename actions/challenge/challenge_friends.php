@@ -15,7 +15,7 @@
 
 gatekeeper();
 $friends = get_input('friend');
-$challenge = new IZAPChallenge(get_input('challenge_guid'));
+$challenge = new IzapChallenge(get_input('challenge_guid'));
 if(sizeof($friends)) {
  system_message(elgg_echo('zcontest:challenge:successfully_challenged'));
  $challenge->inviteFriends($friends);
