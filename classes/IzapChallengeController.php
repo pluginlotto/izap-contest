@@ -44,4 +44,12 @@ class IzapChallengeController extends IzapController {
     $list = elgg_list_entities($listing_options);
   }
 
+  public function actionAdd(){
+    IzapBase::gatekeeper();
+
+    $this->page_elements['title'] = elgg_view_title(elgg_echo('zcontest:challenge:add'));
+    $this->page_elements['content'] = elgg_view('forms/challenge/new_edit');
+    $this->drawPage();
+  }
+
 }
