@@ -30,8 +30,10 @@
     <?php
     echo elgg_list_entities(array(
       'type' => 'object',
-      'subtype' => GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ,
+      'subtype' => GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE,
       'container_guid' => $vars['challenge_entity']->guid));
     ?>
 </div>
-<?php endif; ?>
+<?php endif;
+
+echo $vars['control_menu'];?>

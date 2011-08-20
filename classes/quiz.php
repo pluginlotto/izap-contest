@@ -15,7 +15,7 @@
 class IZAPQuiz extends ZContest {
   protected function initialise_attributes() {
     parent::initialise_attributes();
-    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ;
+    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE;
   }
 
   public function __construct($guid = null) {

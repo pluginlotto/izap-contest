@@ -15,7 +15,7 @@
 if($vars['entity']->canEdit()) {
   echo elgg_view('output/url', array(
 //      'href' => func_set_href_byizap(array(
-//      'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+//      'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
 //      'page' => 'edit',
 //      'vars' => array($vars['entity']->getGuid())
 //      )),

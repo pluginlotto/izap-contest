@@ -83,7 +83,7 @@ if ($vars['full'] == true) {
   <?php if($challenge->canEdit()) {?>
   <div align="right">
     <?php
-    echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/edit_delete', array('entity' => $challenge));
+    echo $vars['control_menu'];
     ?>
   </div>
   <?php }?>
@@ -122,7 +122,6 @@ if ($vars['full'] == true) {
 <div class="contentWrapper">
   <?php
   IzapBase::increaseViews($challenge);
-  echo IzapBase::getViews($challenge);
   echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/challenge/tabs/index', array('entity' => $challenge));
   ?>
 </div>

@@ -20,7 +20,7 @@ if(!$page_owner) {
 }
 
 $area2 = elgg_view_title($page_owner->name . '\'s ' . elgg_echo('zcontest:challenge:accepted'));
-$list = list_entities_from_metadata('accepted_by', $page_owner->guid, 'object', GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE);
+$list = list_entities_from_metadata('accepted_by', $page_owner->guid, 'object', GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE);
 
 if(empty($list) || $list == '') {
   $area2 .= '<div class="contentWrapper">' . elgg_echo('zcontest:notfound') . '</div>';

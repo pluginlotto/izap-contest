@@ -21,7 +21,7 @@ class ZContest extends IzapObject {
 
   protected function initialiseAttributes() {
     parent::initializeAttributes();
-    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
+    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE;
   }
   public function izap_get_attributes() {
     return $this;

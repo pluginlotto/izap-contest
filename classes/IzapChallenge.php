@@ -21,7 +21,7 @@ class IzapChallenge extends ZContest {
 
   protected function initializeAttributes() {
     parent::initializeAttributes();
-    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
+    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE;
   }
 
   public function __construct($guid = null, $start_play = FALSE) {
@@ -280,7 +280,7 @@ class IzapChallenge extends ZContest {
     }
 
     return IzapBase::setHref(array(
-        'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+        'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
         'action' => 'view',
         'vars' => array($this->guid, $title)
     ));
@@ -288,7 +288,7 @@ class IzapChallenge extends ZContest {
 
   public function getIconURL($size = 'small') {
     return IzapBase::setHref(array(
-        'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+        'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
         'action' => 'icon',
         'page_owner' => FALSE,
         'vars' => array($this->guid, $size,)

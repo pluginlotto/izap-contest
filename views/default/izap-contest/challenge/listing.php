@@ -67,7 +67,7 @@ $title_link = elgg_view('output/url', array(
 
 $params = array(
     'entity' => $vars['entity'],
-    'metadata' => IzapBase::controlEntityMenu(array('entity' => $vars['entity'], 'handler' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE)),
+    'metadata' => IzapBase::controlEntityMenu(array('entity' => $vars['entity'], 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER)),
     'title' => $title_link,
     'subtitle' => $subtitle,
     'tags' => $tags,

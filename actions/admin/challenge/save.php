@@ -82,7 +82,7 @@ IzapBase::saveImageFile(array(
 if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_entity->access_id) {
   $quizzes_in_this_challenge = elgg_get_entities(array(
                                                         'type'=>'object',
-                                                         'subtype'=>GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ,
+                                                         'subtype'=>GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE,
                                                           'container_guid'=> $challenge_form['guid']));
   foreach($quizzes_in_this_challenge as $quiz_key => $quiz_entity) {
     $quiz_entity->access_id = $challenge_entity->access_id;

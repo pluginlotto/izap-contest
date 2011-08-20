@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-$challenges = elgg_get_entities(array('container_guid' => $vars['entity']->guid, 'type' => 'object', 'subtype' => GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE));
+$challenges = elgg_get_entities(array('container_guid' => $vars['entity']->guid, 'type' => 'object', 'subtype' => GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE));
 ?>
 <div class="group_widget">
   <?php
@@ -16,7 +16,7 @@ $challenges = elgg_get_entities(array('container_guid' => $vars['entity']->guid,
     ?>
   <div class="forum_latest">
     <a href="<?php echo
-    $CONFIG->wwwroot . 'pg/' . GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE .
+    $CONFIG->wwwroot . 'pg/' . GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER .
             '/list/' . $vars['entity']->guid . '/' . $vars['entity']->username?>"><?php echo elgg_echo('zcontest:challenge:group:list:all')?></a>
   </div>
     <?php

@@ -25,7 +25,7 @@ class IzapChallengeController extends IzapController {
 
     $listing_options = array();
     $listing_options['type'] = 'object';
-    $listing_options['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
+    $listing_options['subtype'] = GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE;
     if ($page_owner == $_SESSION['user']) {
       $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:my'));
       $listing_options['container_guid'] = $page_owner->guid;
@@ -68,7 +68,7 @@ class IzapChallengeController extends IzapController {
 
     if (!$challenge_entity = get_entity($id))
       forward();
-
+      $control_menu = IzapBase::controlEntityMenu(array('entity' => $challenge_entity,'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
     set_context('quiz');
     $title = $challenge_entity->title;
     $this->page_elements['filter'] = '';
@@ -78,7 +78,7 @@ class IzapChallengeController extends IzapController {
         $quiz_add = new ElggMenuItem('izap-contest:quiz:add',
                         elgg_echo('izap-contest:quiz:add'),
                         IzapBase::setHref(array(
-                            'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_QUIZ,
+                            'context' => GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,
                             'action' => 'new',
                             'page_owner' => false,
                             'vars ' => array($vars['challenge_entity']->guid, $_SESSION['user']->username)
@@ -89,16 +89,16 @@ class IzapChallengeController extends IzapController {
       }
 
       $challenger_view = new ElggMenuItem('izap-contest:challenge:view_as_challenger', elgg_echo('izap-contest:challenge:view_as_challenger'), IzapBase::setHref(array(
-                          'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+                          'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
                           'action' => 'view',
                           'vars' => array($this->url_vars[2])
                       )) . "?view_as_challenger=yes");
 
       elgg_register_menu_item('page', $challenger_view);
 
-      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity));
+      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity,'control_menu' => $control_menu));
     } else {
-      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity));
+      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity,'control_menu' => $control_menu));
     }
 
     $this->drawPage();
