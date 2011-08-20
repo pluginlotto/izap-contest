@@ -142,4 +142,17 @@ add_translation('en', array(
     'izap-contest:challenge:group:add' => 'Add Group Challenge',
     'izap-contest:challenge:group:list' => 'Group Challenges',
     'izap-contest:challenge:group:list:all' => 'All group Challenges',
+
+    //send to friend
+
+    'izap-contest:your_name' => 'Your name *',
+    'izap-contest:your_email' =>'Your email *',
+    'izap-contest:your_friend_name' =>"Your friend's name *",
+    'izap-contest:your_friend_email' =>"Your friend's email *",
+    'izap-contest:message' => 'Message *',
+    'izap-contest:not_valid_email' => 'The email is not valid',
+    'izap-contest:not_valid_entity' => 'Error loading entity',
+    'izap-contest:success_send_to_friend' => 'Mail sent successfully',
+    'izap-contest:error_send_to_friend' => 'Unable to send your mail right now, Server might be busy. Please try after some time.',
+
 ));

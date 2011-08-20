@@ -12,9 +12,16 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
+
+
 class ZContest extends IzapObject {
   public function __construct($guid = null) {
     parent::__construct($guid);
+  }
+
+  protected function initialiseAttributes() {
+    parent::initializeAttributes();
+    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
   }
   public function izap_get_attributes() {
     return $this;

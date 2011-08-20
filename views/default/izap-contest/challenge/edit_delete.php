@@ -14,16 +14,16 @@
 
 if($vars['entity']->canEdit()) {
   echo elgg_view('output/url', array(
-      'href' => func_set_href_byizap(array(
-      'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
-      'page' => 'edit',
-      'vars' => array($vars['entity']->getGuid())
-      )),
+//      'href' => func_set_href_byizap(array(
+//      'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+//      'page' => 'edit',
+//      'vars' => array($vars['entity']->getGuid())
+//      )),
   'text' => elgg_echo('zcontest:challenge:edit'),
   ));
   echo ' / ';
   echo elgg_view("output/confirmlink", array(
-      'href' => $vars['url'] . "action/challenge/delete?guid=" . $vars['entity']->getGUID().'&curl='.urlencode($vars['url'].'pg/challenge/list/'.$_SESSION['user']->username),
+     // 'href' => $vars['url'] . "action/challenge/delete?guid=" . $vars['entity']->getGUID().'&curl='.urlencode($vars['url'].'pg/challenge/list/'.$_SESSION['user']->username),
       'text' => elgg_echo('zcontest:challenge:delete'),
       'confirm' => elgg_echo('zcontest:challenge:delete'),
   ));

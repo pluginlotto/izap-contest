@@ -54,7 +54,7 @@ if($challenge_entity->max_quizzes < 2) {
 //  $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/",$_FILES['related_media']['type'])?
 //          array('medium' => '200'):
 //          false;
-//  $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
+  $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
   
   
 
@@ -80,7 +80,10 @@ IzapBase::saveImageFile(array(
 // This will inherit the access_id from challenge to quiz. Check if the entity is going to be edit
 //if so than check if the old access id same. if so than skip this process.
 if(isset($challenge_form['guid']) && $old_challenge_access_id != $challenge_entity->access_id) {
-  $quizzes_in_this_challenge = get_entities('object',GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ,$challenge_form['guid']);
+  $quizzes_in_this_challenge = elgg_get_entities(array(
+                                                        'type'=>'object',
+                                                         'subtype'=>GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ,
+                                                          'container_guid'=> $challenge_form['guid']));
   foreach($quizzes_in_this_challenge as $quiz_key => $quiz_entity) {
     $quiz_entity->access_id = $challenge_entity->access_id;
     $quiz_entity->save();

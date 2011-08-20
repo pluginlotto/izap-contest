@@ -12,16 +12,18 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
 */
-$friends_array = get_loggedin_user()->getFriends('', 999999);
+$friends_array = elgg_get_logged_in_user_entity()->getFriends('', 999999);
 foreach($friends_array as $friend) {
   $value[] = $friend->guid;
 }
+//global $CONFIG;
+//c($CONFIG);exit;
 ?>
-<form action="<?php echo $vars['url']?>action/challenge/challenge_friends" method="POST">
+<form action="<?php echo IzapBase::getFormAction('challenge_challenge_friends', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="POST">
   <?php 
   echo elgg_view('input/securitytoken');
-  echo elgg_view('friends/picker', array('entities' => $friends_array, 'value' => $value));
+  echo elgg_view('input/friendspicker', array('entities' => $friends_array, 'value' => $value));
   echo elgg_view('input/hidden', array('internalname' => 'challenge_guid', 'value' => $vars['entity']->guid));
-  echo elgg_view('input/submit', array('value' => elgg_echo('zcontest:challenge:challenge_friends')));
+  echo elgg_view('input/submit', array('value' => elgg_echo('izap-contest:challenge:challenge_friends')));
   ?>
 </form>

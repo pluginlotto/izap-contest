@@ -26,7 +26,7 @@ class IZAPQuiz extends ZContest {
    * @param <boolean> $force. True will ignore the media deletion and just drop the entity
    * @return <boolean> True on success else false
    */
-  public function delete_me($force = false) {
+  public function delete($force = false) {
     if($this->izap_delete_files(unserialize($this->related_media)) || $force) {
 
       $challenge_object = get_entity($this->container_guid);
@@ -47,7 +47,7 @@ class IZAPQuiz extends ZContest {
     return false;
   }
 
-  public function save_me(IzapChallenge $ch = null) {
+  public function save(IzapChallenge $ch = null) {
     if(!$ch->lock) {
       return $this->save();
     }

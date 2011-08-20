@@ -13,5 +13,9 @@
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
 */
 
-echo $vars['entity']->terms;
+?>
+<div class="izap-contest-terms">
+<?php echo $vars['entity']->terms;
+?>
+</div>
 

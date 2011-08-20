@@ -156,3 +156,16 @@ background: url("<?php echo $vars['url'].'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_g
 .river_object_izapchallenge_comment{
 background: url("<?php echo $vars['url'].'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_graphics/'?>river_icon_comment.gif") no-repeat scroll left -1px transparent;
 }
+
+
+.izap-contest-terms {
+background-color: #FFFFFF;
+margin-left:10px;
+padding:5px;
+height: 150px;
+overflow: auto;
+border:2px solid #DEDEDE;
+border-radius:8px
+-moz-border-radius:8px;
+-webkit-border-radius:8px;
+}

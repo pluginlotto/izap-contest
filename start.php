@@ -17,6 +17,7 @@ define('GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE', 'challenge');
 define('GLOBAL_IZAP_CONTEST_PAGEHANDLER_QUIZ', 'quiz');
 define('GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE', 'izapchallenge');
 define('GLOBAL_IZAP_CONTEST_SUBTYPE_QUIZ', 'izapquiz');
+define('GLOBAL_IZAP_CONTEST_CHALLENGE_CLASS', 'IzapChallenge');
 
 elgg_register_event_handler('init', 'system', 'izap_zcontest_init');
 
@@ -49,6 +50,13 @@ function izap_zcontest_init() {
         'action' => 'add'
     )));
     elgg_register_menu_item('page', $menu_item_add);
+
+    $menu_item_list = new ElggMenuItem('izap-contest:challenge_list', elgg_echo('izap-contest:challenge:all'), IzapBase::setHref(array(
+        'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+        'action' => 'list'
+    )));
+    elgg_register_menu_item('page', $menu_item_list);
+
   }
 }
 

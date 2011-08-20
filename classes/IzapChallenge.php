@@ -1,60 +1,69 @@
 <?php
-/**************************************************
-* PluginLotto.com                                 *
-* Copyrights (c) 2005-2010. iZAP                  *
-* All rights reserved                             *
-***************************************************
-* @author iZAP Team "<support@izap.in>"
-* @link http://www.izap.in/
-* @version 1.0
-* Under this agreement, No one has rights to sell this script further.
-* For more information. Contact "Tarun Jangra<tarun@izap.in>"
-* For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
-* Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
+
+/* * ************************************************
+ * PluginLotto.com                                 *
+ * Copyrights (c) 2005-2010. iZAP                  *
+ * All rights reserved                             *
+ * **************************************************
+ * @author iZAP Team "<support@izap.in>"
+ * @link http://www.izap.in/
+ * @version 1.0
+ * Under this agreement, No one has rights to sell this script further.
+ * For more information. Contact "Tarun Jangra<tarun@izap.in>"
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
-
 class IzapChallenge extends ZContest {
+
   protected $is_playing;
   protected $current_question;
 
-  protected function initialise_attributes() {
-    parent::initialise_attributes();
+  protected function initializeAttributes() {
+    parent::initializeAttributes();
     $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_SUBTYPE_CHALLENGE;
   }
 
   public function __construct($guid = null, $start_play = FALSE) {
     parent::__construct($guid);
-    if($start_play) {
+    
+    if ($start_play) {
       $this->is_playing = TRUE;
       $this->start_playing();
     }
-      // set default form attributes
-    $this->form_attributes = array(
-        'title' => array(),
-        'description' => array(),
-        'container_guid' => array(),
-        'access_id' => array(),
-        'required_correct' => array(),
-        'max_quizzes' => array(),
-        'timer' =>array(),
-        're_attempt' => array(),
-        'negative_marking' => array(),
-        'terms' => array(),
-        'tags' => array(),
-        'comments_on' =>array()
-    );
+
+    // 
+    //
+    // DO NOT UNCOMMENT THIS CODE : BY CHETAN SHARMA WE NEED TO THINK ALOT ABOUT THIS.
+    //
+    //
+    // set default form attributes
+//    $this->form_attributesaasa = array(
+//        'title' => array(),
+//        'description' => array(),
+//        'container_guid' => array(),
+//        'access_id' => array(),
+//        'required_correct' => array(),
+//        'max_quizzes' => array(),
+//        'timer' => array(),
+//        're_attempt' => array(),
+//        'negative_marking' => array(),
+//        'terms' => array(),
+//        'tags' => array(),
+//        'comments_on' => array()
+//    );
+  
   }
 
-  public function delete_me($force = false) {
-    if($this->izap_delete_files(unserialize($this->related_media)) || $force) {
+  public function delete($force = false) {
+    if ($this->izap_delete_files(unserialize($this->related_media)) || $force) {
       $quizzes_array = unserialize($this->quizzes);
       // deleting all related quizzes
-      if(count($quizzes_array)>0) {
-        foreach($quizzes_array as $quiz_guid => $quiz_val) {
+      if (count($quizzes_array) > 0) {
+        foreach ($quizzes_array as $quiz_guid => $quiz_val) {
           $quiz = get_entity($quiz_val);
-          if($quiz) {
-            $quiz->delete_me();
+          if ($quiz) {
+            $quiz->delete();
           }
         }
       }
@@ -65,20 +74,20 @@ class IzapChallenge extends ZContest {
   }
 
   public function save() {
-    if(!$this->lock)
+    if (!$this->lock)
       return parent::save();
     else
       return false;
   }
-  
+
   public function total_quizzes() {
-    $quizzes = count(($this->quizzes)?unserialize($this->quizzes):null);
-    return(($quizzes)?$quizzes:0);
+    $quizzes = count(($this->quizzes) ? unserialize($this->quizzes) : null);
+    return(($quizzes) ? $quizzes : 0);
   }
 
   public function get_media($size = false) {
     $media_array = unserialize($this->related_media);
-    return $this->get_file($media_array,$size);
+    return $this->get_file($media_array, $size);
   }
 
   public function can_play($user_guid = 0) {
@@ -86,17 +95,17 @@ class IzapChallenge extends ZContest {
     $accepted_by = (array) $this->accepted_by;
 
     // if user guid is not supplied then, get loggeding user
-    if(!$user_guid) {
+    if (!$user_guid) {
       $user_guid = get_loggedin_userid();
     }
 
     // if still no user_guid, then go back
-    if(!$user_guid) {
+    if (!$user_guid) {
       return FALSE;
     }
 
     // check if user has really accepted the challegne
-    if(in_array($user_guid, $accepted_by)) {
+    if (in_array($user_guid, $accepted_by)) {
       return TRUE;
     }
 
@@ -107,7 +116,7 @@ class IzapChallenge extends ZContest {
   public function canAttempt($user_guid = 0) {
 
     // check if required number of questions are available or not
-    if($this->total_questions < $this->max_quizzes) {
+    if ($this->total_questions < $this->max_quizzes) {
       return FALSE;
     }
 
@@ -115,30 +124,30 @@ class IzapChallenge extends ZContest {
     $accepted_by = (array) $this->accepted_by;
 
     // if user guid is not supplied then, get loggeding user
-    if(!$user_guid) {
+    if (!$user_guid) {
       $user_guid = get_loggedin_userid();
     }
 
     // if still no user_guid, then go back
-    if(!$user_guid) {
+    if (!$user_guid) {
       return FALSE;
     }
 
     $return = FALSE;
     // check if user has really accepted the challegne
-    if(!in_array($user_guid, $accepted_by)) {
+    if (!in_array($user_guid, $accepted_by)) {
       $return = TRUE;
     }
 
-    if(!$return  && $this->re_attempt) {
+    if (!$return && $this->re_attempt) {
       $user_var = get_loggedin_user()->username . '_last_attempt';
       $last_attempt = (int) $this->$user_var;
-      if(time() > ($last_attempt + 48*60*60)) {
+      if (time() > ($last_attempt + 48 * 60 * 60)) {
         return TRUE;
-      }else {
+      } else {
         return FALSE;
       }
-    }else {
+    } else {
       return $return;
     }
 
@@ -150,7 +159,7 @@ class IzapChallenge extends ZContest {
     // get the currently playing challenge
     $challenge_being_played = $_SESSION['challenge']['contest'];
     // if it in not the this challenge, then replace it
-    if($challenge_being_played != $this->guid) {
+    if ($challenge_being_played != $this->guid) {
 
       // set all values to result
       $_SESSION['challenge']['contest'] = $this->guid;
@@ -160,14 +169,14 @@ class IzapChallenge extends ZContest {
 
       shuffle($all_questions_array);
       $randon_keys = array_rand($all_questions_array, $this->max_quizzes);
-      foreach($randon_keys as $k => $q) {
+      foreach ($randon_keys as $k => $q) {
         $questions_array[] = $all_questions_array[$q];
       }
 
-      if(sizeof($questions_array)) {
-        foreach($questions_array as $question) {
-          if($question_entity = get_entity($question)) {
-            if($question_entity->getSubtype() == 'izapquiz') {
+      if (sizeof($questions_array)) {
+        foreach ($questions_array as $question) {
+          if ($question_entity = get_entity($question)) {
+            if ($question_entity->getSubtype() == 'izapquiz') {
               $_SESSION['challenge']['questions'][] = $question;
             }
           }
@@ -177,10 +186,10 @@ class IzapChallenge extends ZContest {
   }
 
   public function timeLeft() {
-    $diff = time() - ((int)$_SESSION['challenge']['start_time']);
-    $maximum_time = 60* (($this->timer) ? $this->timer : 10000);
+    $diff = time() - ((int) $_SESSION['challenge']['start_time']);
+    $maximum_time = 60 * (($this->timer) ? $this->timer : 10000);
 
-    if($diff < $maximum_time) {
+    if ($diff < $maximum_time) {
       return TRUE;
     }
 
@@ -190,11 +199,11 @@ class IzapChallenge extends ZContest {
   public function current_question() {
     global $CONFIG;
     // get current question from the session
-    $this->current_question = get_entity($_SESSION['challenge']['questions'][(int)$_SESSION['challenge']['qc']]);
+    $this->current_question = get_entity($_SESSION['challenge']['questions'][(int) $_SESSION['challenge']['qc']]);
     // only return if it validates
-    if($this->current_question && $this->current_question instanceof IZAPQuiz) {
+    if ($this->current_question && $this->current_question instanceof IZAPQuiz) {
       return $this->current_question;
-    }else {
+    } else {
       $result = $this->save_results();
       forward($CONFIG->wwwroot . 'pg/challenge/result/' . $this->guid . '/' . $result->guid . '/' . friendly_title($this->title));
     }
@@ -217,20 +226,20 @@ class IzapChallenge extends ZContest {
     $result->total_questions = (int) count($challenge['questions']);
     $result->required_percentage = $this->required_correct;
     $total_percentage = round((($result->total_score / $result->total_questions) * 100), 0);
-    $result->total_percentage = (int)(($total_percentage) ? $total_percentage : 0);
-    $result->status = ((int) $result->total_percentage < (int)$this->required_correct) ? 'failed' : 'passed';
+    $result->total_percentage = (int) (($total_percentage) ? $total_percentage : 0);
+    $result->status = ((int) $result->total_percentage < (int) $this->required_correct) ? 'failed' : 'passed';
     $result->challenge_guid = $this->guid;
     $result->is_completed = ($complete_status) ? 'yes' : 'no';
     $result->total_time_taken = time() - $challenge['start_time'];
 
-    func_hook_access_over_ride_byizap(array('status' => TRUE));// force save
+    func_hook_access_over_ride_byizap(array('status' => TRUE)); // force save
     $user_var = get_loggedin_user()->username . '_last_attempt';
     $this->$user_var = time();
     $this->total_attempted = (int) $this->total_attempted + 1;
     $user_var = get_loggedin_user()->username . '_total_attempted';
     $this->$user_var = (int) $this->$user_var + 1;
 
-    if($result->status == 'passed') {
+    if ($result->status == 'passed') {
       $pass_var = get_loggedin_user()->username . '_total_passed';
       $this->total_passed = (int) $this->total_passed + 1;
       $this->$pass_var = (int) $this->$pass_var + 1;
@@ -243,12 +252,12 @@ class IzapChallenge extends ZContest {
   }
 
   public function inviteFriends($friends_array) {
-    if(!sizeof($friends_array)) {
+    if (!sizeof($friends_array)) {
       return false;
     }
 
-    foreach($friends_array as $friend_guid) {
-      if($friend_guid != $this->owner_guid) {
+    foreach ($friends_array as $friend_guid) {
+      if ($friend_guid != $this->owner_guid) {
         notify_user(
                 $friend_guid,
                 get_loggedin_user()->guid,
@@ -260,22 +269,37 @@ class IzapChallenge extends ZContest {
     }
   }
 
-  public function  getURL() {
+  public function getURL() {
     global $CONFIG;
-  $title = friendly_title($this->title);
+    $title = friendly_title($this->title);
 
-  $container_name = $this->container_username;
-  if($container_name == '') {
-    $container_entity = get_entity($this->container_guid);
-    $container_name = $container_entity->username;
-  }
-  
-  return IzapBase::setHref(array(
-      'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
-      'action' => 'view',
-      'vars' => array($this->guid,$title)
-  ));
-//  $CONFIG->wwwroot . "challenge/view/".$container_name."/" . $this->guid . "/" . $title;
+    $container_name = $this->container_username;
+    if ($container_name == '') {
+      $container_entity = get_entity($this->container_guid);
+      $container_name = $container_entity->username;
+    }
 
+    return IzapBase::setHref(array(
+        'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+        'action' => 'view',
+        'vars' => array($this->guid, $title)
+    ));
   }
+
+  public function getIconURL($size = 'small') {
+    return IzapBase::setHref(array(
+        'context' => GLOBAL_IZAP_CONTEST_PAGEHANDLER_CHALLENGE,
+        'action' => 'icon',
+        'page_owner' => FALSE,
+        'vars' => array($this->guid, $size,)
+    )) . $this->time_updated . ".jpg";
+  }
+
+  public function getThumb() {
+    $image = '<div>';
+    $image .= '<img src="'.$this->getIconURL('small').'"/>';
+    $image .= '</div>';
+    return $image;
+  }
+
 }

@@ -21,7 +21,7 @@ $challenge_entity = izap_array_to_object(
 ?>
 
 <div>
-  <form action="<?php echo IzapBase::getFormAction('save_challenge', GLOBAL_IZAP_CONTEST_PLUGIN) ?>" method="post" enctype="multipart/form-data">
+  <form action="<?php echo IzapBase::getFormAction('challenge_save', GLOBAL_IZAP_CONTEST_PLUGIN) ?>" method="post" enctype="multipart/form-data">
     <?php echo elgg_view('input/securitytoken'); ?>
     <p>
       <label>
