@@ -11,18 +11,23 @@
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+ */
 
-?>
-<div class="options_view">
-  <?php
-  $quiz_metadata_array = unserialize($vars['quiz_entity']->quiz_metadata);
-  if(isset($quiz_metadata_array[$_SESSION['user']->username])) {
-    echo elgg_view("input/radio", array("internalname" => "attributes[correct_option]",  "disabled"=> 1, 'value'=>$quiz_metadata_array[$_SESSION['user']->username]['reply'], "options" => $vars['quiz_entity']->get_options()));
+gatekeeper();
+
+$quiz_guid = (int) get_input('guid');
+
+$quiz_entity = get_entity($quiz_guid);
+$challange_url = get_entity($quiz_entity->container_guid)->getURL();
+
+if($quiz_guid) {
+  if($quiz_entity->delete_me()) {
+    system_message(elgg_echo('zcontest:quiz:deleted'));
   }else {
-    echo elgg_view("input/radio", array("internalname" => "attributes[correct_option]",  "options" => $vars['entity']->get_options()));
-  }
-  ?>
 
-  <div class="clearfloat"></div>
-</div>
+  }
+}else {
+  register_error(elgg_echo('zcontest:quiz:notdeleted'));
+}
+forward($challange_url);
+exit;

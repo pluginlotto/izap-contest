@@ -17,7 +17,7 @@
 
 
 <?php if($vars['challenge_entity']->max_quizzes && $vars['challenge_entity']->total_questions < $vars['challenge_entity']->max_quizzes):?>
-<div class="contentWrapper">
+<div>
   <em style="color:red;">
     <?php echo elgg_echo('izap-contest:challenge:not_enough_questions') . $vars['challenge_entity']->max_quizzes . '</b>';?>
   </em>
@@ -26,7 +26,7 @@
 
 <?php if($vars['challenge_entity']->quizzes): ?>
   <?php echo elgg_view_title('Related quizzes' . ' ('.$vars['challenge_entity']->total_questions.')') ?>
-<div class="contentWrapper">
+<div>
     <?php
     echo elgg_list_entities(array(
       'type' => 'object',
@@ -35,5 +35,4 @@
     ?>
 </div>
 <?php endif;
-
-echo $vars['control_menu'];?>
+?>

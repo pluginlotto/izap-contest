@@ -40,7 +40,6 @@ if ($vars['full'] == true) {
           </a>
        </p>";
     ?>
-    <?php echo elgg_view('input/rate', array('entity' => $challenge));?>
   </div>
 </div>
 
@@ -95,7 +94,7 @@ if ($vars['full'] == true) {
 <div class="contentWrapper"><?php echo $challenge->description; ?></div>
 <?php if(isloggedin() && get_loggedin_userid() != $challenge->owner_guid) {?>
 <div class="contentWrapper">
-  <form action="<?php echo $vars['url']; ?>action/challenge/accept" method="post">
+  <form action="<?php echo IzapBase::getFormAction('challenge_accept', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="post">
     <?php echo elgg_view('input/securitytoken');?>
     <input type="hidden" name="challenge[guid]" value="<?php echo $challenge->guid?>" />
     <?php if($challenge->canAttempt()) {?>

@@ -38,13 +38,13 @@ class ZContest extends IzapObject {
   }
 
   public function izap_grant_edit() {
-    if(get_class($this)=='IZAPQuiz') {
+    if(get_class($this)=='IzapQuiz') {
       register_plugin_hook('permissions_check', 'object', 'izap_quiz_edit_grant');
     }
   }
 
   public function izap_revoke_edit() {
-    if(get_class($this) == 'IZAPQuiz') {
+    if(get_class($this) == 'IzapQuiz') {
       $key = array_search('izap_quiz_edit_grant',$CONFIG->hooks['permissions_check']['object']);
       unset($key);
     }

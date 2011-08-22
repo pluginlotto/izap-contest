@@ -26,7 +26,7 @@ class IzapChallenge extends ZContest {
 
   public function __construct($guid = null, $start_play = FALSE) {
     parent::__construct($guid);
-    
+
     if ($start_play) {
       $this->is_playing = TRUE;
       $this->start_playing();
@@ -38,7 +38,7 @@ class IzapChallenge extends ZContest {
     //
     //
     // set default form attributes
-//    $this->form_attributesaasa = array(
+//    $this->form_attributesa = array(
 //        'title' => array(),
 //        'description' => array(),
 //        'container_guid' => array(),
@@ -52,7 +52,10 @@ class IzapChallenge extends ZContest {
 //        'tags' => array(),
 //        'comments_on' => array()
 //    );
-  
+  }
+
+  public function getAttributesArray() {
+    return $this->form_attributes;
   }
 
   public function delete($force = false) {
@@ -201,11 +204,21 @@ class IzapChallenge extends ZContest {
     // get current question from the session
     $this->current_question = get_entity($_SESSION['challenge']['questions'][(int) $_SESSION['challenge']['qc']]);
     // only return if it validates
-    if ($this->current_question && $this->current_question instanceof IZAPQuiz) {
+    if ($this->current_question && $this->current_question instanceof IzapQuiz) {
       return $this->current_question;
     } else {
       $result = $this->save_results();
-      forward($CONFIG->wwwroot . 'pg/challenge/result/' . $this->guid . '/' . $result->guid . '/' . friendly_title($this->title));
+      forward(IzapBase::setHref(array(
+                  'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
+                  'action' => 'results',
+                  'vars' => array(
+                      $this->guid,
+                      $result->guid,
+                      friendly_title($this->title)
+                  )
+                      )
+              )
+      );
     }
   }
 
@@ -297,7 +310,7 @@ class IzapChallenge extends ZContest {
 
   public function getThumb() {
     $image = '<div>';
-    $image .= '<img src="'.$this->getIconURL('small').'"/>';
+    $image .= '<img src="' . $this->getIconURL('small') . '"/>';
     $image .= '</div>';
     return $image;
   }

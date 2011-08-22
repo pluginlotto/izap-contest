@@ -54,7 +54,7 @@ if($challenge_entity->max_quizzes < 2) {
 //  $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/",$_FILES['related_media']['type'])?
 //          array('medium' => '200'):
 //          false;
-  $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
+  //$challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
   
   
 

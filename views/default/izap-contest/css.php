@@ -140,7 +140,7 @@ height:2px;
 }
 
 #groups_info_column_right {
-	float:left;
+	float:right;
 	width:230px;
 	margin:0 0 0 10px;
 }
@@ -168,4 +168,12 @@ border:2px solid #DEDEDE;
 border-radius:8px
 -moz-border-radius:8px;
 -webkit-border-radius:8px;
+}
+
+.izap-quiz-title{
+float:left;
+}
+
+.izap-quiz-wrapper{
+
 }

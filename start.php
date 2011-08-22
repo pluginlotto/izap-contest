@@ -35,6 +35,7 @@ function izap_zcontest_init() {
     add_group_tool_option(GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, elgg_echo('zcontest:challenge:group:enable'), true);
   }
   elgg_register_page_handler(GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
+  elgg_register_page_handler(GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
   elgg_register_action(GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,GLOBAL_IZAP_PAGEHANDLER);
   elgg_register_menu_item('site',new ElggMenuItem('izap-contest', elgg_echo('izap-contest:contests'), IzapBase::setHref(array(
       'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
