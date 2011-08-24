@@ -22,7 +22,7 @@ if(!$vars['entity'])
     echo elgg_view_title($vars['entity']->title . ' ?');
   }
   ?>
-  <form action="<?php echo IzapBase::getFormAction('quiz_answer', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="post">
+  <form action="<?php echo IzapBase::getFormAction('answer', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="post">
     <?php echo elgg_view('input/securitytoken');?>
     <?php
     if(preg_match('/image.+/', $vars['entity']->get_quiz_mime())) {
@@ -59,12 +59,19 @@ if(!$vars['entity'])
 //      ?>
       <?php
     }else {
-      if(!isset($quiz_metadata_array[$_SESSION['user']->username])): ?>
-    <input type="hidden" name="quiz[guid]" value="<?php echo $vars['quiz_entity']->guid ?>" />
-    <input type="hidden" name="quiz[container_guid]" value="<?php echo $vars['quiz_entity']->container_guid ?>" />
+      if(!isset($quiz_metadata_array[$_SESSION['user']->username])):
+              echo izapbase::input('hidden',array('name' => 'quiz[guid]','value' =>$vars['entity']->guid));
+              echo izapbase::input('hidden',array('name' => 'quiz[container_guid]','value' => $vars['entity']->container_guid));
+      ?>
+<!--    <input type="hidden" name="quiz[guid]" value="//<?php echo $vars['quiz_entity']->guid ?>" />
+    <input type="hidden" name="quiz[container_guid]" value="<?php echo $vars['quiz_entity']->container_guid ?>" />-->
     <p style="float:right;">
-      <input type="submit" name="quiz[answer]" value="<?php echo elgg_echo('izap-contest:quiz:answer') ?>" />
-      <input type="submit" name="quiz[skip]" value="<?php echo elgg_echo('izap-contest:quiz:skip') ?>" />
+      <?php
+      echo elgg_view('input/submit',array('name' => 'quiz[answer]','value' => elgg_echo('izap-contest:quiz:answer')));
+      echo elgg_view('input/submit',array('name' => 'quiz[skip]','value' => elgg_echo('izap-contest:quiz:skip')));
+      ?>
+<!--      <input type="submit" name="quiz[answer]" value="<?php echo elgg_echo('izap-contest:quiz:answer') ?>" />
+      <input type="submit" name="quiz[skip]" value="<?php echo elgg_echo('izap-contest:quiz:skip') ?>" />-->
     </p>
       <?php endif;
     }?>

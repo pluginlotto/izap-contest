@@ -21,22 +21,22 @@ if($obtained_percentage <= 0) {
   $width = 1;
 }
 ?>
-<?php echo elgg_view_title(elgg_echo('zcontest:challenge:result') . ': ' . $result->title); ?>
+<?php echo elgg_view_title(elgg_echo('izap-contest:challenge:result') . ': ' . $result->title); ?>
 <div class="contentWrapper">
   <?php
-  echo elgg_view(func_get_template_path_byizap(array('plugin' => 'izap-contest', 'type' => 'challenge')) . 'result_statistics', array('array' => unserialize($result->description)));
-  ?>
+  echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/challenge/result_statistics', array('array' => unserialize($result->description)));
+  e?>
 </div>
 
 <div class="contentWrapper">
   <div class="progress_bar_wrapper">
-    <b><?php echo elgg_echo('zcontest:challenge:passing_percentage');?>: <?php echo $result->required_percentage?>%</b>
+    <b><?php echo elgg_echo('izap-contest:challenge:passing_percentage');?>: <?php echo $result->required_percentage?>%</b>
     <div style="background-color: white; width: 80%">
     <div class="progress_bar" style="background-color: #00FF00; width: <?php echo $result->required_percentage?>%;"></div>
     </div>
   </div>
   <div class="progress_bar_wrapper">
-    <b><?php echo elgg_echo('zcontest:challenge:obtained_percentage');?>: <?php echo $obtained_percentage?>%</b>
+    <b><?php echo elgg_echo('izap-contest:challenge:obtained_percentage');?>: <?php echo $obtained_percentage?>%</b>
     <div style="background-color: white; width: 80%">
     <div class="progress_bar" style="background-color: <?php echo ($result->status == 'passed') ? '#00FF00' : '#FF0000'?>;width: <?php echo $width?>%;">    </div>
     </div>
@@ -44,9 +44,9 @@ if($obtained_percentage <= 0) {
 </div>
 
 <div class="contentWrapper">
-  <b><?php echo elgg_echo('zcontest:result:total');?>: <?php echo $result->total_score;?></b>
+  <b><?php echo elgg_echo('izap-contest:result:total');?>: <?php echo $result->total_score;?></b>
   <?php if($result->is_completed == 'no') {?>
-  <b class="un_completed"><em><?php echo elgg_echo('zcontest:challenge:not_completed');?></em></b>
+  <b class="un_completed"><em><?php echo elgg_echo('izap-contest:challenge:not_completed');?></em></b>
     <?php }?>
 
   <a href="<?php echo $vars['url']. 'pg/challenge/result/'. $result->container_guid ?>/<?php echo friendly_title($result->title)?>" class="cancel_button">

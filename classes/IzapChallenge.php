@@ -245,7 +245,7 @@ class IzapChallenge extends ZContest {
     $result->is_completed = ($complete_status) ? 'yes' : 'no';
     $result->total_time_taken = time() - $challenge['start_time'];
 
-    func_hook_access_over_ride_byizap(array('status' => TRUE)); // force save
+    IzapBase::getAllAccess();// force save
     $user_var = get_loggedin_user()->username . '_last_attempt';
     $this->$user_var = time();
     $this->total_attempted = (int) $this->total_attempted + 1;
@@ -259,7 +259,7 @@ class IzapChallenge extends ZContest {
     }
 
     $result->save();
-    func_hook_access_over_ride_byizap(array('status' => FALSE));
+    Izapbase::removeAccess();
 
     return $result;
   }

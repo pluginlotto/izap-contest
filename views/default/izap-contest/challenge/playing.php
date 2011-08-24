@@ -23,14 +23,14 @@ $hour = $minute * 60;
 $day = $hour * 24;
 
 if ($diff < $minute) {
-  $friendly_time = sprintf(elgg_echo('zcontest:challenge:time_used'), $diff);
+  $friendly_time = sprintf(elgg_echo('izap-contest:challenge:time_used'), $diff);
 } else if ($diff < $hour) {
   $minutes = round($diff / $minute);
   $seconds = $diff%$minute;
   
-  $friendly_time = sprintf(elgg_echo('zcontest:challenge:time_used_minute'), $minutes, $seconds);
+  $friendly_time = sprintf(elgg_echo('izap-contest:challenge:time_used_minute'), $minutes, $seconds);
 }
-echo elgg_view_title(elgg_echo('zcontest:contest') . ': ' . $challenge->title);
+echo elgg_view_title(elgg_echo('izap-contest:contest') . ': ' . $challenge->title);
 ?>
 <div class="contentWrapper">
   <div style="float:right;">
@@ -39,6 +39,6 @@ echo elgg_view_title(elgg_echo('zcontest:contest') . ': ' . $challenge->title);
     </b>
   </div>
   <?php
-  echo elgg_view('izap-contest/quiz/view', array('quiz_entity' => $quiz));
+  echo elgg_view('izap-contest/quiz/view', array('entity' => $quiz));
   ?>
 </div>

@@ -19,7 +19,7 @@ foreach($friends_array as $friend) {
 //global $CONFIG;
 //c($CONFIG);exit;
 ?>
-<form action="<?php echo IzapBase::getFormAction('challenge_challenge_friends', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="POST">
+<form action="<?php echo IzapBase::getFormAction('challenge_friends', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="POST">
   <?php 
   echo elgg_view('input/securitytoken');
   echo elgg_view('input/friendspicker', array('entities' => $friends_array, 'value' => $value));

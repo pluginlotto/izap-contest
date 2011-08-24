@@ -29,10 +29,10 @@ $array = $vars['array'];
     </h3>
     <div class="contentWrapper">
         <?php echo ($stats['description']);?><br />
-      <img src="<?php echo func_get_www_path_byizap(array('plugin' => 'izap-contest', 'type' => 'graphics')) . $status?>" />
-        <b><?php echo elgg_echo('zcontest:result:your_answer') . '</b>: ' . $stats['answer']?>
+      <img src="<?php echo $CONFIG->wwwroot.'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_graphics/' . $status?>" />
+        <b><?php echo elgg_echo('izap-contest:result:your_answer') . '</b>: ' . $stats['answer']?>
       <br />
-      <b><?php echo elgg_echo('zcontest:result:correct_answer') . '</b>: ' . $stats['correct_answer']?>
+      <b><?php echo elgg_echo('izap-contest:result:correct_answer') . '</b>: ' . $stats['correct_answer']?>
         <br />
         <em>
             <?php echo $stats['solution'] ?>
