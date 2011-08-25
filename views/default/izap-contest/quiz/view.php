@@ -25,6 +25,7 @@ if(!$vars['entity'])
   <form action="<?php echo IzapBase::getFormAction('answer', GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="post">
     <?php echo elgg_view('input/securitytoken');?>
     <?php
+    
     if(preg_match('/image.+/', $vars['entity']->get_quiz_mime())) {
       include(dirname(__FILE__).'/image_view.php');
     }elseif(preg_match('/audio.+/', $vars['entity']->get_quiz_mime())) {
@@ -45,19 +46,7 @@ if(!$vars['entity'])
             'vars' => array($vars['entity']->container_guid, $vars['entity']->getGUID(), elgg_get_friendly_title($vars['entity']->title))
         ));
 
-      ?>
-    <a href="<?php //echo $vars['quiz_entity']->getEditURL();?>">
-        <?php //echo elgg_echo('izap-contest:quiz:edit');?>
-    </a>
-    
-      <?php
-//      echo elgg_view("output/confirmlink", array(
-//      'href' => $vars['url'] . "action/quiz/delete?guid=" . $vars['quiz_entity']->getGUID().'&curl='.urlencode(current_page_url()),
-//      'text' => elgg_echo('delete'),
-//      'confirm' => elgg_echo('izap-contest:quiz:delete'),
-//      ));
-//      ?>
-      <?php
+     
     }else {
       if(!isset($quiz_metadata_array[$_SESSION['user']->username])):
               echo izapbase::input('hidden',array('name' => 'quiz[guid]','value' =>$vars['entity']->guid));

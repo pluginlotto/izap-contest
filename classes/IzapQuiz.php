@@ -97,13 +97,13 @@ class IzapQuiz extends ZContest {
     return array_flip(unserialize($this->options));
   }
 
-  public function getEditURL() {
-    global $CONFIG;
-
-    return $CONFIG->url . "pg/quiz/edit/" . $this->container_guid . "/" . $this->guid . "/" . friendly_title($this->title) .
-    '?rurl=' . urlencode(current_page_url());
-    ;
-  }
+//  public function getEditURL() {
+//    global $CONFIG;
+//
+//    return $CONFIG->url . "pg/quiz/edit/" . $this->container_guid . "/" . $this->guid . "/" . friendly_title($this->title) .
+//    '?rurl=' . urlencode(current_page_url());
+//    ;
+//  }
 
   public function getCorrectAnswer($force = FALSE) {
     if (get_loggedin_userid() == $this->owner_guid || $force) {

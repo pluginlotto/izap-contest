@@ -49,8 +49,8 @@ if($obtained_percentage <= 0) {
   <b class="un_completed"><em><?php echo elgg_echo('izap-contest:challenge:not_completed');?></em></b>
     <?php }?>
 
-  <a href="<?php echo $vars['url']. 'pg/challenge/result/'. $result->container_guid ?>/<?php echo friendly_title($result->title)?>" class="cancel_button">
-    <?php echo elgg_echo('zcontest:challenge:my_results') ?>
+  <a href="<?php echo izapbase::setHref(array('context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,'action' =>'result','page_owner' => FALSE,'vars' =>array($result->container_guid,friendly_title($result->title))))?>" class="cancel_button">
+    <?php echo elgg_echo('izap-contest:challenge:my_results') ?>
   </a>
 </div>
 <?php unset($_SESSION['challenge']);?>

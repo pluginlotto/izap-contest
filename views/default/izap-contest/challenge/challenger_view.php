@@ -106,9 +106,11 @@ if ($vars['full'] == true) {
         $time = (int) $challenge->$time_var;
         if ($time) {
     ?>
+      <br/>
         <em>
     <?php echo elgg_echo('izap-contest:challenge:last_attempt') . friendly_time($time); ?>
           </em>
+      
     <?php
         }
       }
@@ -123,9 +125,10 @@ if ($vars['full'] == true) {
           'text' => elgg_echo('izap-contest:challenge:my_results')
       ));
     ?>
-    
+   
         </form>
       </div>
+   <br/>
   <?php } ?>
   <div class="contentWrapper">
 <?php

@@ -128,7 +128,7 @@ class IzapChallenge extends ZContest {
 
     // if user guid is not supplied then, get loggeding user
     if (!$user_guid) {
-      $user_guid = get_loggedin_userid();
+      $user_guid = elgg_get_logged_in_user_guid();
     }
 
     // if still no user_guid, then go back
@@ -143,7 +143,7 @@ class IzapChallenge extends ZContest {
     }
 
     if (!$return && $this->re_attempt) {
-      $user_var = get_loggedin_user()->username . '_last_attempt';
+      $user_var = elgg_get_logged_in_user_entity()->username . '_last_attempt';
       $last_attempt = (int) $this->$user_var;
       if (time() > ($last_attempt + 48 * 60 * 60)) {
         return TRUE;

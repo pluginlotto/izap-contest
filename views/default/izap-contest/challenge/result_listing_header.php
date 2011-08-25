@@ -17,23 +17,23 @@
 <div class="contentWrapper">  
     <div>
       <div style="float: left; margin-right: 10px; width: 22%">
-        <b><?php echo elgg_echo('zcontest:result:id');?></b>
+        <b><?php echo elgg_echo('izap-contest:result:id');?></b>
       </div>
 
       <div style="float: left; margin-right: 10px; width: 22%">
-        <b><?php echo elgg_echo('zcontest:result:time');?></b>
+        <b><?php echo elgg_echo('izap-contest:result:time');?></b>
       </div>
 
       <div style="float: left; margin-right: 10px; width: 12%">
-        <b><?php echo elgg_echo('zcontest:result:score');?></b>
+        <b><?php echo elgg_echo('izap-contest:result:score');?></b>
       </div>
 
       <div style="float: left; margin-right: 10px; width: 12%">
-        <b><?php echo elgg_echo('zcontest:result:percentage');?></b>
+        <b><?php echo elgg_echo('izap-contest:result:percentage');?></b>
       </div>
 
       <div style="float: right; margin-right: 10px; width: 22%">
-        <b><?php echo elgg_echo('zcontest:result:status');?></b>
+        <b><?php echo elgg_echo('izap-contest:result:status');?></b>
       </div>
 
     </div>

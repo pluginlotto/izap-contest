@@ -16,7 +16,7 @@
 $result = $vars['entity'];
 ?>
 <div class="contentWrapper">
-  <a href="<?php echo $result->getUrl()?>">
+  <a href="<?php echo izapbase::setHref(array('context' =>GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,'action' => 'result','page_owner' => FALSE,'vars'=>array( $result->container_guid, $result->guid, friendly_title($result->title))))?>">
     <div>
       <div style="float: left; margin-right: 10px; width: 22%">
         #<?php echo $result->guid;?>

@@ -54,10 +54,25 @@ function izap_zcontest_init() {
 
     $menu_item_list = new ElggMenuItem('izap-contest:challenge_list', elgg_echo('izap-contest:challenge:all'), IzapBase::setHref(array(
         'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-        'action' => 'list'
+        'action' => 'list',
+        'page_owner' => false,
+        'vars' =>array('all')
     )));
     elgg_register_menu_item('page', $menu_item_list);
 
+    $menu_item_my_list = new ElggMenuItem('izap-contest:challenge_my_list', sprintf(elgg_echo("izap-contest:chellenge:list"),"My"), IzapBase::setHref(array(
+        'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
+        'action' => 'list',
+        'page_owner' => false,
+        'vars' =>array($_SESSION['user']->username)
+    )));
+    elgg_register_menu_item('page', $menu_item_my_list);
+
+    $menu_item_my_accepted = new ElggMenuItem('izap-contest:challenge_my_myaccepted', elgg_echo('izap-contest:challenge:accepted'), IzapBase::setHref(array(
+        'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
+        'action' => 'accepted',
+        )));
+    elgg_register_menu_item('page', $menu_item_my_accepted);
   }
 }
 
