@@ -14,7 +14,7 @@
  */
 IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_CONTEST_PLUGIN, 'lib' => 'izap-contest'));
 
-$challenge_entity = $vars['challenge_entity'];
+$challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $vars['challenge_entity']: array('access_id' => defined('ACCESS_DEFAULT') ? ACCESS_DEFAULT : 1));
 
 //izap_array_to_object(
 //                ($_SESSION['zcontest']['challenge']) ? $_SESSION['zcontest']['challenge'] :

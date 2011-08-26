@@ -24,12 +24,12 @@
 
 <div class="audio_view" id="zplayer">
   <script type="text/javascript">
-    AudioPlayer.embed("zplayer", {soundFile: "<?php echo $vars['url']; ?>mod/izap-contest/content.php?id=<?php echo $vars['quiz_entity']->getGUID(); ?>"});
+    AudioPlayer.embed("zplayer", {soundFile: "<?php echo IzapBase::getFile(array('source' =>'contest/quiz' . $vars['entity']->guid . '/icon','owner_id'=>''))?>"});
   </script>
 </div>
 <div class="options_view">
   <?php
-  $quiz_metadata_array = unserialize($vars['quiz_entity']->quiz_metadata);
+  $quiz_metadata_array = unserialize($vars['entity']->quiz_metadata);
   if(isset($quiz_metadata_array[$_SESSION['user']->username])) {
     echo elgg_view("input/radio", array("internalname" => "quiz[correct_option]",  "disabled"=> 1, 'value'=>$quiz_metadata_array[$_SESSION['user']->username]['reply'], "options" => $vars['entity']->get_options()));
   }else {

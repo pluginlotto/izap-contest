@@ -15,13 +15,13 @@
 
 ?>
 <div class="image_view">
-  <?php echo $vars['quiz_entity']->get_media('300x200'); ?>
+  <?php echo $vars['entity']->get_media('300x200'); ?>
 </div>
 <div class="options_view">
   <?php
-  $quiz_metadata_array = unserialize($vars['quiz_entity']->quiz_metadata);
+  $quiz_metadata_array = unserialize($vars['entity']->quiz_metadata);
   if(isset($quiz_metadata_array[$_SESSION['user']->username])) {
-    echo elgg_view("input/radio", array("internalname" => "quiz[correct_option]",  "disabled"=> 1, 'value'=>$quiz_metadata_array[$_SESSION['user']->username]['reply'], "options" => $vars['quiz_entity']->get_options()));
+    echo elgg_view("input/radio", array("internalname" => "quiz[correct_option]",  "disabled"=> 1, 'value'=>$quiz_metadata_array[$_SESSION['user']->username]['reply'], "options" => $vars['entity']->get_options()));
   }else {
     echo elgg_view("input/radio", array("internalname" => "quiz[correct_option]",  "options" => $vars['entity']->get_options(), 'value' => $vars['entity']->getCorrectAnswer()));
   }

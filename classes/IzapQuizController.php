@@ -20,7 +20,7 @@ class IzapQuizController extends IzapController {
   }
 
   public function actionNew() {
-
+    IzapBase::gatekeeper();
     $container_challenge = get_entity($this->url_vars[1]);
     $type = get_input('type');
     elgg_set_page_owner_guid($container_challenge->container_guid);
@@ -51,7 +51,7 @@ $this->drawPage();
   }
 
   public function actionEdit(){
-
+    IzapBase::gatekeeper();
     $quiz = get_entity($this->url_vars[3]);
     if(!$quiz->canEdit()){
       forward(REFERER);
@@ -65,5 +65,26 @@ $this->drawPage();
     $this->drawPage();
 
     
+  }
+
+  public function actionIcon(){
+      $quiz = get_entity($this->url_vars[1]);
+    $size = $this->url_vars[2];
+
+    $image_name = 'contest/quiz' . $quiz->guid . '/icon' . (($size) ? $size : 'small') . '.jpg';
+    $content = IzapBase::getFile(array(
+                'source' => $image_name,
+                'owner_guid' => $quiz->owner_guid,
+            ));
+
+    if (empty($content)) {
+      $content = file_get_contents(elgg_get_plugins_path() . 'izap-forum/_graphics/no-pic.png');
+    }
+
+    $header_array = array();
+    $header_array['content_type'] = 'image/jpeg';
+    $header_array['file_name'] = elgg_get_friendly_title($quiz->title);
+    IzapBase::cacheHeaders($header_array);
+    echo $content;
   }
 }

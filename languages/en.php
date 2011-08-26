@@ -47,12 +47,13 @@ add_translation('en', array(
     'izap-contest:quiz:answer' => 'Answer',
     'izap-contest:quiz:skip' => 'Skip',
     'izap-contest:quiz:error:no_options' => 'No options provided or no correct answer specified',
-    'izap-contest:quiz:error:title' => 'Please provide quesiton',
+    'izap-contest:quiz:form_error:empty:title' => 'Please provide quesiton',
     'izap-contest:challenge:not_played' => 'You have not taken this challenge yet',
     'izap-contest:off' => 'Off',
     'izap-contest:on' => 'On',
     'izap-contest:comments' => 'Comments',
-
+    'izap-contest:form_error:empty:title' =>'Please provide the challenge name.',
+    'izap-contest:form_error:empty:required_correct' =>'Please provide the required percentage to pass the challenge.',
 
     
     'item:object:izapchallenge' => 'Challenges',
@@ -99,8 +100,8 @@ add_translation('en', array(
     'izap-contest:challenge:passing_percentage' => 'Required',
     'izap-contest:challenge:obtained_percentage' => 'Obtained',
     'izap-contest:challenge:successfully_challenged' => 'You have successfully challenged your friends',
-    'izap-contest:challenge:error:title' => 'Please provide the challenge name.',
-    'izap-contest:challenge:error:required_correct' => 'Please provide the required percentage to pass the challenge.',
+    
+    
     'izap-contest:challenge:not_enough_questions' => 'Users will not be able to take the challenge, as
     minimum number of required quiz are not provided. Or you can edit the Challenge. <b>Minimum required
     quizzes: ',

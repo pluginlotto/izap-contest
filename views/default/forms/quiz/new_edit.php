@@ -31,7 +31,7 @@ $quiz_entity = $vars['quiz_entity'];
       <li class="<?php echo ($vars['mtype'] == 'simple') ? 'elgg-state-selected' : '' ?>"><a href="?type=simple">Simple</a></li>
       <li class="<?php echo ($vars['mtype'] == 'image') ? 'elgg-state-selected' : '' ?>"><a href="?type=image">Image</a></li>
       <li class="<?php echo ($vars['mtype'] == 'audio') ? 'elgg-state-selected' : '' ?>" ><a href="?type=audio">Audio</a></li>
-<?php if (is_plugin_enabled('izap_videos')): ?>
+<?php if (elgg_is_active_plugin(GLOBAL_IZAP_VIDEOS_PLUGIN)): ?>
         <li class="<?php echo ($vars['mtype'] == 'video') ? 'elgg-state-selected' : '' ?>"><a href="?type=video">Video</a></li>
 <?php endif; ?>
     </ul>

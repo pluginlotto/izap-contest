@@ -73,13 +73,15 @@ class IzapQuiz extends ZContest {
 
   public function get_quiz_mime() {
     $media_array = unserialize($this->related_media);
-    return $media_array['file_type'];
+    if ($media_array != '' && isset($media_array['file_type']))
+      return $media_array['file_type'];
+    return $this->qtype;
   }
 
   private function get_video($media, $size = false) {
     $flash_video_object = new IZAPVideoApi($media['file_url']);
     list($width, $height) = explode('x', $size);
-    return $flash_video_object->getFeed($width, $height);
+    return $flash_video_object->getVideoFeed($width, $height);
   }
 
   public function get_media($size = false) {
@@ -113,14 +115,30 @@ class IzapQuiz extends ZContest {
     return FALSE;
   }
 
-  function  getURL() {
-    
+  function getURL() {
+
     $title = friendly_title($this->title);
     return IzapBase::setHref(array(
         'context' => GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,
         'action' => 'view',
         'vars' => array($this->container_guid, $this->guid, $title)
     ));
+  }
+
+  public function getIconURL($size = 'small') {
+    return IzapBase::setHref(array(
+        'context' => GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,
+        'action' => 'icon',
+        'page_owner' => FALSE,
+        'vars' => array($this->guid, $size,)
+    )) . $this->time_updated . ".jpg";
+  }
+
+  public function getThumb() {
+    $image = '<div>';
+    $image .= '<img src="' . $this->getIconURL('medium') . '"/>';
+    $image .= '</div>';
+    return $image;
   }
 
 }

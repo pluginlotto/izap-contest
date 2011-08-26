@@ -36,7 +36,6 @@ class IzapChallengeController extends IzapController {
       //set_input('username', elgg_get_logged_in_user_entity()->username);
       $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:all'));
     }
-
     $list = elgg_list_entities($listing_options);
     $this->page_elements['content'] = $list;
     $this->drawPage();

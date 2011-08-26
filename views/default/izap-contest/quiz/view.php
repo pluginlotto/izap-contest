@@ -18,6 +18,7 @@ if(!$vars['entity'])
 ?>
 <div>
   <?php
+  
   if(elgg_get_logged_in_user_guid() != $vars['entity']->owner_guid) {
     echo elgg_view_title($vars['entity']->title . ' ?');
   }
@@ -26,11 +27,15 @@ if(!$vars['entity'])
     <?php echo elgg_view('input/securitytoken');?>
     <?php
     
-    if(preg_match('/image.+/', $vars['entity']->get_quiz_mime())) {
-      include(dirname(__FILE__).'/image_view.php');
-    }elseif(preg_match('/audio.+/', $vars['entity']->get_quiz_mime())) {
-      include(dirname(__FILE__).'/audio_view.php');
-    }elseif(is_plugin_enabled('izap_videos') && preg_match('/video.+/', $vars['entity']->get_quiz_mime())) {
+    //if(preg_match('/image.+/', $vars['entity']->get_quiz_mime())) {
+    if($vars['entity']->get_quiz_mime()=='image'){
+    include(dirname(__FILE__).'/image_view.php');
+    //}elseif(preg_match('/audio.+/', $vars['entity']->get_quiz_mime())) {
+    }elseif($vars['entity']->get_quiz_mime()=='audio'){
+    include(dirname(__FILE__).'/audio_view.php');
+
+    }elseif(elgg_is_active_plugin(GLOBAL_IZAP_VIDEOS_PLUGIN) && $vars['entity']->get_quiz_mime()=='video/flash_object') {
+    //}elseif(elgg_is_active_plugin(GLOBAL_IZAP_VIDEOS_PLUGIN) && preg_match('/video.+/', $vars['entity']->get_quiz_mime())) {
       include(dirname(__FILE__).'/video_view.php');
     }else {
       include(dirname(__FILE__).'/simple_view.php');
@@ -52,8 +57,8 @@ if(!$vars['entity'])
               echo izapbase::input('hidden',array('name' => 'quiz[guid]','value' =>$vars['entity']->guid));
               echo izapbase::input('hidden',array('name' => 'quiz[container_guid]','value' => $vars['entity']->container_guid));
       ?>
-<!--    <input type="hidden" name="quiz[guid]" value="//<?php echo $vars['quiz_entity']->guid ?>" />
-    <input type="hidden" name="quiz[container_guid]" value="<?php echo $vars['quiz_entity']->container_guid ?>" />-->
+<!--    <input type="hidden" name="quiz[guid]" value="//<?php echo $vars['entity']->guid ?>" />
+    <input type="hidden" name="quiz[container_guid]" value="<?php echo $vars['entity']->container_guid ?>" />-->
     <p style="float:right;">
       <?php
       echo elgg_view('input/submit',array('name' => 'quiz[answer]','value' => elgg_echo('izap-contest:quiz:answer')));

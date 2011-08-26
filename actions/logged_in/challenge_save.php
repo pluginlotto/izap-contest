@@ -18,7 +18,7 @@ if(IzapBase::hasFormError()) {
 
   if(sizeof(IzapBase::getFormErrors())) {
     foreach(IzapBase::getFormErrors() as $error) {
-      register_error($error);
+      register_error(elgg_echo('izap-contest'.$error));
     }
   }
   forward(REFERRER);
