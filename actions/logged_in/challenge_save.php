@@ -12,20 +12,19 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
-
-gatekeeper();
+IzapBase::gatekeeper();
 
 if(IzapBase::hasFormError()) {
+
   if(sizeof(IzapBase::getFormErrors())) {
     foreach(IzapBase::getFormErrors() as $error) {
       register_error($error);
     }
   }
   forward(REFERRER);
-  exit;
+  
 }
-
-$challenge_form = IzapBase::getPostedAttributes();
+ $challenge_form = IzapBase::getPostedAttributes();
 
 $_SESSION['zcontest']['challenge'] = $challenge_form;
 

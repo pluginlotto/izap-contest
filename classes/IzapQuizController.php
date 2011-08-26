@@ -52,6 +52,18 @@ $this->drawPage();
 
   public function actionEdit(){
 
+    $quiz = get_entity($this->url_vars[3]);
+    if(!$quiz->canEdit()){
+      forward(REFERER);
+    }
+    $container_challenge = get_entity($this->url_vars[2]);
+    $type = get_input('type');
+    elgg_set_page_owner_guid($container_challenge->container_guid);
+    $this->page_elements['filter'] = '';
+    $this->page_elements['title'] = elgg_view_title('<a href="' . $container_challenge->getURL() . '">' . $container_challenge->title . '</a> :' . elgg_echo('izap-contest:quiz:edit'));
+    $this->page_elements['content'] = elgg_view('forms/quiz/new_edit', array('container_guid' => $this->url_vars[1], 'mtype' => $type,'quiz_entity' =>$quiz));
+    $this->drawPage();
+
     
   }
 }

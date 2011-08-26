@@ -210,7 +210,7 @@ class IzapChallenge extends ZContest {
       $result = $this->save_results();
       forward(IzapBase::setHref(array(
                   'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-                  'action' => 'results',
+                  'action' => 'result',
                   'vars' => array(
                       $this->guid,
                       $result->guid,

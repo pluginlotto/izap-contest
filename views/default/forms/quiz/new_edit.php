@@ -15,10 +15,12 @@
 
 
 IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_CONTEST_PLUGIN, 'lib' => 'izap-contest'));
-$quiz_entity = izap_array_to_object(
-                ($_SESSION['zcontest']['quiz']) ? $_SESSION['zcontest']['quiz'] :
-                        ((isset($vars['quiz_entity'])) ? $vars['quiz_entity']->izap_get_attributes() :
-                                array('access_id' => get_entity($vars['container_guid'])->access_id)));
+$quiz_entity = $vars['quiz_entity'];
+
+//izap_array_to_object(
+//                ($_SESSION['zcontest']['quiz']) ? $_SESSION['zcontest']['quiz'] :
+//                        ((isset($vars['quiz_entity'])) ? $vars['quiz_entity']->izap_get_attributes() :
+//                                array('access_id' => get_entity($vars['container_guid'])->access_id)));
 ?>
 
 <div class="contentWrapper">
@@ -109,7 +111,7 @@ $quiz_entity = izap_array_to_object(
     <?php if ($vars['quiz_entity']): ?>
     <?php echo elgg_view('input/hidden', array('name' => "attributes[guid]", "value" => $quiz_entity->getGUID())) ?>
     <?php endif; ?>
-    <?php echo elgg_view('input/hidden', array('name' => "attributes[containder_guid]", "value" => $vars['container_guid'])) ?>
+    <?php echo elgg_view('input/hidden', array('name' => "attributes[container_guid]", "value" => $vars['container_guid'])) ?>
     <?php echo elgg_view('input/hidden', array('name' => "rurl", "value" => get_input('rurl'))) ?>
     <?php echo elgg_view('input/hidden', array('name' => "attributes[qtype]", "value" => ($vars['mtype'] == '') ? 'simple' : $vars['mtype'])) ?>
           

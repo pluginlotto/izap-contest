@@ -52,7 +52,7 @@ class IzapChallengeController extends IzapController {
 
   public function actionEdit() {
     IzapBase::gatekeeper();
-    $challenge_entity = get_entity($this->url_vars[1]);
+    $challenge_entity = get_entity($this->url_vars[2]);
     if (!$challenge_entity->canEdit()) {
       forward(REFERER);
     }
@@ -70,7 +70,7 @@ class IzapChallengeController extends IzapController {
 //}
 
     $this->page_elements['title'] = elgg_view_title($page_owner->name . '\'s ' . elgg_echo('izap-contest:challenge:accepted'));
-    $this->page_elements['content'] = elgg_list_entities_from_metadata(array(
+    $list = elgg_list_entities_from_metadata(array(
                 'type' => 'object',
                 'subtype' => GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE,
                 'metadata_name' => 'accepted_by',

@@ -90,16 +90,16 @@ class ZContest extends IzapObject {
   }
 
 
-  public function izap_debug_entity($guid) {
-    $sql = "SELECT * FROM  my_metastrings ms,
-            (SELECT md.value_id, md.name_id, md.access_id FROM my_entities me ,
-              my_entity_subtypes mes, my_metadata md where me.subtype=mes.id
-            AND me.guid = '".$guid."'
-            AND mes.subtype='".strtolower(get_class($this))."'
-            AND md.entity_guid = me.guid) tm where ms.id = tm.value_id or ms.id = tm.name_id
-            ORDER by name_id;";
-    return get_data($sql);
-  }
+//  public function izap_debug_entity($guid) {
+//    $sql = "SELECT * FROM  my_metastrings ms,
+//            (SELECT md.value_id, md.name_id, md.access_id FROM my_entities me ,
+//              my_entity_subtypes mes, my_metadata md where me.subtype=mes.id
+//            AND me.guid = '".$guid."'
+//            AND mes.subtype='".strtolower(get_class($this))."'
+//            AND md.entity_guid = me.guid) tm where ms.id = tm.value_id or ms.id = tm.name_id
+//            ORDER by name_id;";
+//    return get_data($sql);
+//  }
 
 
   /**

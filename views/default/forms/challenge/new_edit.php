@@ -14,10 +14,12 @@
  */
 IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_CONTEST_PLUGIN, 'lib' => 'izap-contest'));
 
-$challenge_entity = izap_array_to_object(
-                ($_SESSION['zcontest']['challenge']) ? $_SESSION['zcontest']['challenge'] :
-                        ( isset($vars['challenge_entity']) ? $vars['challenge_entity']->izap_get_attributes() : array('access_id' => defined('ACCESS_DEFAULT') ? ACCESS_DEFAULT : 1) )
-);
+$challenge_entity = $vars['challenge_entity'];
+
+//izap_array_to_object(
+//                ($_SESSION['zcontest']['challenge']) ? $_SESSION['zcontest']['challenge'] :
+//                        ( isset($vars['challenge_entity']) ? $vars['challenge_entity']->izap_get_attributes() : array('access_id' => defined('ACCESS_DEFAULT') ? ACCESS_DEFAULT : 1) )
+//);
 ?>
 
 <div>

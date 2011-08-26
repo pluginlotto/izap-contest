@@ -73,8 +73,8 @@ if ($vars['full'] == true) {
     <p class="odd"><b><?php echo elgg_echo("izap-contest:challenge:total_passed"); ?>:</b> <?php echo (int) $challenge->total_passed ?></p>
   <?php
     if (isloggedin ()) {
-      $user_var = get_loggedin_user()->username . '_total_attempted';
-      $pass_var = get_loggedin_user()->username . '_total_passed';
+      $user_var = elgg_get_logged_in_user_entity()->username . '_total_attempted';
+      $pass_var = elgg_get_logged_in_user_entity()->username . '_total_passed';
   ?>
       <p class="odd"><b><?php echo elgg_echo("izap-contest:challenge:your_total_attempted"); ?>:</b> <?php echo (int) $challenge->$user_var ?></p>
       <p class="odd"><b><?php echo elgg_echo("izap-contest:challenge:your_total_passed"); ?>:</b> <?php echo (int) $challenge->$pass_var ?></p>
