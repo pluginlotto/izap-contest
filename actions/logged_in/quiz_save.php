@@ -139,4 +139,3 @@ if ($rurl) {
 }
 
 forward($rurl);
-exit;

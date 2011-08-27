@@ -88,8 +88,9 @@ class IzapChallengeController extends IzapController {
   public function actionView() {
 
     $id = (int) $this->url_vars[2];
-    if (!$challenge_entity = get_entity($id))
-      forward(REFERER);
+    $challenge_entity = get_entity($id);
+    if (!elgg_instanceof($challenge_entity, 'object', GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, GLOBAL_IZAP_CONTEST_CHALLENGE_CLASS))
+     forward(IzapBase::setHref(array('context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,'action' => 'list','page_owner' => false,'vars' =>array('all'))));
     $control_menu = IzapBase::controlEntityMenu(array('entity' => $challenge_entity, 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
 //    set_context('quiz');
     $title = $challenge_entity->title;

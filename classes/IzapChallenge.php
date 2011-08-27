@@ -201,6 +201,7 @@ class IzapChallenge extends ZContest {
 
   public function current_question() {
     global $CONFIG;
+//    c($_SESSION['challenge']);exit;
     // get current question from the session
     $this->current_question = get_entity($_SESSION['challenge']['questions'][(int) $_SESSION['challenge']['qc']]);
     // only return if it validates

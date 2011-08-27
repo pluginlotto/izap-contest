@@ -123,7 +123,7 @@ $quiz_entity = $vars['quiz_entity'];
       $('document').ready(function(){
         $("#addmore").click(function(){
           $("#option-array").append('<p id="option'+counter+'"><label><?php echo elgg_echo('izap-contest:quiz:option') ?><input onblur="leave_corresponding_option('+counter+')" onfocus="focus_corresponding_option('+counter+')" onkeyup="correct_option_label(this.value,'+counter+')" type="text" name="attributes[opt:'+counter+']" class="input-text"></label><a href="javascript:del_options(\''+counter+'\');">Delete</a></p>');
-      $("#correct-option-array").append('<label id="correct'+counter+'"><input name="attributes[correct_option]" value="opt:'+counter+'" class="input-radio" type="radio"><span class="izapRadio" id="rlabel'+counter+'">option 1</span> <br /></label>');
+      $("#correct-option-array").append('<label id="correct'+counter+'"><input name="attributes[_correct_option]" value="opt:'+counter+'" class="input-radio" type="radio"><span class="izapRadio" id="rlabel'+counter+'">option 1</span> <br /></label>');
       counter++;
       return false;
     });

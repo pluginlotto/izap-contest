@@ -58,7 +58,7 @@ if($challenge_entity->max_quizzes < 2) {
   
 
 
-if(!$challenge_entity->save(true,array('river' => true))) {
+if(!$challenge_entity->save()) {
   register_error("Error in challenge creation.");
   forward(REFERER);
   }
