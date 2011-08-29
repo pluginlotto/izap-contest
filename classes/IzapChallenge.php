@@ -18,6 +18,7 @@ class IzapChallenge extends ZContest {
 
   protected $is_playing;
   protected $current_question;
+  protected $form_attributes;
 
   protected function initializeAttributes() {
     parent::initializeAttributes();
@@ -32,26 +33,21 @@ class IzapChallenge extends ZContest {
       $this->start_playing();
     }
 
-    // 
-    //
-    // DO NOT UNCOMMENT THIS CODE : BY CHETAN SHARMA WE NEED TO THINK ALOT ABOUT THIS.
-    //
-    //
     // set default form attributes
-//    $this->form_attributesa = array(
-//        'title' => array(),
-//        'description' => array(),
-//        'container_guid' => array(),
-//        'access_id' => array(),
-//        'required_correct' => array(),
-//        'max_quizzes' => array(),
-//        'timer' => array(),
-//        're_attempt' => array(),
-//        'negative_marking' => array(),
-//        'terms' => array(),
-//        'tags' => array(),
-//        'comments_on' => array()
-//    );
+    $this->form_attributes = array(
+        'title' => array(),
+        'description' => array(),
+        'container_guid' => array(),
+        'access_id' => array(),
+        'required_correct' => array(),
+        'max_quizzes' => array(),
+        'timer' => array(),
+        're_attempt' => array(),
+        'negative_marking' => array(),
+        'terms' => array(),
+        'tags' => array(),
+        'comments_on' => array()
+    );
   }
 
   public function getAttributesArray() {
@@ -247,14 +243,14 @@ class IzapChallenge extends ZContest {
     $result->total_time_taken = time() - $challenge['start_time'];
 
     IzapBase::getAllAccess();// force save
-    $user_var = get_loggedin_user()->username . '_last_attempt';
+    $user_var = elgg_get_logged_in_user_entity()->username . '_last_attempt';
     $this->$user_var = time();
     $this->total_attempted = (int) $this->total_attempted + 1;
-    $user_var = get_loggedin_user()->username . '_total_attempted';
+    $user_var = elgg_get_logged_in_user_entity()->username . '_total_attempted';
     $this->$user_var = (int) $this->$user_var + 1;
 
     if ($result->status == 'passed') {
-      $pass_var = get_loggedin_user()->username . '_total_passed';
+      $pass_var = elgg_get_logged_in_user_entity()->username . '_total_passed';
       $this->total_passed = (int) $this->total_passed + 1;
       $this->$pass_var = (int) $this->$pass_var + 1;
     }
@@ -274,12 +270,14 @@ class IzapChallenge extends ZContest {
       if ($friend_guid != $this->owner_guid) {
         notify_user(
                 $friend_guid,
-                get_loggedin_user()->guid,
-                elgg_echo('zcontest:challenge_invitation'),
-                sprintf(elgg_echo('zcontest:challenge_inivitation_message'), get_loggedin_user()->name, $this->getUrl()
+                elgg_get_logged_in_user_guid(),
+                elgg_echo('izap-contest:challenge_invitation'),
+                elgg_echo('izap-contest:challenge_inivitation_message', array(elgg_get_logged_in_user_entity()->name, $this->getUrl())
                 )
         );
-      }
+        system_message(elgg_echo('izap-contest:challenge:successfully_challenged'));
+      }else
+        register_error(elgg_echo('izap-contest:challenge:can_not_challenge_owner'));
     }
   }
 

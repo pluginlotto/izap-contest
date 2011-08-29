@@ -17,7 +17,7 @@ include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 $entity_guid = (int) get_input('id');
 $size = get_input('size');
 $entity = get_entity($entity_guid);
-$contents = $entity->get_media($size);
+c($contents = $entity->get_media($size));
 izap_cache_headers(array(
         'content_type' => $entity->getMimeType(),
         'file_name' => friendly_title($entity->title),

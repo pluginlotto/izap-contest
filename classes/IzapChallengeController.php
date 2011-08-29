@@ -27,14 +27,14 @@ class IzapChallengeController extends IzapController {
     $listing_options['type'] = 'object';
     $listing_options['subtype'] = GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE;
     if ($page_owner == $_SESSION['user']) {
-      $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:my'));
+      $this->page_elements['title'] = elgg_echo('izap-contest:challenge:my');
       $listing_options['container_guid'] = $page_owner->guid;
     } elseif ($page_owner) {
-      $this->page_elements['title'] = elgg_view_title(sprintf(elgg_echo('izap-contest:user'), $page_owner->name));
+      $this->page_elements['title'] = sprintf(elgg_echo('izap-contest:user'), $page_owner->name);
       $listing_options['container_guid'] = $page_owner->guid;
     } else {
       //set_input('username', elgg_get_logged_in_user_entity()->username);
-      $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:all'));
+      $this->page_elements['title'] = elgg_echo('izap-contest:challenge:all');
     }
     $list = elgg_list_entities($listing_options);
     $this->page_elements['content'] = $list;

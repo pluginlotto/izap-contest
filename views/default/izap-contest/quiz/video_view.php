@@ -15,7 +15,10 @@
 
 ?>
 <div class="image_view">
-  <?php echo $vars['entity']->get_media('300x200'); ?>
+  <?php $video = new IZAPVideoApi();
+  $video = $video->getVideoEntity($vars['entity']->video_guid);
+  echo $video->videosrc;
+  ?>
 </div>
 <div class="options_view">
   <?php

@@ -108,14 +108,15 @@ $quiz_entity = $vars['quiz_entity'];
       </label>
     </p>
 
-    <?php if ($vars['quiz_entity']): ?>
-    <?php echo elgg_view('input/hidden', array('name' => "attributes[guid]", "value" => $quiz_entity->getGUID())) ?>
-    <?php endif; ?>
-    <?php echo elgg_view('input/hidden', array('name' => "attributes[container_guid]", "value" => $vars['container_guid'])) ?>
-    <?php echo elgg_view('input/hidden', array('name' => "rurl", "value" => get_input('rurl'))) ?>
-    <?php echo elgg_view('input/hidden', array('name' => "attributes[qtype]", "value" => ($vars['mtype'] == '') ? 'simple' : $vars['mtype'])) ?>
-          
-      <?php echo izapbase::input('submit', array('name' => "Submit", "value" => elgg_echo('save'))) ?>
+    
+    <?php if ($vars['quiz_entity']):
+    echo elgg_view('input/hidden', array('name' => "attributes[guid]", "value" => $quiz_entity->getGUID()));
+    endif;;
+    echo elgg_view('input/hidden', array('name' => "attributes[container_guid]", "value" => $vars['container_guid']));
+    echo elgg_view('input/hidden', array('name' => "rurl", "value" => get_input('rurl')));
+    echo elgg_view('input/hidden', array('name' => "attributes[qtype]", "value" => ($vars['mtype'] == '') ? 'simple' : $vars['mtype']));
+      echo elgg_view('input/hidden',array('name' => 'attributes[plugin]','value' => GLOBAL_IZAP_CONTEST_PLUGIN));
+      echo izapbase::input('submit', array('name' => "Submit", "value" => elgg_echo('save')));?>
       </form>
     </div>
     <script language="javascript" type="text/javascript">

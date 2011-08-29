@@ -21,22 +21,26 @@ class IzapQuiz extends ZContest {
     $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE;
   }
 
+  protected $form_attributes;
+
   public function __construct($guid = null) {
     parent::__construct($guid);
 
-//    $this->form_attributes = array(
-//        'title' => array(),
-//        'description' => array(),
-//        'container_guid' => array(),
-//        'access_id' => array(),
-////        'videoUrl' => array(),
-////        'videoType' => array(),
-////        'tags' => array(),
-////        'categories' => array(),
-//        //'comments_on' =>array()
-//    );
+    $this->form_attributes = array(
+        'title' => array(),
+        'description' => array(),
+        'container_guid' => array(),
+        'access_id' => array(),
+        'solution' =>array(),
+        'tags' => array(),
+        'qtype' =>array(),
+        'correct_option' => array()
+    );
   }
 
+  public function getAttributesArray(){
+    return $this->form_attributes;
+  }
   /**
    *
    * @param <boolean> $force. True will ignore the media deletion and just drop the entity

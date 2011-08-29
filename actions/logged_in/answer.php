@@ -1,21 +1,20 @@
 <?php
 
-/* * ************************************************
+/* * *************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
  * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
- * @version 1.0
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
 // Make sure we're logged in
-gatekeeper();
+izapbase::gatekeeper();
 // Get input data
 $quiz_form = get_input('quiz');
 // Cache to the session
@@ -52,7 +51,6 @@ if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_fo
   $_SESSION['challenge']['answers'][$quiz_entity->guid]['is_correct'] = TRUE;
   $_SESSION['challenge']['totals']++;
   $_SESSION['challenge']['total_correct_answers']++;
-  //system_message(elgg_echo(':)! Correct answer.'));
 } else {
   $quiz_entity->$correct_var = 'no';
   $_SESSION['challenge']['answers'][$quiz_entity->guid]['is_correct'] = FALSE;
@@ -60,9 +58,8 @@ if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_fo
     if ($challenge_entity->negative_marking) {
       $_SESSION['challenge']['totals']--;
     }
-    //register_error(elgg_echo(':(! Wrong answer.'));
   } elseif ($quiz_form['skip'] == 'Skip') {
-    //register_error(elgg_echo(':(! Skipped.'));
+
   }
 }
 

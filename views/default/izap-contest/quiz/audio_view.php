@@ -12,7 +12,6 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
 */
-
 ?>
 <script type="text/javascript" src="<?php echo $vars['url']; ?>mod/izap-contest/audioplayer/audio-player.js"></script>
 <!-- set up the player -->
@@ -22,9 +21,9 @@
   });
 </script>
 
-<div class="audio_view" id="zplayer">
+<div class="audio_view" id="zplayer" >
   <script type="text/javascript">
-    AudioPlayer.embed("zplayer", {soundFile: "<?php echo IzapBase::getFile(array('source' =>'contest/quiz' . $vars['entity']->guid . '/icon','owner_id'=>''))?>"});
+    AudioPlayer.embed("zplayer", {soundFile: "<?php echo $vars['url']; ?>mod/izap-contest/content.php?id=<?php echo $vars['entity']->getGUID(); ?>"});
   </script>
 </div>
 <div class="options_view">
