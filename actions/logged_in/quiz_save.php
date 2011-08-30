@@ -1,9 +1,10 @@
 <?php
-/***************************************************
+
+/* * *************************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- ***************************************************
+ * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -26,16 +27,24 @@ if (IzapBase::hasFormError()) {
 }
 // Get input data
 $quiz_form = IzapBase::getPostedAttributes();
+if (!isset($quiz_form['correct_option'])) {
+  register_error(elgg_echo('izap-contest:quiz:error:no_options'));
+  forward(REFERER);
+}
 $_SESSION['zcontest']['quiz'] = $quiz_form;
 
 // Make sure the title isn't blank
 $quiz_entity = new IzapQuiz($quiz_form['guid']);
 IzapBase::updatePostedAttribute('tags', string_to_tag_array($quiz_entity['tags']));
 $quiz_entity->setAttributes();
-if($quiz_form['qtype']=='video'){
-  $video = new IZAPVideoApi($quiz_form['related_media']);
-$video = $video->createOffServerVideoEntity();
-$quiz_entity->video_guid = $video->getGUID();
+if ($quiz_form['qtype'] == 'video') {
+  $video_api = new IZAPVideoApi($quiz_form['related_media']);
+  $video = $video_api->createOffServerVideoEntity();
+  if (isset($video_api->errors)) {
+    foreach ($video_api->errors as $error)
+      register_error($error);
+  }
+  $quiz_entity->video_guid = $video->guid;
 }
 // Set its owner to the current user
 $challenge_entity = get_entity($quiz_form['container_guid']);
@@ -54,7 +63,7 @@ foreach ($quiz_form as $key => $val) {
   } else {
     if ($key == 'related_media') {
       $quiz_entity->$key = serialize(array('file_url' => $val, 'file_type' => 'video/flash_object'));
-    } 
+    }
   }
 }
 if (is_array($options) && sizeof($options) && $quiz_entity->correct_option != '') {
@@ -69,10 +78,10 @@ if (!empty($_FILES['related_media']['name'])) {
     forward($REFERER); //failed, so forward to previous page
     exit;
   }
-  $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/",$_FILES['related_media']['type'])?
-          array('tiny' => '30x50', 'sqr' => '70', 'large' => '200x300'):
+  $thumb = preg_match("/image\/jpeg|image\/gif|image\/png|image\/jpg|image\/jpe|image\/pjpeg|image\/x-png/", $_FILES['related_media']['type']) ?
+          array('tiny' => '30x50', 'sqr' => '70', 'large' => '200x300') :
           false;
-    $quiz_entity->izap_upload_generate_thumbs($_FILES,false);
+  $quiz_entity->izap_upload_generate_thumbs($_FILES);
 }
 
 $_SESSION['zcontest']['quiz'] = $quiz_form;

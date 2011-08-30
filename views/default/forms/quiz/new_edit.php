@@ -48,7 +48,7 @@ $quiz_entity = izap_array_to_object(isset($vars['quiz_entity']) ? $vars['quiz_en
             <p id="option1">
               <label>
           <?php echo elgg_echo('izap-contest:quiz:option'); ?>
-<?php echo elgg_view("input/text", array("name" => "attributes[opt:1]", "js" => "onblur=leave_corresponding_option(1) onfocus=focus_corresponding_option(1) onkeyup=correct_option_label(this.value,1)")) ?>
+<?php echo elgg_view("input/text", array("name" => "attributes[_opt:1]", "js" => "onblur=leave_corresponding_option(1) onfocus=focus_corresponding_option(1) onkeyup=correct_option_label(this.value,1)")) ?>
         </label>
         <a id="addmore" href="#">Add more</a>
       </p>
@@ -77,7 +77,7 @@ $quiz_entity = izap_array_to_object(isset($vars['quiz_entity']) ? $vars['quiz_en
           foreach ($options as $key => $val) {
     ?>
             <p>
-              <input name="attributes[correct_option]" value="<?php echo $key ?>" class="input-radio" type="radio" <?php echo ($quiz_entity->correct_option == $key) ? 'CHECKED' : ''; ?> />
+              <input name="attributes[_correct_option]" value="<?php echo $key ?>" class="input-radio" type="radio" <?php echo ($quiz_entity->correct_option == $key) ? 'CHECKED' : ''; ?> />
 <?php echo elgg_view("input/text", array("name" => "attributes[" . $key . "]", "value" => $val, 'class' => 'general-text')); ?>
           </p>
     <?php

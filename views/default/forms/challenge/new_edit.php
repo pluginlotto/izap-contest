@@ -105,7 +105,7 @@ $challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $var
         if ($vars['challenge_entity']):
           echo elgg_view('input/hidden', array('name' => 'attributes[guid]', 'value' => $challenge_entity->guid));
         else:
-          echo elgg_view('input/hidden', array('name' => 'attributes[container_guid]', 'value' => page_owner_entity()->guid));
+          echo elgg_view('input/hidden', array('name' => 'attributes[container_guid]', 'value' => elgg_get_page_owner_guid()));
      endif;
      echo elgg_view('input/hidden',array('name' => 'attributes[plugin]','value' => GLOBAL_IZAP_CONTEST_PLUGIN));?>
           <p>

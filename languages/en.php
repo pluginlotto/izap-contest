@@ -54,6 +54,7 @@ add_translation('en', array(
  'izap-contest:form_error:empty:title' => 'Please provide the challenge name.',
  'izap-contest:form_error:empty:required_correct' => 'Please provide the required percentage to pass the challenge.',
  'izap-contest:no file support' => 'There is no support for this uploaded file',
+    'izap-contest:form_error:empty:opt:1'=> 'No options has been added yet',
 
 'item:object:izapchallenge' => 'Challenges',
  'izap-contest:challenge' => 'Challenge: %s',

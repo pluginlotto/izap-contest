@@ -151,27 +151,13 @@ class IzapQuiz extends ZContest {
         'vars' => array($this->container_guid, $this->guid, $title)
     ));
   }
-/**
- * gives the url for the icon of the quiz
- * @param <string> $size
- * @return <string> url of the icon
- */
-  public function getIconURL($size = 'small') {
-    return IzapBase::setHref(array(
-        'context' => GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,
-        'action' => 'icon',
-        'page_owner' => FALSE,
-        'vars' => array($this->guid, $size,)
-    )) . $this->time_updated . ".jpg";
-  }
-
   /**
    * returns the thumb of the quiz
    * @return <string>  $image
    */
   public function getThumb() {
     $image = '<div>';
-    $image .= '<img src="' . $this->getIconURL('medium') . '"/>';
+    $image .= '<img src="' . elgg_get_site_url().'mod/izap-contest/content.php?id='.$this->guid.'&size=medium' . '"/>';
     $image .= '</div>';
     return $image;
   }
