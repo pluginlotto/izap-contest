@@ -1,15 +1,14 @@
 <?php
-
-/* * ************************************************
+/***************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- * **************************************************
+ ***************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
@@ -30,7 +29,7 @@ class IzapChallengeController extends IzapController {
       $this->page_elements['title'] = elgg_echo('izap-contest:challenge:my');
       $listing_options['container_guid'] = $page_owner->guid;
     } elseif ($page_owner) {
-      $this->page_elements['title'] = sprintf(elgg_echo('izap-contest:user'), $page_owner->name);
+      $this->page_elements['title'] = elgg_echo('izap-contest:user', array($page_owner->name));
       $listing_options['container_guid'] = $page_owner->guid;
     } else {
       //set_input('username', elgg_get_logged_in_user_entity()->username);
@@ -44,7 +43,7 @@ class IzapChallengeController extends IzapController {
   public function actionAdd() {
     IzapBase::gatekeeper();
     $this->page_elements['filter'] = '';
-    $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:add'));
+    $this->page_elements['title'] = elgg_view('page/elements/title',array('title'=>elgg_echo('izap-contest:challenge:add')));
     $this->page_elements['content'] = elgg_view('forms/challenge/new_edit');
     $this->drawPage();
   }
@@ -56,19 +55,15 @@ class IzapChallengeController extends IzapController {
       forward(REFERER);
     }
     $this->page_elements['filter'] = '';
-    $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:edit'));
+    $this->page_elements['title'] = elgg_view('page/elements/title',array('title'=>elgg_echo('izap-contest:challenge:edit')));
     $this->page_elements['content'] = elgg_view('forms/challenge/new_edit', array('challenge_entity' => $challenge_entity));
     $this->drawPage();
   }
 
   public function actionAccepted() {
     $page_owner = elgg_get_page_owner_entity();
-//if(!$page_owner) {
-//  set_input('username', get_loggedin_user()->username);
-//  $page_owner = page_owner_entity();
-//}
 
-    $this->page_elements['title'] = elgg_view_title($page_owner->name . '\'s ' . elgg_echo('izap-contest:challenge:accepted'));
+    $this->page_elements['title'] = elgg_view('page/elements/title',array('title'=>$page_owner->name . '\'s ' . elgg_echo('izap-contest:challenge:accepted')));
     $list = elgg_list_entities_from_metadata(array(
                 'type' => 'object',
                 'subtype' => GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE,
@@ -92,7 +87,6 @@ class IzapChallengeController extends IzapController {
     if (!elgg_instanceof($challenge_entity, 'object', GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, GLOBAL_IZAP_CONTEST_CHALLENGE_CLASS))
      forward(IzapBase::setHref(array('context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,'action' => 'list','page_owner' => false,'vars' =>array('all'))));
     $control_menu = IzapBase::controlEntityMenu(array('entity' => $challenge_entity, 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
-//    set_context('quiz');
     $title = $challenge_entity->title;
     $this->page_elements['filter'] = '';
     $this->page_elements['title'] = elgg_view('page/elements/title', array('title' => elgg_echo('izap-contest:challenge', array($title)))) . $control_menu;
@@ -122,7 +116,7 @@ class IzapChallengeController extends IzapController {
 
       $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity));
     } else {
-      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity, 'full' => $this->url_vars[3]));
+      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity, 'full_view' => $this->url_vars[3]));
     }
 
     $this->drawPage();
@@ -143,7 +137,7 @@ class IzapChallengeController extends IzapController {
           'limit' => 20,
       );
 
-      $this->page_elements['title'] = elgg_view_title(elgg_echo('izap-contest:challenge:my_results'));
+      $this->page_elements['title'] = elgg_view('page/elements/title',array('title'=>elgg_echo('izap-contest:challenge:my_results')));
       $list = elgg_list_entities($options);
       if ($list != '') {
         $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/result_listing_header');

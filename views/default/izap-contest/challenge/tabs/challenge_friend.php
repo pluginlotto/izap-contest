@@ -23,7 +23,7 @@ foreach($friends_array as $friend) {
   <?php 
   echo elgg_view('input/securitytoken');
   echo elgg_view('input/friendspicker', array('entities' => $friends_array, 'value' => $value));
-  echo elgg_view('input/hidden', array('internalname' => 'challenge_guid', 'value' => $vars['entity']->guid));
+  echo elgg_view('input/hidden', array('name' => 'challenge_guid', 'value' => $vars['entity']->guid));
   echo elgg_view('input/submit', array('value' => elgg_echo('izap-contest:challenge:challenge_friends')));
   ?>
 </form>

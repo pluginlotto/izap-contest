@@ -1,16 +1,15 @@
 <?php
-/**************************************************
-* PluginLotto.com                                 *
-* Copyrights (c) 2005-2010. iZAP                  *
-* All rights reserved                             *
-***************************************************
-* @author iZAP Team "<support@izap.in>"
-* @link http://www.izap.in/
-* @version 1.0
-* Under this agreement, No one has rights to sell this script further.
-* For more information. Contact "Tarun Jangra<tarun@izap.in>"
-* For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
-* Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
+/***************************************************
+ * PluginLotto.com                                 *
+ * Copyrights (c) 2005-2011. iZAP                  *
+ * All rights reserved                             *
+ ***************************************************
+ * @author iZAP Team "<support@izap.in>"
+ * @link http://www.izap.in/
+ * Under this agreement, No one has rights to sell this script further.
+ * For more information. Contact "Tarun Jangra<tarun@izap.in>"
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
+ * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
 
@@ -21,12 +20,17 @@ class ZContest extends IzapObject {
 
   protected function initialiseAttributes() {
     parent::initializeAttributes();
-    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE;
+   
   }
   public function izap_get_attributes() {
     return $this;
   }
-
+/**
+ * returns the file of related_media
+ * @param <type> $media_array
+ * @param <type> $size
+ * @return <type>
+ */
   protected function get_file($media_array , $size = false) { // $size = fasle will return original file contents.
     $location = strtolower(get_class($this));
     if($size) {
@@ -37,12 +41,19 @@ class ZContest extends IzapObject {
     return $this->grabFile();
   }
 
+  /**
+   * gives the permission to edit the quiz
+   */
   public function izap_grant_edit() {
     if(get_class($this)=='IzapQuiz') {
       register_plugin_hook('permissions_check', 'object', 'izap_quiz_edit_grant');
     }
   }
 
+  /**
+   * revokes the permission for editing the quiz
+   *
+   */
   public function izap_revoke_edit() {
     if(get_class($this) == 'IzapQuiz') {
       $key = array_search('izap_quiz_edit_grant',$CONFIG->hooks['permissions_check']['object']);
@@ -89,19 +100,6 @@ class ZContest extends IzapObject {
     $this->$fieldname = serialize($array_to_be_stored);
   }
 
-
-//  public function izap_debug_entity($guid) {
-//    $sql = "SELECT * FROM  my_metastrings ms,
-//            (SELECT md.value_id, md.name_id, md.access_id FROM my_entities me ,
-//              my_entity_subtypes mes, my_metadata md where me.subtype=mes.id
-//            AND me.guid = '".$guid."'
-//            AND mes.subtype='".strtolower(get_class($this))."'
-//            AND md.entity_guid = me.guid) tm where ms.id = tm.value_id or ms.id = tm.name_id
-//            ORDER by name_id;";
-//    return get_data($sql);
-//  }
-
-
   /**
    *
    * @param <array> $fn_array, Array of all related media
@@ -138,119 +136,3 @@ class ZContest extends IzapObject {
 
 
 }
-///*
-// * To change this template, choose Tools | Templates
-// * and open the template in the editor.
-//*/
-//
-///**
-// * it creates the form, from the provided array
-// *
-// * @global GLOBAL $CONFIG
-// * @param array $mainArray main form array
-// * @param string $action form action
-// * @param object $formValues values for the elements
-// * @param string $langkey initial label string from language file
-// * @param string $postArray array name for posting elements
-// * @param char $requiredMark anything which will attach with the require fields
-// * @param boolean $reurnForm is we want the form back
-// * @param string $formId form id
-// * @return html
-// */
-//function izap_qcontest_form($mainArray, $action, $formValues, $langkey = '', $postArray = 'izap', $requiredMark = '*', $reurnForm = TRUE, $formId = 'izapForm') {
-//  global $CONFIG;
-//
-//  // create the fields fromt the array
-//  foreach ($mainArray as $name => $values) {
-//    // creats the fields
-//    $form .= izap_qcontest_field($name, $values, $formValues->$name, $labelText, $postArray, $requiredMark);
-//  }
-//
-//  // if we want to return the complete form
-//  if($reurnForm) {
-//    // submit  buttom
-//    $form .= elgg_view('input/submit', array(
-//            'value' => elgg_echo($labelText . 'save'),
-//            'js' => 'id="butnSubmit_"' .$formId. '',
-//            )
-//    );
-//
-//    // all form
-//    $form = elgg_view('input/form', array(
-//            'body' => $form,
-//            'action' => $CONFIG->wwwroot . 'action/' . $action,
-//            'enctype' => 'multipart/form-data',
-//            'internalid' => $formId,
-//            )
-//    );
-//  }
-//
-//  return $form;
-//}
-//
-///**
-// * this converts the array into object
-// *
-// * @param array $array
-// * @return object
-// */
-//function izap_array_to_object($attr) {
-//  if(is_object($attr)) {
-//    return $attr;
-//  }elseif(!is_array($attr)) {
-//    return false;
-//  }
-//
-//  $obj = new stdClass();
-//  foreach ($attr as $key => $value) {
-//    $obj->$key = $value;
-//  }
-//  return $obj;
-//}
-//
-///**
-// * this function acutally creats the input fields
-// *
-// * @param string $name name for the input field
-// * @param array $options all the required parameters
-// * @param array $formValues initial values for the fields
-// * @param string $labelText starting text for the label
-// * @param string $postArray array name
-// * @param string $requiredMark sign for the compusory fields
-// * @return html full input fields
-// */
-//function izap_qcontest_field($name, $options, $formValues, $labelText = '', $postArray = 'izap', $requiredMark = '*') {
-//  $requiredText = ($options['required']) ? $requiredMark : '';
-//  $label = '<p><label>'.elgg_echo($labelText . $name) . ' ' . $requiredText .'<br />%s</label></p>';
-//
-//  $tmpField = elgg_view('input/' . $options['type'], array(
-//          'internalname' => $postArray. '[' . $name . ']' . $makeArray,
-//          'internalid' => $options['internalid'],
-//          'value' => ($formValues == '') ? $options['value'] : $formValues,
-//          'options' => $options['options'],
-//          'options_values' => $options['options_values'],
-//          'js' => $options['js'],
-//          'class' => $options['class'],
-//          'disabled' => $options['disabled'],
-//          'hidden' => $options['hidden'],
-//          'noEditer' => $options['noEditer'],
-//          )
-//  );
-//
-//  // if hidden field then lables are not needed
-//  if($options['type'] == 'hidden') {
-//    $final = $tmpField;
-//  }else {
-//    $final = sprintf($label, $tmpField);
-//  }
-//
-//  return $final;
-//}
-//
-//
-//
-//function zp($attr) {
-//  echo  "<pre>";
-//  print_r($attr);
-//  echo "</pre>";
-//}

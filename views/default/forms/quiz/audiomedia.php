@@ -15,7 +15,7 @@
 ?>
 <p>
        <label>
-        <?php echo sprintf(elgg_echo('izap-contest:quiz:audio'),'<a href="#" title="Not supported yet">Video</a>, '); ?>
-        <?php  echo elgg_view("input/file", array("internalname" => "related_media"))  ?>
+        <?php echo elgg_echo('izap-contest:quiz:audio',array('<a href="#" title="Not supported yet">Video</a>, ')); ?>
+        <?php  echo elgg_view("input/file", array("name" => "related_media"))  ?>
       </label>
     </p>

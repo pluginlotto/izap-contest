@@ -24,6 +24,7 @@ if (IzapBase::hasFormError()) {
   }
   forward(REFERRER);
 }
+//get all form attributes
 $challenge_form = IzapBase::getPostedAttributes();
 
 
@@ -35,7 +36,7 @@ $challenge_entity->setAttributes();
 if ($challenge_entity->max_quizzes < 2) {
   $challenge_entity->max_quizzes = 2;
 }
-
+//save the media for the quiz
 $challenge_entity->izap_upload_generate_thumbs($_FILES, $thumb);
 
 if (!$challenge_entity->save()) {

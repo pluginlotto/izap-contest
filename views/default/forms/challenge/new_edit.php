@@ -1,17 +1,18 @@
 <?php
-/* * ************************************************
+/***************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- * **************************************************
+ ***************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
- * @version 1.0
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
+
+
 IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_CONTEST_PLUGIN, 'lib' => 'izap-contest'));
 
 $challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $vars['challenge_entity']: array('access_id' => defined('ACCESS_DEFAULT') ? ACCESS_DEFAULT : 1));

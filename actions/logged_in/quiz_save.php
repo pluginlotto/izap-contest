@@ -1,22 +1,20 @@
 <?php
-
-/* * ************************************************
+/***************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- * **************************************************
+ ***************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
- * @version 1.0
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
+
 // Make sure we're logged in
+IzapBase::gatekeeper();
 
-
-gatekeeper();
 if (IzapBase::hasFormError()) {
   if (sizeof(IzapBase::getFormErrors())) {
     foreach (IzapBase::getFormErrors() as $error) {
@@ -33,10 +31,12 @@ $_SESSION['zcontest']['quiz'] = $quiz_form;
 // Make sure the title isn't blank
 $quiz_entity = new IzapQuiz($quiz_form['guid']);
 IzapBase::updatePostedAttribute('tags', string_to_tag_array($quiz_entity['tags']));
-$video = new IZAPVideoApi($quiz_form['related_media']);
-$video = $video->createOffServerVideoEntity();
 $quiz_entity->setAttributes();
+if($quiz_form['qtype']=='video'){
+  $video = new IZAPVideoApi($quiz_form['related_media']);
+$video = $video->createOffServerVideoEntity();
 $quiz_entity->video_guid = $video->getGUID();
+}
 // Set its owner to the current user
 $challenge_entity = get_entity($quiz_form['container_guid']);
 if (!$quiz_form['guid']) {

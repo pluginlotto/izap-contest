@@ -8,7 +8,7 @@
 * @link http://www.izap.in/
 * Under this agreement, No one has rights to sell this script further.
 * For more information. Contact "Tarun Jangra<tarun@izap.in>"
-* For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+* For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 

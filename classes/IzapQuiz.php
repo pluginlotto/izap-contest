@@ -1,27 +1,26 @@
 <?php
 
-/* * ************************************************
+/* * *************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
  * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
- * @version 1.0
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
 class IzapQuiz extends ZContest {
 
-  protected function initialise_attributes() {
-    parent::initialise_attributes();
-    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE;
-  }
-
   protected $form_attributes;
+
+  protected function initialise_attributes() {
+    parent::initializeAttributes();
+     $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE;
+  }
 
   public function __construct($guid = null) {
     parent::__construct($guid);
@@ -31,16 +30,21 @@ class IzapQuiz extends ZContest {
         'description' => array(),
         'container_guid' => array(),
         'access_id' => array(),
-        'solution' =>array(),
+        'solution' => array(),
         'tags' => array(),
-        'qtype' =>array(),
+        'qtype' => array(),
         'correct_option' => array()
     );
   }
 
-  public function getAttributesArray(){
+  /**
+   * returns the form_attributes
+   * @return <array>
+   */
+  public function getAttributesArray() {
     return $this->form_attributes;
   }
+
   /**
    *
    * @param <boolean> $force. True will ignore the media deletion and just drop the entity
@@ -66,15 +70,20 @@ class IzapQuiz extends ZContest {
     }
     return false;
   }
-
+/**
+ * saves the quiz
+ * @param IzapChallenge $ch
+ * @return <boolean> true on success else false
+ */
   public function save(IzapChallenge $ch = null) {
-    if (!$ch->lock) {
-      return parent::save(true, array('river' => false));
-    } else {
-      return false;
-    }
+
+    return parent::save(true, array('river' => false));
   }
 
+  /**
+   * gives the mime type of the quiz
+   * @return <string>
+   */
   public function get_quiz_mime() {
     $media_array = unserialize($this->related_media);
     if ($media_array != '' && isset($media_array['file_type']))
@@ -82,12 +91,22 @@ class IzapQuiz extends ZContest {
     return $this->qtype;
   }
 
-  private function get_video($media, $size = false) {
-    $flash_video_object = new IZAPVideoApi($media['file_url']);
-    list($width, $height) = explode('x', $size);
-    return $flash_video_object->getVideoFeed($width, $height);
+/**
+ * gives the videofeed from the videoApi
+  * @param <array> $size
+ * @return         videosrc
+ */
+  private function get_video($size = false) {
+    $video = new IZAPVideoApi();
+    $video = $video->getVideoEntity($this->video_guid);
+    return $video->videosrc;
   }
 
+  /**
+   * gives the media for the quiz
+   * @param <type> $size
+   * @return <file> media file
+   */
   public function get_media($size = false) {
     $media_array = unserialize($this->related_media);
     if (preg_match('/image.+/', $media_array['file_type'])) {
@@ -95,40 +114,48 @@ class IzapQuiz extends ZContest {
     } elseif (preg_match('/audio.+/', $media_array['file_type'])) {
       return $this->get_file($media_array);
     } elseif (preg_match('/video.+/', $media_array['file_type'])) {
-      return $this->get_video($media_array, $size);
+      return $this->get_video($size);
     }
   }
 
+  /**
+   * returns the options of the quiz
+   * @return <array>
+   */
   public function get_options() {
     return array_flip(unserialize($this->options));
   }
 
-//  public function getEditURL() {
-//    global $CONFIG;
-//
-//    return $CONFIG->url . "pg/quiz/edit/" . $this->container_guid . "/" . $this->guid . "/" . friendly_title($this->title) .
-//    '?rurl=' . urlencode(current_page_url());
-//    ;
-//  }
-
+  /**
+   * returns the correct answer of the quiz
+   * @param <type> $force true if want to have corrected answer for non-owner user
+   * @return <string>
+   */
   public function getCorrectAnswer($force = FALSE) {
-    if (get_loggedin_userid() == $this->owner_guid || $force) {
+    if (elgg_get_logged_in_user_guid() == $this->owner_guid || $force) {
       return $this->correct_option;
     }
 
     return FALSE;
   }
 
+  /**
+   * gives the url of the quiz
+   * @return <string> 
+   */
   function getURL() {
-
-    $title = friendly_title($this->title);
+    $title = elgg_get_friendly_title($this->title);
     return IzapBase::setHref(array(
         'context' => GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,
         'action' => 'view',
         'vars' => array($this->container_guid, $this->guid, $title)
     ));
   }
-
+/**
+ * gives the url for the icon of the quiz
+ * @param <string> $size
+ * @return <string> url of the icon
+ */
   public function getIconURL($size = 'small') {
     return IzapBase::setHref(array(
         'context' => GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER,
@@ -138,6 +165,10 @@ class IzapQuiz extends ZContest {
     )) . $this->time_updated . ".jpg";
   }
 
+  /**
+   * returns the thumb of the quiz
+   * @return <string>  $image
+   */
   public function getThumb() {
     $image = '<div>';
     $image .= '<img src="' . $this->getIconURL('medium') . '"/>';

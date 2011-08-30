@@ -1,15 +1,16 @@
 <?php
-/**************************************************
-* PluginLotto.com                                 *
-* Copyrights (c) 2005-2010. iZAP                  *
-* All rights reserved                             *
-***************************************************
-* @author iZAP Team "<support@izap.in>"
-* @link http://www.izap.in/
-* Under this agreement, No one has rights to sell this script further.
-* For more information. Contact "Tarun Jangra<tarun@izap.in>"
-* For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
-* Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
+
+/* * *************************************************
+ * PluginLotto.com                                 *
+ * Copyrights (c) 2005-2011. iZAP                  *
+ * All rights reserved                             *
+ * **************************************************
+ * @author iZAP Team "<support@izap.in>"
+ * @link http://www.izap.in/
+ * Under this agreement, No one has rights to sell this script further.
+ * For more information. Contact "Tarun Jangra<tarun@izap.in>"
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
+ * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
 global $CONFIG;
@@ -19,7 +20,7 @@ if (IzapBase::hasFormError()) {
   forward(REFERER);
 }
 
-if(!filter_var($attribs['send_email'], FILTER_VALIDATE_EMAIL) || !filter_var($attribs['email'], FILTER_VALIDATE_EMAIL)) {
+if (!filter_var($attribs['send_email'], FILTER_VALIDATE_EMAIL) || !filter_var($attribs['email'], FILTER_VALIDATE_EMAIL)) {
   register_error(elgg_echo('izap-contest:not_valid_email'));
   forward(REFERER);
 }
@@ -30,12 +31,12 @@ if (!$entity) {
   forward(REFERER);
 }
 
-$params=array();
-$params['to']=$attribs['send_email'];
-$params['from']=$attribs['email'];
-$params['from_username']=$attribs['name'];
-$params['subject']="Offer: {$entity->title}";
-$params['msg']="
+$params = array();
+$params['to'] = $attribs['send_email'];
+$params['from'] = $attribs['email'];
+$params['from_username'] = $attribs['name'];
+$params['subject'] = "Offer: {$entity->title}";
+$params['msg'] = "
   Hello, {$attribs['send_name']} \n
   I like this post, {$entity->getURL()} & please go through that once.\n
   <p>{$attribs['msg']}</p>
@@ -43,14 +44,15 @@ $params['msg']="
     {$attribs['name']},
     {$attribs['email']}.
   ";
-//func_printarray_byizap($params);
-$success=IzapBase::sendMail($params);
 // send email
+$success = IzapBase::sendMail($params);
+
 
 // Success message
-if($success) {
+if ($success) {
   system_message(elgg_echo('izap-contest:success_send_to_friend'));
-  unset ($_SESSION['postArray']);
+  unset($_SESSION['postArray']);
 } else {
   register_error(elgg_echo('izap-contest:error_send_to_friend'));
-}forward($entity->getURL());
+}
+forward($entity->getURL());

@@ -1,19 +1,19 @@
 <?php
-/* * ************************************************
+/***************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- * **************************************************
+ ***************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
- * @version 1.0
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
+
 $challenge = $vars['challenge_entity'];
-if ($vars['full'] == true) {
+if ($vars['full_view'] == true) {
   $iconsize = "large";
 } else {
   $iconsize = "medium";
@@ -23,13 +23,7 @@ if ($vars['full'] == true) {
 <div id="groups_info_column_right">
   <div id="groups_icon_wrapper">
     <?php
-    echo elgg_view(
-            "output/icon", array(
-        'challenge_entity' => $challenge,
-        'align' => "left",
-        'size' => $iconsize,
-            )
-    );
+    echo $challenge->getThumb($iconsize);
     ?>
   </div>
   <div id="group_stats" style="float: left;">
@@ -72,7 +66,7 @@ if ($vars['full'] == true) {
     <p class="odd"><b><?php echo elgg_echo("izap-contest:challenge:total_attempted"); ?>:</b> <?php echo (int) $challenge->total_attempted ?></p>
     <p class="odd"><b><?php echo elgg_echo("izap-contest:challenge:total_passed"); ?>:</b> <?php echo (int) $challenge->total_passed ?></p>
   <?php
-    if (isloggedin ()) {
+    if (elgg_is_logged_in ()) {
       $user_var = elgg_get_logged_in_user_entity()->username . '_total_attempted';
       $pass_var = elgg_get_logged_in_user_entity()->username . '_total_passed';
   ?>
@@ -108,7 +102,7 @@ if ($vars['full'] == true) {
     ?>
       <br/>
         <em>
-    <?php echo elgg_echo('izap-contest:challenge:last_attempt') . friendly_time($time); ?>
+    <?php echo elgg_echo('izap-contest:challenge:last_attempt') . elgg_view_friendly_time($time); ?>
           </em>
       
     <?php
@@ -119,7 +113,7 @@ if ($vars['full'] == true) {
               'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
               'action' => 'result',
               'page_owner' => false,
-              'vars' => array($challenge->guid, friendly_title($challenge->title))
+              'vars' => array($challenge->guid, elgg_get_friendly_title($challenge->title))
                   )
           ),
           'text' => elgg_echo('izap-contest:challenge:my_results')

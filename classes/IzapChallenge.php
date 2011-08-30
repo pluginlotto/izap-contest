@@ -1,16 +1,15 @@
 <?php
 
-/* * ************************************************
+/* * *************************************************
  * PluginLotto.com                                 *
- * Copyrights (c) 2005-2010. iZAP                  *
+ * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
  * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
- * @version 1.0
  * Under this agreement, No one has rights to sell this script further.
  * For more information. Contact "Tarun Jangra<tarun@izap.in>"
- * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
@@ -50,10 +49,18 @@ class IzapChallenge extends ZContest {
     );
   }
 
+  /**
+   * returns the form_attributes of the object
+   */
   public function getAttributesArray() {
     return $this->form_attributes;
   }
 
+  /**
+   *
+   * @param <boolean> $force. True will ignore the media deletion and just drop the entity
+   * @return <boolean> True on success else false
+   */
   public function delete($force = false) {
     if ($this->izap_delete_files(unserialize($this->related_media)) || $force) {
       $quizzes_array = unserialize($this->quizzes);
@@ -72,30 +79,43 @@ class IzapChallenge extends ZContest {
     return false;
   }
 
+  /**
+   * calls the save of the parent class to save the object
+   */
   public function save() {
-    if (!$this->lock)
-      return parent::save();
-    else
-      return false;
+    return parent::save();
   }
 
+  /**
+   * returns the total number of quizes of the contest
+   */
   public function total_quizzes() {
     $quizzes = count(($this->quizzes) ? unserialize($this->quizzes) : null);
     return(($quizzes) ? $quizzes : 0);
   }
 
+  /**
+   * returns the media file to the contest
+   * @param <mixed> size of the media
+   * @return <mixed> file or false on failure
+   */
   public function get_media($size = false) {
     $media_array = unserialize($this->related_media);
     return $this->get_file($media_array, $size);
   }
 
+  /**
+   * returns if the user has accepted the challenge
+   * @param <string> user_guid
+   * @return <boolean> 
+   */
   public function can_play($user_guid = 0) {
     // get the array of all the users who accepted the challenge
     $accepted_by = (array) $this->accepted_by;
 
     // if user guid is not supplied then, get loggeding user
     if (!$user_guid) {
-      $user_guid = get_loggedin_userid();
+      $user_guid = elgg_get_logged_in_user_guid();
     }
 
     // if still no user_guid, then go back
@@ -112,6 +132,14 @@ class IzapChallenge extends ZContest {
     return FALSE;
   }
 
+  /**
+   *  returns if user is allowed to play the challenge
+   *    checks if user has accepted it
+   *    checks if user can re-attempt it
+   *    checks if the time for the challenge has expired
+   * @param <string> user_guid
+   * @return <string>
+   */
   public function canAttempt($user_guid = 0) {
 
     // check if required number of questions are available or not
@@ -154,6 +182,9 @@ class IzapChallenge extends ZContest {
     return FALSE;
   }
 
+  /**
+   * start the contest by starting session
+   */
   public function start_playing() {
     // get the currently playing challenge
     $challenge_being_played = $_SESSION['challenge']['contest'];
@@ -184,6 +215,10 @@ class IzapChallenge extends ZContest {
     }
   }
 
+  /**
+   *  calculates if the time is out
+   * @return <boolean>
+   */
   public function timeLeft() {
     $diff = time() - ((int) $_SESSION['challenge']['start_time']);
     $maximum_time = 60 * (($this->timer) ? $this->timer : 10000);
@@ -195,9 +230,13 @@ class IzapChallenge extends ZContest {
     return FALSE;
   }
 
+  /**
+   * returns the current questions or saves the results and forwards to result action
+   * @global <array> $CONFIG
+   * @return <>
+   */
   public function current_question() {
     global $CONFIG;
-//    c($_SESSION['challenge']);exit;
     // get current question from the session
     $this->current_question = get_entity($_SESSION['challenge']['questions'][(int) $_SESSION['challenge']['qc']]);
     // only return if it validates
@@ -211,7 +250,7 @@ class IzapChallenge extends ZContest {
                   'vars' => array(
                       $this->guid,
                       $result->guid,
-                      friendly_title($this->title)
+                      elgg_get_friendly_title($this->title)
                   )
                       )
               )
@@ -219,6 +258,11 @@ class IzapChallenge extends ZContest {
     }
   }
 
+  /**
+   * saves the results of the contest as elggObject
+   * @param <boolean> $complete_status
+   * @return ElggObject $result
+   */
   public function save_results($complete_status = TRUE) {
 
     $_SESSION['challenge']['completed'] = $complete_status;
@@ -242,7 +286,7 @@ class IzapChallenge extends ZContest {
     $result->is_completed = ($complete_status) ? 'yes' : 'no';
     $result->total_time_taken = time() - $challenge['start_time'];
 
-    IzapBase::getAllAccess();// force save
+    IzapBase::getAllAccess(); // force save
     $user_var = elgg_get_logged_in_user_entity()->username . '_last_attempt';
     $this->$user_var = time();
     $this->total_attempted = (int) $this->total_attempted + 1;
@@ -261,6 +305,10 @@ class IzapChallenge extends ZContest {
     return $result;
   }
 
+  /**
+   * invites the friends to play the challenge through notification
+   * @param <array> $friends_array array of the friends's guid
+   */
   public function inviteFriends($friends_array) {
     if (!sizeof($friends_array)) {
       return false;
@@ -281,9 +329,14 @@ class IzapChallenge extends ZContest {
     }
   }
 
+  /**
+   * gives the url of the contest
+   * @global  $CONFIG
+   * @return <string> 
+   */
   public function getURL() {
     global $CONFIG;
-    $title = friendly_title($this->title);
+    $title = elgg_get_friendly_title($this->title);
 
     $container_name = $this->container_username;
     if ($container_name == '') {
@@ -298,6 +351,11 @@ class IzapChallenge extends ZContest {
     ));
   }
 
+  /**
+   * gives the image source for the icon of the challenge
+   * @param <string> $size
+   * @return <url>
+   */
   public function getIconURL($size = 'small') {
     return IzapBase::setHref(array(
         'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
@@ -307,9 +365,15 @@ class IzapChallenge extends ZContest {
     )) . $this->time_updated . ".jpg";
   }
 
-  public function getThumb() {
+  /**
+   * returns the thumb/icon for the challenge
+   * @param <string> $size
+   * @return <string>
+   */
+  public function getThumb($size) {
+    $size = (isset($size) && $size!= '')?$size:'small';
     $image = '<div>';
-    $image .= '<img src="' . $this->getIconURL('small') . '"/>';
+    $image .= '<img src="' . $this->getIconURL($size) . '"/>';
     $image .= '</div>';
     return $image;
   }

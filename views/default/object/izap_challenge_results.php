@@ -1,29 +1,28 @@
 <?php
-/**************************************************
-* PluginLotto.com                                 *
-* Copyrights (c) 2005-2010. iZAP                  *
-* All rights reserved                             *
-***************************************************
-* @author iZAP Team "<support@izap.in>"
-* @link http://www.izap.in/
-* @version 1.0
-* Under this agreement, No one has rights to sell this script further.
-* For more information. Contact "Tarun Jangra<tarun@izap.in>"
-* For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
-* Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
-*/
+/***************************************************
+ * PluginLotto.com                                 *
+ * Copyrights (c) 2005-2011. iZAP                  *
+ * All rights reserved                             *
+ ***************************************************
+ * @author iZAP Team "<support@izap.in>"
+ * @link http://www.izap.in/
+ * Under this agreement, No one has rights to sell this script further.
+ * For more information. Contact "Tarun Jangra<tarun@izap.in>"
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
+ * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
+ */
 
 $result = $vars['entity'];
 ?>
 <div class="contentWrapper">
-  <a href="<?php echo izapbase::setHref(array('context' =>GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,'action' => 'result','page_owner' => FALSE,'vars'=>array( $result->container_guid, $result->guid, friendly_title($result->title))))?>">
+  <a href="<?php echo izapbase::setHref(array('context' =>GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,'action' => 'result','page_owner' => FALSE,'vars'=>array( $result->container_guid, $result->guid, elgg_get_friendly_title($result->title))))?>">
     <div>
       <div style="float: left; margin-right: 10px; width: 22%">
         #<?php echo $result->guid;?>
       </div>
 
       <div style="float: left; margin-right: 10px; width: 22%">
-        <?php echo friendly_time($result->time_created);?>
+        <?php echo elgg_view_friendly_time($result->time_created);?>
       </div>
 
       <div style="float: left; margin-right: 10px; width: 12%">
