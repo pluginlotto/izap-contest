@@ -33,6 +33,7 @@ function izap_zcontest_init() {
   // asking group to include the izap_files
   if (is_callable('add_group_tool_option')) {
     add_group_tool_option(GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, elgg_echo('izap-contest:challenge:group:enable'), true);
+     elgg_extend_view('groups/tool_latest', GLOBAL_IZAP_CONTEST_PLUGIN . '/group_module');
   }
   elgg_register_page_handler(GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
   elgg_register_page_handler(GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
@@ -48,7 +49,7 @@ function izap_zcontest_init() {
 
     $menu_item_add = new ElggMenuItem('izap-contest:challenge_add', elgg_echo('izap-contest:challenge:add'), IzapBase::setHref(array(
                         'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-                        'action' => 'add'
+                        'action' => 'add',
                     )));
     elgg_register_menu_item('page', $menu_item_add);
 
@@ -89,7 +90,7 @@ function group_menus_izap_contest() {
                           'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
                           'action' => 'add',
                           'page_owner' => false,
-                          'vars' => array($pageowner->guid, $pageowner->username
+                          'vars' => array($pageowner->username
                           )
                               )
                       )

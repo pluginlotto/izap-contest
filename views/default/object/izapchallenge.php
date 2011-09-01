@@ -28,7 +28,7 @@ $owner_link = elgg_view('output/url', array(
         ));
 
 $author_text = elgg_echo('byline', array($owner_link));
-$tags = elgg_view('output/tags', array('tags' => $vars['entity']->tags));
+
 $date = elgg_view_friendly_time($vars['entity']->time_created);
 
 
@@ -58,9 +58,15 @@ $title_link = elgg_view('output/url', array(
             'href' => $vars['entity']->getURL(),
         ));
 
+$metadata = IzapBase::controlEntityMenu(array('entity' => $vars['entity'], 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
+$tags = elgg_view('output/tags', array('tags' => $vars['entity']->tags));
+if(elgg_get_context()=='izap_mini_list'){
+ $metadata = '';
+ $tags = false;
+}
 $params = array(
     'entity' => $vars['entity'],
-    'metadata' => IzapBase::controlEntityMenu(array('entity' => $vars['entity'], 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER)),
+    'metadata' => $metadata ,
     'title' => $title_link,
     'subtitle' => $subtitle,
     'tags' => $tags,

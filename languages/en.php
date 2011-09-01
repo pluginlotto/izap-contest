@@ -140,9 +140,12 @@ add_translation('en', array(
  'izap-contest:result:total' => 'Total score',
  // CHALLENGE group
 'izap-contest:challenge:group:enable' => 'Enable Challenge for Groups',
- 'izap-contest:challenge:group:add' => 'Add Group Challenge',
+ 'izap-contest:challenge:group:add' => 'Add a Challenge',
  'izap-contest:challenge:group:list' => 'Group Challenges',
  'izap-contest:challenge:group:list:all' => 'All group Challenges',
+    'izap-contest:contest_group' => 'Group Challenges',
+    'izap-challenge:none' => 'No challenge created yet',
+    
  //send to friend
 
 'izap-contest:your_name' => 'Your name *',
