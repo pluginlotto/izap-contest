@@ -18,6 +18,7 @@ define('GLOBAL_IZAP_CONTEST_QUIZ_PAGEHANDLER', 'quiz');
 define('GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE', 'izapchallenge');
 define('GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE', 'izapquiz');
 define('GLOBAL_IZAP_CONTEST_CHALLENGE_CLASS', 'IzapChallenge');
+define('GLOBAL_IZAP_CONTEST_QUIZ_CLASS', 'IzapQuiz');
 
 elgg_register_event_handler('init', 'system', 'izap_zcontest_init');
 

@@ -39,7 +39,7 @@ IzapBase::updatePostedAttribute('tags', string_to_tag_array($quiz_entity['tags']
 $quiz_entity->setAttributes();
 if ($quiz_form['qtype'] == 'video') {
   $video_api = new IZAPVideoApi($quiz_form['related_media']);
-  $video = $video_api->createOffServerVideoEntity();
+  $video = $video_api->createVideoEntity();
   if (isset($video_api->errors)) {
     foreach ($video_api->errors as $error)
       register_error($error);
