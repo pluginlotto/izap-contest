@@ -58,6 +58,7 @@ add_translation('en', array(
 
 'item:object:izapchallenge' => 'Challenges',
  'izap-contest:challenge' => 'Challenge: %s',
+    'izap-contest:challenge:play:exit' =>'Calculate my results',
  'izap-contest:challenge:challenge_friend' => 'Challenge friends',
  'izap-contest:challenge:edit' => 'Edit challenge',
  'izap-contest:challenge:add' => 'Add new challenge',

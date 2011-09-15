@@ -15,7 +15,7 @@
 $challenge = $vars['challenge'];
 $quiz = $vars['quiz'];
 
-$diff = time() - ((int)$_SESSION['challenge']['start_time']);
+$diff = time() - ((int)$_SESSION['challenge'][$challenge->guid]['start_time']);
 
 $minute = 60;
 $hour = $minute * 60;
@@ -29,7 +29,6 @@ if ($diff < $minute) {
   
   $friendly_time = elgg_echo('izap-contest:challenge:time_used_minute', array($minutes, $seconds));
 }
-echo elgg_view('page/elements/title',array('title'=>elgg_echo('izap-contest:contest') . ': ' . $challenge->title));
 ?>
 <div class="contentWrapper">
   <div style="float:right;">

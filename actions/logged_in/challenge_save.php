@@ -50,6 +50,7 @@ if (!empty($_FILES['related_media']['name'])) {
     forward(REFERER); //failed, so forward to previous page
   }
 }
+
 IzapBase::saveImageFile(array(
             'destination' => 'contest/' . $challenge_entity->guid . '/icon',
             'content' => file_get_contents($_FILES['related_media']['tmp_name']),

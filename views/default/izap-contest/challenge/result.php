@@ -52,5 +52,5 @@ if($obtained_percentage <= 0) {
     <?php echo elgg_echo('izap-contest:challenge:my_results') ?>
   </a>
 </div>
-<?php unset($_SESSION['challenge']);?>
+<?php unset($_SESSION['challenge'][$vars['contest']]);?>
 

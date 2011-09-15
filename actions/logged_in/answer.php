@@ -31,12 +31,24 @@ if (!$challenge_entity->can_play()) {
 // check time... if user can ansser
 if (!$challenge_entity->timeLeft()) {
   register_error(elgg_echo('izap-contest:challenge:error:timeout'));
-  forward($challenge_entity->getURL());
+  $result = $challenge_entity->save_results(FALSE);
+  forward(IzapBase::setHref(array(
+              'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
+              'action' => 'result',
+              'page_owner' => false,
+              'vars' => array(
+                  $challenge_entity->guid,
+                  $result->guid,
+                  elgg_get_friendly_title($challenge_entity->title)
+              )
+                  )
+          )
+  );
 }
 
 // set total to zero, if it is not set yet, to calculate the negative marking.
-if (!isset($_SESSION['challenge']['totals'])) {
-  $_SESSION['challenge']['totals'] = 0;
+if (!isset($_SESSION['challenge'][$challenge_entity->guid]['totals'])) {
+  $_SESSION['challenge'][$challenge_entity->guid]['totals'] = 0;
 }
 // get all access from the system to user
 Izapbase::getAllAccess();
@@ -48,15 +60,15 @@ $correct_var = elgg_get_logged_in_user_entity()->username . '_is_correct';
 
 if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_form['correct_option']) {
   $quiz_entity->$correct_var = 'yes';
-  $_SESSION['challenge']['answers'][$quiz_entity->guid]['is_correct'] = TRUE;
-  $_SESSION['challenge']['totals']++;
-  $_SESSION['challenge']['total_correct_answers']++;
+  $_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['is_correct'] = TRUE;
+  $_SESSION['challenge'][$challenge_entity->guid]['totals']++;
+  $_SESSION['challenge'][$challenge_entity->guid]['total_correct_answers']++;
 } else {
   $quiz_entity->$correct_var = 'no';
-  $_SESSION['challenge']['answers'][$quiz_entity->guid]['is_correct'] = FALSE;
+  $_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['is_correct'] = FALSE;
   if ($quiz_form['answer'] == 'Answer') {
     if ($challenge_entity->negative_marking) {
-      $_SESSION['challenge']['totals']--;
+      $_SESSION['challenge'][$challenge_entity->guid]['totals']--;
     }
   } elseif ($quiz_form['skip'] == 'Skip') {
 
@@ -66,12 +78,12 @@ if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_fo
 $quiz_entity->$answer_var = $quiz_form['correct_option'];
 // remove access from the user
 Izapbase::removeAccess();
-$_SESSION['challenge']['answers'][$quiz_entity->guid]['question'] = $quiz_entity->title;
-$_SESSION['challenge']['answers'][$quiz_entity->guid]['description'] = $quiz_entity->description;
-$_SESSION['challenge']['answers'][$quiz_entity->guid]['solution'] = $quiz_entity->solution;
-$_SESSION['challenge']['answers'][$quiz_entity->guid]['answer'] = $answers_array[$quiz_form['correct_option']];
-$_SESSION['challenge']['answers'][$quiz_entity->guid]['correct_answer'] = $answers_array[$quiz_entity->correct_option];
-$_SESSION['challenge']['qc']++;
+$_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['question'] = $quiz_entity->title;
+$_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['description'] = $quiz_entity->description;
+$_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['solution'] = $quiz_entity->solution;
+$_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['answer'] = $answers_array[$quiz_form['correct_option']];
+$_SESSION['challenge'][$challenge_entity->guid]['answers'][$quiz_entity->guid]['correct_answer'] = $answers_array[$quiz_entity->correct_option];
+$_SESSION['challenge'][$challenge_entity->guid]['qc']++;
 forward(izapbase::setHref(array(
             'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
             'action' => 'play',

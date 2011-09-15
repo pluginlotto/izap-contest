@@ -28,8 +28,10 @@ class IzapChallenge extends ZContest {
     parent::__construct($guid);
 
     if ($start_play) {
+      
       $this->is_playing = TRUE;
       $this->start_playing();
+      
     }
 
     // set default form attributes
@@ -130,7 +132,7 @@ class IzapChallenge extends ZContest {
 
     // if it reaches here, then false
     return FALSE;
-  }
+  } 
 
   /**
    *  returns if user is allowed to play the challenge
@@ -187,18 +189,25 @@ class IzapChallenge extends ZContest {
    */
   public function start_playing() {
     // get the currently playing challenge
-    $challenge_being_played = $_SESSION['challenge']['contest'];
+    $challenge_being_played = $_SESSION['challenge'];
+    
     // if it in not the this challenge, then replace it
-    if ($challenge_being_played != $this->guid) {
+    if (!array_key_exists($this->guid, $challenge_being_played)) {
 
       // set all values to result
-      $_SESSION['challenge']['contest'] = $this->guid;
-      $_SESSION['challenge']['start_time'] = time();
-      $_SESSION['challenge']['completed'] = FALSE;
+//      $_SESSION['challenge']['contest'] = $this->guid;
+      $_SESSION['challenge'][$this->guid]['start_time'] = time();
+      $_SESSION['challenge'][$this->guid]['completed'] = FALSE;
+      $_SESSION['challenge'][$this->guid]['active'] = true;
+      // get all guids for the questions
       $all_questions_array = unserialize($this->quizzes);
 
+      // shuffle to make them random
       shuffle($all_questions_array);
+
+      // now get the amount you want for the test
       $randon_keys = array_rand($all_questions_array, $this->max_quizzes);
+      
       foreach ($randon_keys as $k => $q) {
         $questions_array[] = $all_questions_array[$q];
       }
@@ -207,7 +216,7 @@ class IzapChallenge extends ZContest {
         foreach ($questions_array as $question) {
           if ($question_entity = get_entity($question)) {
             if ($question_entity->getSubtype() == 'izapquiz') {
-              $_SESSION['challenge']['questions'][] = $question;
+              $_SESSION['challenge'][$this->guid]['questions'][] = $question;
             }
           }
         }
@@ -220,7 +229,7 @@ class IzapChallenge extends ZContest {
    * @return <boolean>
    */
   public function timeLeft() {
-    $diff = time() - ((int) $_SESSION['challenge']['start_time']);
+    $diff = time() - ((int) $_SESSION['challenge'][$this->guid]['start_time']);
     $maximum_time = 60 * (($this->timer) ? $this->timer : 10000);
 
     if ($diff < $maximum_time) {
@@ -236,14 +245,15 @@ class IzapChallenge extends ZContest {
    * @return <>
    */
   public function current_question() {
+    
     global $CONFIG;
     // get current question from the session
-    $this->current_question = get_entity($_SESSION['challenge']['questions'][(int) $_SESSION['challenge']['qc']]);
+    $this->current_question = get_entity($_SESSION['challenge'][$this->guid]['questions'][(int) $_SESSION['challenge'][$this->guid]['qc']]);
     // only return if it validates
     if ($this->current_question && $this->current_question instanceof IzapQuiz) {
       return $this->current_question;
     } else {
-      $result = $this->save_results();
+        $result = $this->save_results();
       forward(IzapBase::setHref(array(
                   'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
                   'action' => 'result',
@@ -265,8 +275,8 @@ class IzapChallenge extends ZContest {
    */
   public function save_results($complete_status = TRUE) {
 
-    $_SESSION['challenge']['completed'] = $complete_status;
-    $challenge = $_SESSION['challenge'];
+    $_SESSION['challenge'][$this->guid]['completed'] = $complete_status;
+    $challenge = $_SESSION['challenge'][$this->guid];
 
     $result = new ElggObject();
     $result->subtype = 'izap_challenge_results';
@@ -301,8 +311,8 @@ class IzapChallenge extends ZContest {
 
     $result->save();
     Izapbase::removeAccess();
-
-    return $result;
+unset($_SESSION['challenge'][$this->guid]['active']);
+   return $result;
   }
 
   /**
