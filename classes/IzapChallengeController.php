@@ -96,7 +96,8 @@ class IzapChallengeController extends IzapController {
     $control_menu = IzapBase::controlEntityMenu(array('entity' => $challenge_entity, 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
     $title = $challenge_entity->title;
     $this->page_elements['filter'] = '';
-    $this->page_elements['title'] =  elgg_echo('izap-contest:challenge', array($title)) . $control_menu;
+    $this->page_elements['title'] =  elgg_echo('izap-contest:challenge', array($title));
+    $this->page_elements['content'] =$control_menu;
     if (!get_input('view_as_challenger', FALSE) && $challenge_entity->owner_guid == elgg_get_logged_in_user_guid()) {
 
       if (!$challenge_entity->lock) {
@@ -121,9 +122,9 @@ class IzapChallengeController extends IzapController {
 
       elgg_register_menu_item('page', $challenger_view);
 
-      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity));
+      $this->page_elements['content'] .= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity));
     } else {
-      $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity, 'full_view' => $this->url_vars[3]));
+      $this->page_elements['content'] .= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity, 'full_view' => $this->url_vars[3]));
     }
 
     $this->drawPage();
@@ -155,9 +156,10 @@ $this->page_elements['title'] = elgg_echo('izap-contest:challenge:my_results');
       }
     }
     $this->drawpage();
+
   }
 
-  public function actionSave_results() {
+  public function actionSaveResults() {
     $contest = new IzapChallenge($this->url_vars[1], false);
     if (!contest) {
       forward(IzapBase::setHref(array(
@@ -176,12 +178,13 @@ $this->page_elements['title'] = elgg_echo('izap-contest:challenge:my_results');
   }
 
   public function actionPlay() {
-
-    $container_guid = $this->url_vars[1];
+   
+   $container_guid = $this->url_vars[1];
     $start = isset($this->url_vars[3]) ? $this->url_vars[3] : false;
     $contest = new IzapChallenge($container_guid, $start);
-    if ($_SESSION['challenge'][$contest->guid]['completed']) {
-      forward(IzapBase::setHref(array(
+   
+    if (!($_SESSION['challenge'][$contest->guid]) || $_SESSION['challenge'][$contest->guid]['completed']==true) {
+    forward(IzapBase::setHref(array(
                   'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
                   'action' => 'result',
                   'vars' => array(
@@ -192,23 +195,28 @@ $this->page_elements['title'] = elgg_echo('izap-contest:challenge:my_results');
               )
       );
     }
+ 
     if (!$contest->can_play()) {
       register_error(elgg_echo('izap-contest:challenge:not_accepted_yet'));
       forward($contest->getURL());
     }
-    $exit_action = elgg_view('output/url', array(
+    $exit_action = elgg_view('output/confirmlink', array(
                 'text' => elgg_echo('izap-contest:challenge:play:exit'),
                 'href' => IzapBase::setHref(array(
                     'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-                    'action' => 'save_results',
+                    'action' => 'saveResults',
                     'page_handler' => FALSE,
                     'vars' => array($this->url_vars[1])
-                ))));
+                )),
+        'class' => 'elgg-button elgg-button-submit',
+        'confirm' =>elgg_echo('izap-contest-challenge:are_you_sure')));
     $exit_action = '<div style="float:right">' . $exit_action . '</div>';
     $quiz = $contest->current_question();
-    $this->page_elements['title'] =  elgg_echo('izap-contest:challenge', array($contest->title)) . $exit_action;
+    $this->page_elements['title'] =  elgg_echo('izap-contest:challenge', array($contest->title)) ;
+    
 
     $this->page_elements['content'] = elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/playing', array('challenge' => $contest, 'quiz' => $quiz));
+    $this->page_elements['content'] .= $exit_action;
     $this->drawPage();
   }
 

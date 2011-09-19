@@ -43,6 +43,7 @@ if (!$challenge_entity->save()) {
   register_error(elgg_echo("Error in challenge creation"));
   forward(REFERER);
 }
+
 if (!empty($_FILES['related_media']['name'])) {
   $supproted_media = array('audio/mp3', 'image/jpeg', 'image/gif', 'image/png', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/x-png');
   if (!in_array($_FILES['related_media']['type'], $supproted_media)) {

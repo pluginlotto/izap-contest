@@ -15,14 +15,17 @@
 if (!$vars['entity'])
   return;
 ?>
-<div>
+<div><div>
   <?php
-  if (elgg_get_logged_in_user_guid() != $vars['entity']->owner_guid) {
-    echo elgg_view('page/elements/title', array('title' => $vars['entity']->title . ' ?'));
+    if (elgg_get_logged_in_user_guid() != $vars['entity']->owner_guid) {
+//    echo elgg_view('page/elements/title', array('title' => ' <span class="quiz_answer">'.elgg_echo('izap-contest:quiz:quiz',array((int) $_SESSION['challenge'][$vars['entity']->container_guid]['qc']+1)).'</span>'.$vars['entity']->title . ' ?'));
   }
-  ?>
+  ?></div>
   <form action="<?php echo IzapBase::getFormAction('answer', GLOBAL_IZAP_CONTEST_PLUGIN) ?>" method="post">
 <?php echo elgg_view('input/securitytoken'); ?>
+    <div class="quiz_answer">
+    <?php echo elgg_echo('izap-contest:quiz:answers');?>
+    </div><div style="margin:10px;">
     <?php
     if (preg_match('/image.+/', $vars['entity']->get_quiz_mime())) {
       echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/quiz/image_view', array('entity' => $vars['entity']));
@@ -33,7 +36,7 @@ if (!$vars['entity'])
     } else {
       echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/quiz/simple_view', array('entity' => $vars['entity']));
     }
-    ?>
+    ?></div>
     <?php
     if ($vars['entity']->canEdit() && elgg_get_logged_in_user_guid() == $vars['entity']->owner_guid) {
 

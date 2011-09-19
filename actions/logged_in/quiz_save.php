@@ -58,7 +58,7 @@ foreach ($quiz_form as $key => $val) {
 
   if (preg_match('/opt:[0-9]/', $key)) {
     if ($val != '') {
-      $options[$key] = $val;
+      $options[(string)$key] = (string)$val;
     }
   } else {
     if ($key == 'related_media') {
@@ -91,6 +91,7 @@ if (!$quiz_entity->save($challenge_entity)) {
   forward($REFERER);
   exit;
 }
+
 $tmp_quizzes = (array) unserialize($challenge_entity->quizzes);
 $tmp_quizzes[$quiz_entity->guid] = $quiz_entity->guid;
 foreach ($tmp_quizzes as $quiz) {

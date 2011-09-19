@@ -176,3 +176,16 @@ float:left;
 .izap-quiz-wrapper{
 
 }
+
+.quiz_answer {
+font-weight: bold;
+font-size: 17px;
+color:#0054A7;
+}
+
+.timer {
+float:right;
+height:50px;
+margin:5px;
+padding:5px;
+}

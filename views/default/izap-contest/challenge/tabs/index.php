@@ -14,34 +14,14 @@
 */
 
 $challenge = $vars['entity'];
-//$tab_array[] = array(
-//        'title'=>elggb_echo('comments'),
-//        'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/tabs/comments',array('entity'=>$challenge)),
-//);
-//$tab_array[] = array(
-//        'title'=>elggb_echo('send_to_friend'),
-//        'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/tabs/send_to_friend',array('entity'=>$challenge)),
-//);if(isloggedin()) {
-//  $tab_array[] = array(
-//          'title'=>elgg_echo('zcontest:challenge:challenge_friend'),
-//          'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/tabs/challenge_friend',array('entity'=>$challenge)),
-//  );
-//}$tab_array[] = array(
-//        'title'=>elggb_echo('terms'),
-//        'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/tabs/terms',array('entity'=>$challenge)),
-//);
-//
-//echo elgg_view(GLOBAL_IZAP_ELGG_BRIDGE. '/views/tabs', array('tabsArray'=> $tab_array));
-
-
 $tabs_array = array(
         'tabsArray'=>array(
                 array(
-                        'title'=>elgg_echo('send_to_friend'),
+                        'title'=>elgg_echo('izap-contest:send_to_friend'),
                         'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/challenge/tabs/send_to_friend',array('entity'=>$challenge)),
                 ),
                 array(
-                        'title'=>elgg_echo('terms'),
+                        'title'=>elgg_echo('izap-contest:terms'),
                         'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/challenge/tabs/terms',array('entity'=>$challenge)),
                 ),
         )

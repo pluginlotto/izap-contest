@@ -44,6 +44,8 @@ add_translation('en', array(
  'izap-contest:quiz:notdeleted' => 'Sorry! couldn\'t delete quiz.',
  'izap-contest:quiz:delete' => 'Delete quiz',
  'izap-contest:quiz:answer' => 'Answer',
+    'izap-contest:quiz:answers' => 'Answer: ',
+    'izap-contest:quiz:quiz' => 'Quiz (%s): ',
  'izap-contest:quiz:skip' => 'Skip',
  'izap-contest:quiz:error:no_options' => 'No options provided or no correct answer specified',
  'izap-contest:quiz:form_error:empty:title' => 'Please provide quesiton',
@@ -58,7 +60,9 @@ add_translation('en', array(
 
 'item:object:izapchallenge' => 'Challenges',
  'izap-contest:challenge' => 'Challenge: %s',
-    'izap-contest:challenge:play:exit' =>'Calculate my results',
+    'izap-contest:challenge:play:exit' =>'Calculate result',
+    'izap-contest-challenge:are_you_sure' => 'Are you sure to calculate result without completeing??',
+
  'izap-contest:challenge:challenge_friend' => 'Challenge friends',
  'izap-contest:challenge:edit' => 'Edit challenge',
  'izap-contest:challenge:add' => 'Add new challenge',
@@ -74,7 +78,8 @@ add_translation('en', array(
  'izap-contest:challenge:media' => 'Image',
  'izap-contest:challenge:reqcorrect' => 'Required to be correct (%)',
  'izap-contest:challenge:maxquizzes' => 'Minimum random quizzes to offer (minimum of 2 or just leave blank)',
- 'izap-contest:challenge:reattempt' => 'Enable re-attempt after 48hrs.',
+ 'izap-contest:challenge:reattempt' => 'Time to re-attempt the challenge in hours.',
+    'izap-contest:leave_empty' => 'Leave empty to disable re-attempt ',
  'izap-contest:challenge:coundreanswer' => 'Could edit once answered',
  'izap-contest:challenge:negativemarking' => 'Enable negative marking',
  'izap-contest:challenge:timer' => 'Timer (in minutes)',
@@ -114,7 +119,7 @@ add_translation('en', array(
  'izap-contest:challenge:must_answer' => 'Must answer',
  'izap-contest:challenge:total_quiz' => 'Total quizzes',
  'izap-contest:challenge:max_time_in_min' => 'Maximum time in minutes',
- 'izap-contest:challenge:can_re_attempt' => 'You can re-attempte the quiz after 48 hrs.',
+ 'izap-contest:challenge:can_re_attempt' => 'You can re-attempte the quiz after %s hrs.',
  'izap-contest:challenge:cant_re_attempt' => 'You can not re-attempte the quiz.',
  'izap-contest:challenge:negative_marking' => 'Negative marking is applicable.',
  'izap-contest:challenge:no_negative_markting' => 'No negative marking.',
@@ -158,4 +163,6 @@ add_translation('en', array(
  'izap-contest:not_valid_entity' => 'Error loading entity',
  'izap-contest:success_send_to_friend' => 'Mail sent successfully',
  'izap-contest:error_send_to_friend' => 'Unable to send your mail right now, Server might be busy. Please try after some time.',
+    'izap-contest:send_to_friend' => 'Send to friends',
 ));
+

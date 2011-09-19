@@ -168,10 +168,10 @@ class IzapChallenge extends ZContest {
       $return = TRUE;
     }
 
-    if (!$return && $this->re_attempt) {
+    if (!$return && $this->re_attempt!='') {
       $user_var = elgg_get_logged_in_user_entity()->username . '_last_attempt';
       $last_attempt = (int) $this->$user_var;
-      if (time() > ($last_attempt + 48 * 60 * 60)) {
+      if (time() > ($last_attempt + (int)$this->re_attempt * 60 * 60)) {
         return TRUE;
       } else {
         return FALSE;
@@ -311,7 +311,7 @@ class IzapChallenge extends ZContest {
 
     $result->save();
     Izapbase::removeAccess();
-unset($_SESSION['challenge'][$this->guid]['active']);
+//unset($_SESSION['challenge'][$this->guid]['active']);
    return $result;
   }
 

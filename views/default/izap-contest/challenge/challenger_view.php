@@ -52,8 +52,8 @@ if ($vars['full_view'] == true) {
     if (!empty($challenge->timer)) {
       echo "<p class=\"odd\"><b>" . elgg_echo("izap-contest:challenge:max_time_in_min") . ":</b> " . $challenge->timer . "</p>";
     }
-    if ($challenge->re_attempt) {
-      echo "<p class=\"odd\"><b>" . elgg_echo("izap-contest:challenge:can_re_attempt") . "</b></p>";
+    if ($challenge->re_attempt!='') {
+      echo "<p class=\"odd\"><b>" . elgg_echo("izap-contest:challenge:can_re_attempt",array($challenge->re_attempt)) . "</b></p>";
     } else {
       echo "<p class=\"odd\"><b>" . elgg_echo("izap-contest:challenge:cant_re_attempt") . "</b></p>";
     }

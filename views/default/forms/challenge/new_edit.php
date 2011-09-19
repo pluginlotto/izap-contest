@@ -57,8 +57,10 @@ $challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $var
 
       <p>
         <label>
-        <?php echo elgg_view("input/checkboxes", array("name" => "attributes[re_attempt]", "options" => array(elgg_echo('izap-contest:challenge:reattempt') => 1), "value" => $challenge_entity->re_attempt)) ?>
+          <?php echo elgg_echo('izap-contest:challenge:reattempt'); ?>
+        <?php echo elgg_view("input/text", array("name" => "attributes[re_attempt]", "value" => $challenge_entity->re_attempt)) //, "options" => array(elgg_echo('izap-contest:challenge:reattempt') => 1)?>
       </label>
+        <?php echo elgg_view('output/notice', array('izap_notice' => elgg_echo('izap-contest:leave_empty'))); ?>
     </p>
 
     <p>

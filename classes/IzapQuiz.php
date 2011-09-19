@@ -121,8 +121,13 @@ class IzapQuiz extends ZContest {
   /**
    * returns the options of the quiz
    * @return <array>
-   */
+     */
   public function get_options() {
+    $arra = unserialize($this->options);
+    foreach($arra as $key => $val) {
+      $ret[' '.$val] = (string)$key;
+    }
+    return $ret;
     return array_flip(unserialize($this->options));
   }
 
