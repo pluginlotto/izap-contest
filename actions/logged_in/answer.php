@@ -88,7 +88,7 @@ forward(izapbase::setHref(array(
             'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
             'action' => 'play',
             'page_owner' => FALSE,
-            'vars' => array($challenge_entity->guid, elgg_get_friendly_title($challenge_entity->title))
+            'vars' => array($challenge_entity->guid, elgg_get_friendly_title($challenge_entity->title),false)
                 )
         )
 );

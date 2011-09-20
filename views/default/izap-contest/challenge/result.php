@@ -24,7 +24,7 @@ if($obtained_percentage <= 0) {
 <div class="contentWrapper">
   <?php
   echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/challenge/result_statistics', array('array' => unserialize($result->description)));
-  e?>
+  ?>
 </div>
 
 <div class="contentWrapper">
@@ -52,5 +52,7 @@ if($obtained_percentage <= 0) {
     <?php echo elgg_echo('izap-contest:challenge:my_results') ?>
   </a>
 </div>
-<?php unset($_SESSION['challenge'][$vars['contest']]);?>
+<?php unset($_SESSION['challenge'][$vars['contest']]);
+unset($_SESSION['proper_started'][$vars['contest']]);
+?>
 

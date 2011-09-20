@@ -144,6 +144,10 @@ height:2px;
 	margin:0 0 0 10px;
 }
 
+#groups_info_column_left {
+width:390px;
+
+}
 .river_object_izapchallenge_created{
 background: url("<?php echo $vars['url'].'/mod/'.GLOBAL_IZAP_CONTEST_PLUGIN.'/_graphics/'?>river_post.png") no-repeat scroll left -1px transparent;
 }
@@ -188,4 +192,19 @@ float:right;
 height:50px;
 margin:5px;
 padding:5px;
+}
+
+.contest_header {
+background-color: #EEEEEE;
+    font-weight: bold;
+    text-align:center;
+}
+
+.contest_details {
+font-weight:bold;
+}
+
+.control_menu {
+padding:10px;
+margin:15px;
 }

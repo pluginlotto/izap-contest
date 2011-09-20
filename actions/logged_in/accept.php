@@ -1,9 +1,10 @@
 <?php
-/***************************************************
+
+/* * *************************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- ***************************************************
+ * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -18,18 +19,18 @@ global $CONFIG;
 $challenge_form = get_input('challenge');
 $challenge_entity = new IzapChallenge($challenge_form['guid']);
 
-Izapbase::getAllAccess(); 
+Izapbase::getAllAccess();
 $user_array = (array) $challenge_entity->accepted_by;
 $user_array[] = elgg_get_logged_in_user_guid();
 $user_array = array_unique($user_array);
 $challenge_entity->accepted_by = array();
 $challenge_entity->accepted_by = $user_array;
-IzapBase::removeAccess(); 
+IzapBase::removeAccess();
 
-
+$_SESSION['proper_started'][$challenge_entity->guid] = TRUE;
 forward(Izapbase::setHref(array(
             'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
             'action' => 'play',
             'page_owner' => false,
-            'vars' => array($challenge_entity->guid, elgg_get_friendly_title($challenge_entity->title),true)
+            'vars' => array($challenge_entity->guid, elgg_get_friendly_title($challenge_entity->title))
         )));

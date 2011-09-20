@@ -21,7 +21,7 @@ if($vars['challenge_entity']->max_quizzes && $vars['challenge_entity']->total_qu
 <?php endif;?>
 
 <?php if($vars['challenge_entity']->quizzes): ?>
-  <?php echo elgg_view('page/elements/title',array('title'=>'Related quizzes' . ' ('.$vars['challenge_entity']->total_questions.')')) ?>
+  <?php echo elgg_view('page/elements/title',array('title'=>'Related quizzes' . ' ('.$vars['challenge_entity']->total_questions.')'. $vars['control_menu'])); ?>
 <div>
     <?php
     echo elgg_list_entities(array(

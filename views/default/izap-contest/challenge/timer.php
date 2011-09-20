@@ -30,7 +30,7 @@ $left_time = $quiz_time - $spent_time;
       window.location.href = '<?php
 echo IzapBase::setHref(array(
     'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-    'action' => 'save_results',
+    'action' => 'saveResults',
     'page_owner' => false,
     'vars' => array($challenge->guid)
 ));

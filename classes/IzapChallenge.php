@@ -167,11 +167,10 @@ class IzapChallenge extends ZContest {
     if (!in_array($user_guid, $accepted_by)) {
       $return = TRUE;
     }
-
     if (!$return && $this->re_attempt!='') {
       $user_var = elgg_get_logged_in_user_entity()->username . '_last_attempt';
       $last_attempt = (int) $this->$user_var;
-      if (time() > ($last_attempt + (int)$this->re_attempt * 60 * 60)) {
+      if (time() > ($last_attempt + (int)($this->re_attempt * 60 * 60))) {
         return TRUE;
       } else {
         return FALSE;
@@ -381,6 +380,7 @@ class IzapChallenge extends ZContest {
    * @return <string>
    */
   public function getThumb($size) {
+  
     $size = (isset($size) && $size!= '')?$size:'small';
     $image = '<div>';
     $image .= '<img src="' . $this->getIconURL($size) . '"/>';

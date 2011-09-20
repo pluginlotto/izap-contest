@@ -63,7 +63,8 @@ class IzapQuizController extends IzapController {
     $type = get_input('type');
     elgg_set_page_owner_guid($container_challenge->container_guid);
     $this->page_elements['filter'] = '';
-    $this->page_elements['title'] = elgg_view('page/elements/title', array('title' => '<a href="' . $container_challenge->getURL() . '">' . $container_challenge->title . '</a> :' . elgg_echo('izap-contest:quiz:edit')));
+    $this->page_elements['title'] = '<a href="' . $container_challenge->getURL() . '">' . $container_challenge->title . '</a>' . elgg_echo('izap-contest:quiz:edit');
+    $this->page_elements['page_title'] = $container_challenge->getURL() .  $container_challenge->title . elgg_echo('izap-contest:quiz:edit');
     $this->page_elements['content'] = elgg_view('forms/quiz/new_edit', array('container_guid' => $this->url_vars[2], 'mtype' => $type, 'quiz_entity' => $quiz));
     $this->drawPage();
   }
