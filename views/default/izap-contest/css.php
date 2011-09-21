@@ -194,6 +194,9 @@ margin:5px;
 padding:5px;
 }
 
+.timer2 {
+
+}
 .contest_header {
 background-color: #EEEEEE;
     font-weight: bold;

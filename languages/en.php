@@ -59,6 +59,7 @@ add_translation('en', array(
     'izap-contest:form_error:empty:opt:1'=> 'No options has been added yet',
 
 'item:object:izapchallenge' => 'Challenges',
+    'izap-contest:next_attempt' => 'Next attempt in :  ',
  'izap-contest:challenge' => 'Challenge: %s',
     'izap-contest:challenge:play:exit' =>'Calculate result',
     'izap-contest-challenge:are_you_sure' => 'Are you sure to calculate result without completeing??',

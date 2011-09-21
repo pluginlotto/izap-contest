@@ -12,9 +12,10 @@
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 $challenge = $vars['challenge'];
-$quiz_time = $vars['quiz_time'];
-$spent_time = time() - ((int) $_SESSION['challenge'][$challenge->guid]['start_time']);
-$left_time = $quiz_time - $spent_time;
+$left_time = $vars['left_time'];
+if(isset($vars['redirect']) && $vars['redirect'] !=''){
+  $timeout_action = 'window.location.href ="'.$vars['redirect'].'"';
+}
 ?>
 <script type="text/javascript">
   var startTime;
@@ -27,16 +28,9 @@ $left_time = $quiz_time - $spent_time;
       mytime=setTimeout('display_ct()',refresh)
     }
     else {
-      window.location.href = '<?php
-echo IzapBase::setHref(array(
-    'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-    'action' => 'saveResults',
-    'page_owner' => false,
-    'vars' => array($challenge->guid)
-));
-?>';
-          }
+<?php echo $timeout_action;?>;
         }
+  }
 
         function display_ct() {
 
@@ -64,6 +58,6 @@ echo IzapBase::setHref(array(
           display_c(<?php echo $left_time ?>);
         });
 </script>
-<div class="timer">
+<div class="<?php echo $vars['class']?>">
   <b><span id="ct"></span></b>
 </div>

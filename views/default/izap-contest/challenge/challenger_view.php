@@ -39,9 +39,9 @@ if ($vars['full_view'] == true) {
     </div>
     <div class ="control_menu">
       <?php
-                    echo $vars['control_menu'];
-     ?>
-  </div>
+      echo $vars['control_menu'];
+      ?>
+    </div>
   </div>
 
   <div id="groups_info_column_left">
@@ -157,7 +157,7 @@ if ($vars['full_view'] == true) {
               </div>
               <div class="clearfloat"></div>
 
-<br/>
+              <br/>
             </div>
 
 
@@ -171,15 +171,24 @@ if ($vars['full_view'] == true) {
                       <input type="hidden" name="challenge[guid]" value="<?php echo $challenge->guid ?>" />
     <?php
                       if ($challenge->canAttempt()) {
-                        echo IzapBase::input('submit', array('name' => 'submit', 'value' => elgg_echo('izap-contest:challenge:take_now')));
+                         echo IzapBase::input('submit', array('name' => 'submit', 'value' => elgg_echo('izap-contest:challenge:take_now')));
                       } else {
                         $time_var = elgg_get_logged_in_user_entity()->username . '_last_attempt';
                         $time = (int) $challenge->$time_var;
+
+                        if ($challenge->re_attempt != '') {
+                          $quiz_time = 60 * 60 * $challenge->re_attempt;
+                        $left_time = $time+$quiz_time -time();
+                        $action =IzapBase::input('submit', array('name' => 'submit', 'value' => elgg_echo('izap-contest:challenge:take_now')));
+                      echo '<div style="float:left">'.elgg_echo('izap-contest:next_attempt').'</div>';
+                          echo elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN.'/challenge/timer', array('challenge' => $challenge, 'left_time' =>$left_time,'class' => 'timer2','redirect' => current_page_url() ));
+                        }
+
                         if ($time) {
     ?>
                           <br/>
                           <em>
-      <?php echo elgg_echo('izap-contest:challenge:last_attempt') . elgg_view_friendly_time($time); ?>
+      <?php echo elgg_echo('izap-contest:challenge:last_attempt') . elgg_view_friendly_time($time);?>
                         </em>
 
     <?php
