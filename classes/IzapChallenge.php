@@ -356,6 +356,7 @@ class IzapChallenge extends ZContest {
     return IzapBase::setHref(array(
         'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
         'action' => 'view',
+        'page_owner' => $container_name,
         'vars' => array($this->guid, $title)
     ));
   }

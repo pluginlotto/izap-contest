@@ -35,10 +35,10 @@ $params = array();
 $params['to'] = $attribs['send_email'];
 $params['from'] = $attribs['email'];
 $params['from_username'] = $attribs['name'];
-$params['subject'] = "Offer: {$entity->title}";
+$params['subject'] = elgg_echo('izap-contest:challenge_subject',array($entity->title));
 $params['msg'] = "
   Hello, {$attribs['send_name']} \n
-  I like this post, {$entity->getURL()} & please go through that once.\n
+  I liked this challenge, {$entity->getURL()}. Go through it .\n
   <p>{$attribs['msg']}</p>
   From:\n
     {$attribs['name']},

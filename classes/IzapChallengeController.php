@@ -83,7 +83,6 @@ class IzapChallengeController extends IzapController {
   }
 
   public function actionView() {
-
     $id = (int) $this->url_vars[2];
     $challenge_entity = get_entity($id);
 
@@ -122,9 +121,9 @@ class IzapChallengeController extends IzapController {
 
       elgg_register_menu_item('page', $challenger_view);
 
-      $this->page_elements['content'] .= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity,'control_menu' => $control_menu));
+      $this->page_elements['content'] .= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/owner_view', array('challenge_entity' => $challenge_entity, 'control_menu' => $control_menu));
     } else {
-      $this->page_elements['content'] .= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity, 'full_view' => $this->url_vars[3],'control_menu' => $control_menu));
+      $this->page_elements['content'] .= elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN . '/challenge/challenger_view', array('challenge_entity' => $challenge_entity, 'full_view' => $this->url_vars[3], 'control_menu' => $control_menu));
     }
 
     $this->drawPage();
@@ -179,9 +178,9 @@ class IzapChallengeController extends IzapController {
 
     $container_guid = $this->url_vars[1];
     $start = (bool) $_SESSION['proper_started'][$container_guid];
-    
+
     $contest = new IzapChallenge($container_guid, $start);
-    if (!$_SESSION['challenge'][$contest->guid]   || $_SESSION['challenge'][$contest->guid]['completed'] == true) {
+    if (!$_SESSION['challenge'][$contest->guid] || $_SESSION['challenge'][$contest->guid]['completed'] == true) {
       forward(IzapBase::setHref(array(
                   'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
                   'action' => 'result',
@@ -229,7 +228,7 @@ class IzapChallengeController extends IzapController {
             ));
 
     if (empty($content)) {
-      $content = file_get_contents(elgg_get_plugins_path() . GLOBAL_IZAP_ELGG_BRIDGE .'/_graphics/no-image.jpg');
+      $content = file_get_contents(elgg_get_plugins_path() . GLOBAL_IZAP_ELGG_BRIDGE . '/_graphics/no-image-' . $size . '.jpg');
     }
 
     $header_array = array();

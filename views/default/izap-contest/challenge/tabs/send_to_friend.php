@@ -22,7 +22,7 @@ $challenge = $vars['entity'];
   <form action="<?php echo IzapBase::getFormAction(send_to_friend, GLOBAL_IZAP_CONTEST_PLUGIN)?>" method="post">
     <?php
     echo elgg_view('input/securitytoken');
-    echo $vars['guid']?elgg_view('input/hidden', array('name' => 'attributes[guid]', 'value' => $challenge->guid)):""; ?>
+    echo elgg_view('input/hidden', array('name' => 'attributes[guid]', 'value' => $challenge->guid)); ?>
 
     <p>
       <label for="name" ><?php echo elgg_echo('izap-contest:your_name');?></label>

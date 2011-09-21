@@ -33,10 +33,12 @@ if ($challenge->comments_on) {
              ));
 }
 
+if(elgg_is_logged_in ()){
 $tabs_array['tabsArray'][] = array(
           'title'=>elgg_echo('izap-contest:challenge:challenge_friend'),
           'content'=>elgg_view(GLOBAL_IZAP_CONTEST_PLUGIN. '/challenge/tabs/challenge_friend',array('entity'=>$challenge)),
 );
+}
 
 echo elgg_view(GLOBAL_IZAP_ELGG_BRIDGE.'/views/tabs',$tabs_array);
 ?>
