@@ -20,17 +20,14 @@ define('GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE', 'izapquiz');
 define('GLOBAL_IZAP_CONTEST_CHALLENGE_CLASS', 'IzapChallenge');
 define('GLOBAL_IZAP_CONTEST_QUIZ_CLASS', 'IzapQuiz');
 
+if (elgg_is_active_plugin(GLOBAL_IZAP_ELGG_BRIDGE))
 elgg_register_event_handler('init', 'system', 'izap_zcontest_init');
 
 function izap_zcontest_init() {
   global $CONFIG;
-  if (elgg_is_active_plugin(GLOBAL_IZAP_ELGG_BRIDGE)) {
+ 
     izap_plugin_init(GLOBAL_IZAP_CONTEST_PLUGIN);
-  } else {
-    register_error('This plugin needs izap-elgg-bridge');
-    disable_plugin(GLOBAL_IZAP_CONTEST_PLUGIN);
-  }
-
+ 
   // asking group to include the izap_files
   if (is_callable('add_group_tool_option')) {
     add_group_tool_option(GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, elgg_echo('izap-contest:challenge:group:enable'), true);
