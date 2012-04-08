@@ -1,9 +1,10 @@
 <?php
-/***************************************************
+
+/* * *************************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- ***************************************************
+ * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -17,14 +18,14 @@ $owner = $vars['entity']->getOwnerEntity();
 $video_pic = elgg_view('output/url', array(
     'href' => $vars['entity']->getUrl(),
     'text' => $vars['entity']->getThumb()
-));
+        ));
 
 $owner_link = elgg_view('output/url', array(
-            'href' => IzapBase::setHref(array(
-                'action' => 'owner',
-                'page_owner' => $vars['entity']->container_username,
-            )),
-            'text' => $owner->name,
+    'href' => IzapBase::setHref(array(
+        'action' => 'owner',
+        'page_owner' => $vars['entity']->container_username,
+    )),
+    'text' => $owner->name,
         ));
 
 $author_text = elgg_echo('byline', array($owner_link));
@@ -38,8 +39,8 @@ if ($vars['entity']->comments_on) {
   if ($comments_count != 0) {
     $text = elgg_echo("comments") . " ($comments_count)";
     $comments_link = elgg_view('output/url', array(
-                'href' => $vars['entity']->getURL() . '#video-comments',
-                'text' => $text,
+        'href' => $vars['entity']->getURL() . '#video-comments',
+        'text' => $text,
             ));
   } else {
     $comments_link = '';
@@ -54,19 +55,19 @@ $description = strip_tags($vars['entity']->description);
 $description = substr($description, 0, 200) . ((strlen($description) > 200) ? '...' : '' );
 
 $title_link = elgg_view('output/url', array(
-            'text' => substr($vars['entity']->title, 0, 55) . ((strlen($vars['entity']->title) > 55) ? '...' : '' ),
-            'href' => $vars['entity']->getURL(),
+    'text' => substr($vars['entity']->title, 0, 55) . ((strlen($vars['entity']->title) > 55) ? '...' : '' ),
+    'href' => $vars['entity']->getURL(),
         ));
 
 $metadata = IzapBase::controlEntityMenu(array('entity' => $vars['entity'], 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
 $tags = elgg_view('output/tags', array('tags' => $vars['entity']->tags));
-if(elgg_get_context()=='izap_mini_list'){
- $metadata = '';
- $tags = false;
+if (elgg_get_context() == 'izap_mini_list') {
+  $metadata = '';
+  $tags = false;
 }
 $params = array(
     'entity' => $vars['entity'],
-    'metadata' => $metadata ,
+    'metadata' => $metadata,
     'title' => $title_link,
     'subtitle' => $subtitle,
     'tags' => $tags,

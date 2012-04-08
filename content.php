@@ -1,9 +1,10 @@
 <?php
-/***************************************************
+
+/* * *************************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- ***************************************************
+ * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -18,8 +19,8 @@ $size = get_input('size');
 $entity = get_entity($entity_guid);
 $contents = $entity->get_media($size);
 IzapBase::cacheHeaders(array(
-        'content_type' => $entity->getMimeType(),
-        'file_name' => elgg_get_friendly_title($entity->title),
+    'content_type' => $entity->getMimeType(),
+    'file_name' => elgg_get_friendly_title($entity->title),
 ));
 echo $contents;
 exit;

@@ -1,10 +1,10 @@
 <?php
 
-/* * *************************************************
+/* * ***********************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- * **************************************************
+ * *************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -13,9 +13,9 @@
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
+// here the new created quiz is being saved
 // Make sure we're logged in
 IzapBase::gatekeeper();
-
 if (IzapBase::hasFormError()) {
   if (sizeof(IzapBase::getFormErrors())) {
     foreach (IzapBase::getFormErrors() as $error) {
@@ -25,6 +25,7 @@ if (IzapBase::hasFormError()) {
   forward(REFERRER);
   exit;
 }
+
 // Get input data
 $quiz_form = IzapBase::getPostedAttributes();
 if (!isset($quiz_form['correct_option'])) {
@@ -46,6 +47,7 @@ if ($quiz_form['qtype'] == 'video') {
   }
   $quiz_entity->video_guid = $video->guid;
 }
+
 // Set its owner to the current user
 $challenge_entity = get_entity($quiz_form['container_guid']);
 if (!$quiz_form['guid']) {
@@ -55,10 +57,9 @@ if (!$quiz_form['guid']) {
 
 // Set its title and description appropriately
 foreach ($quiz_form as $key => $val) {
-
   if (preg_match('/opt:[0-9]/', $key)) {
     if ($val != '') {
-      $options[(string)$key] = (string)$val;
+      $options[(string) $key] = (string) $val;
     }
   } else {
     if ($key == 'related_media') {

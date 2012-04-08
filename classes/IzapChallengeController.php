@@ -20,13 +20,18 @@ class IzapChallengeController extends IzapController {
     $this->page_elements['filter'] = '';
   }
 
+  /**
+   * displays list of offers  
+   */
   public function actionList() {
-// check for page owner of the current page
+
+    // check for page owner of the current page
     $page_owner = elgg_get_page_owner_entity();
 
     $listing_options = array();
     $listing_options['type'] = 'object';
     $listing_options['subtype'] = GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE;
+    // check if the page owner is the session user to display offers made by logged in user
     if ($page_owner == $_SESSION['user']) {
       $this->page_elements['title'] = elgg_echo('izap-contest:challenge:my');
       $listing_options['container_guid'] = $page_owner->guid;
@@ -34,7 +39,7 @@ class IzapChallengeController extends IzapController {
       $this->page_elements['title'] = elgg_echo('izap-contest:user', array($page_owner->name));
       $listing_options['container_guid'] = $page_owner->guid;
     } else {
-      //set_input('username', elgg_get_logged_in_user_entity()->username);
+      // else displays all the challenges of the site
       $this->page_elements['title'] = elgg_echo('izap-contest:challenge:all');
     }
     $list = elgg_list_entities($listing_options);
@@ -42,6 +47,9 @@ class IzapChallengeController extends IzapController {
     $this->drawPage();
   }
 
+  /**
+   * function for adding a new challenge in the site through form views
+   */
   public function actionAdd() {
     IzapBase::gatekeeper();
     $this->page_elements['filter'] = '';
@@ -50,6 +58,9 @@ class IzapChallengeController extends IzapController {
     $this->drawPage();
   }
 
+  /**
+   * displays the edit challenge form
+   */
   public function actionEdit() {
     IzapBase::gatekeeper();
     $challenge_entity = get_entity($this->url_vars[2]);
@@ -62,16 +73,19 @@ class IzapChallengeController extends IzapController {
     $this->drawPage();
   }
 
+  /**
+   * displays the list of accepted challenges
+   */
   public function actionAccepted() {
     $page_owner = elgg_get_page_owner_entity();
 
     $this->page_elements['title'] = $page_owner->name . '\'s ' . elgg_echo('izap-contest:challenge:accepted');
     $list = elgg_list_entities_from_metadata(array(
-                'type' => 'object',
-                'subtype' => GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE,
-                'metadata_name' => 'accepted_by',
-                'metadata_value' => $page_owner->guid
-                    )
+        'type' => 'object',
+        'subtype' => GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE,
+        'metadata_name' => 'accepted_by',
+        'metadata_value' => $page_owner->guid
+            )
     );
 
     if (empty($list) || $list == '') {
@@ -82,6 +96,9 @@ class IzapChallengeController extends IzapController {
     $this->drawpage();
   }
 
+  /**
+   * displays the Detail view of a challenge
+   */
   public function actionView() {
     $id = (int) $this->url_vars[2];
     $challenge_entity = get_entity($id);
@@ -90,15 +107,16 @@ class IzapChallengeController extends IzapController {
       forward(IzapBase::setHref(array('context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER, 'action' => 'list', 'page_owner' => false, 'vars' => array('all'))));
     }
     if (isset($_SESSION['challenge'][$id]['active']) && $_SESSION['challenge'][$id]['active']) {
-      forward(IzapBase::setHref(array('context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER, 'action' => 'play', 'page_owner' => false, 'vars' => array($id, elgg_get_friendly_title($challenge_entity->title), false))));
+      forward(IzapBase::setHref(array('context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
+                  'action' => 'play', 'page_owner' => false,
+                  'vars' => array($id, elgg_get_friendly_title($challenge_entity->title), false))));
     }
     $control_menu = IzapBase::controlEntityMenu(array('entity' => $challenge_entity, 'handler' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER));
     $title = $challenge_entity->title;
     $this->page_elements['filter'] = '';
     $this->page_elements['title'] = elgg_echo('izap-contest:challenge', array($title));
-//    $this->page_elements['content'] = $control_menu;
-    if (!get_input('view_as_challenger', FALSE) && $challenge_entity->owner_guid == elgg_get_logged_in_user_guid()) {
 
+    if (!get_input('view_as_challenger', False) && $challenge_entity->owner_guid == elgg_get_logged_in_user_guid()) {
       if (!$challenge_entity->lock) {
         $quiz_add = new ElggMenuItem('izap-contest:quiz:add',
                         elgg_echo('izap-contest:quiz:add'),
@@ -112,7 +130,6 @@ class IzapChallengeController extends IzapController {
         );
         elgg_register_menu_item('page', $quiz_add);
       }
-
       $challenger_view = new ElggMenuItem('izap-contest:challenge:view_as_challenger', elgg_echo('izap-contest:challenge:view_as_challenger'), IzapBase::setHref(array(
                           'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
                           'action' => 'view',
@@ -129,6 +146,9 @@ class IzapChallengeController extends IzapController {
     $this->drawPage();
   }
 
+  /**
+   * displays the Result page of challenge
+   */
   public function actionResult() {
 
     $contest = get_entity($this->url_vars[1]);
@@ -174,11 +194,13 @@ class IzapChallengeController extends IzapController {
     }
   }
 
+  /**
+   * this functions begins the accepted challenge
+   */
   public function actionPlay() {
 
     $container_guid = $this->url_vars[1];
     $start = (bool) $_SESSION['proper_started'][$container_guid];
-
     $contest = new IzapChallenge($container_guid, $start);
     if (!$_SESSION['challenge'][$contest->guid] || $_SESSION['challenge'][$contest->guid]['completed'] == true) {
       forward(IzapBase::setHref(array(
@@ -198,15 +220,15 @@ class IzapChallengeController extends IzapController {
       forward($contest->getURL());
     }
     $exit_action = elgg_view('output/confirmlink', array(
-                'text' => elgg_echo('izap-contest:challenge:play:exit'),
-                'href' => IzapBase::setHref(array(
-                    'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
-                    'action' => 'saveResults',
-                    'page_handler' => FALSE,
-                    'vars' => array($this->url_vars[1])
-                )),
-                'class' => 'elgg-button elgg-button-submit',
-                'confirm' => elgg_echo('izap-contest-challenge:are_you_sure')));
+        'text' => elgg_echo('izap-contest:challenge:play:exit'),
+        'href' => IzapBase::setHref(array(
+            'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
+            'action' => 'saveResults',
+            'page_handler' => FALSE,
+            'vars' => array($this->url_vars[1])
+        )),
+        'class' => 'elgg-button elgg-button-submit',
+        'confirm' => elgg_echo('izap-contest-challenge:are_you_sure')));
     $exit_action = '<div style="float:right">' . $exit_action . '</div>';
     $quiz = $contest->current_question();
     $this->page_elements['title'] = elgg_echo('izap-contest:challenge', array($contest->title));
@@ -217,6 +239,9 @@ class IzapChallengeController extends IzapController {
     $this->drawPage();
   }
 
+  /**
+   * this function loads the thumbnail image for the challenge identity
+   */
   public function actionIcon() {
     $challenge = get_entity($this->url_vars[1]);
     $size = $this->url_vars[2];

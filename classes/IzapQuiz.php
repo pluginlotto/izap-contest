@@ -19,7 +19,7 @@ class IzapQuiz extends ZContest {
 
   protected function initialise_attributes() {
     parent::initializeAttributes();
-     $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE;
+    $this->attributes['subtype'] = GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE;
   }
 
   public function __construct($guid = null) {
@@ -39,7 +39,8 @@ class IzapQuiz extends ZContest {
 
   /**
    * returns the form_attributes
-   * @return <array>
+   * 
+   * @return  <array>
    */
   public function getAttributesArray() {
     return $this->form_attributes;
@@ -47,8 +48,9 @@ class IzapQuiz extends ZContest {
 
   /**
    *
-   * @param <boolean> $force. True will ignore the media deletion and just drop the entity
-   * @return <boolean> True on success else false
+   * @param   <boolean>  $force. True will ignore the media deletion and just drop the entity
+   * 
+   * @return  <boolean>          True on success else false
    */
   public function delete($force = false) {
     if ($this->izap_delete_files(unserialize($this->related_media)) || $force) {
@@ -66,15 +68,16 @@ class IzapQuiz extends ZContest {
       $quizzes_string = serialize($new_quizzes);
       $challenge_object->quizzes = $quizzes_string;
 
-      return delete_entity($this->guid, TRUE);
+      return delete_entity($this->guid, true);
     }
     return false;
   }
-/**
- * saves the quiz
- * @param IzapChallenge $ch
- * @return <boolean> true on success else false
- */
+
+  /**
+   * saves the quiz
+   * @param    IzapChallenge   $ch
+   * @return   <boolean>            true on success else false
+   */
   public function save(IzapChallenge $ch = null) {
 
     return parent::save(true, array('river' => false));
@@ -82,7 +85,8 @@ class IzapQuiz extends ZContest {
 
   /**
    * gives the mime type of the quiz
-   * @return <string>
+   * 
+   * @return     <string>
    */
   public function get_quiz_mime() {
     $media_array = unserialize($this->related_media);
@@ -91,11 +95,12 @@ class IzapQuiz extends ZContest {
     return $this->qtype;
   }
 
-/**
- * gives the videofeed from the videoApi
-  * @param <array> $size
- * @return         videosrc
- */
+  /**
+   * gives the videofeed from the videoApi
+   * @param   <array>  $size
+   * 
+   * @return                     videosrc
+   */
   private function get_video($size = false) {
     $video = new IZAPVideoApi();
     $video = $video->getVideoEntity($this->video_guid);
@@ -104,8 +109,9 @@ class IzapQuiz extends ZContest {
 
   /**
    * gives the media for the quiz
-   * @param <type> $size
-   * @return <file> media file
+   * @param   <type>  $size
+   * 
+   * @return  <file>         media file
    */
   public function get_media($size = false) {
     $media_array = unserialize($this->related_media);
@@ -120,12 +126,13 @@ class IzapQuiz extends ZContest {
 
   /**
    * returns the options of the quiz
-   * @return <array>
-     */
+   * 
+   * @return    <array>
+   */
   public function get_options() {
     $arra = unserialize($this->options);
-    foreach($arra as $key => $val) {
-      $ret[' '.$val] = (string)$key;
+    foreach ($arra as $key => $val) {
+      $ret[' ' . $val] = (string) $key;
     }
     return $ret;
     return array_flip(unserialize($this->options));
@@ -133,8 +140,8 @@ class IzapQuiz extends ZContest {
 
   /**
    * returns the correct answer of the quiz
-   * @param <type> $force true if want to have corrected answer for non-owner user
-   * @return <string>
+   * @param   <type>   $force  true if want to have corrected answer for non-owner user
+   * @return  <string>
    */
   public function getCorrectAnswer($force = FALSE) {
     if (elgg_get_logged_in_user_guid() == $this->owner_guid || $force) {
@@ -146,7 +153,8 @@ class IzapQuiz extends ZContest {
 
   /**
    * gives the url of the quiz
-   * @return <string> 
+   * 
+   * @return  <string> 
    */
   function getURL() {
     $title = elgg_get_friendly_title($this->title);
@@ -156,13 +164,15 @@ class IzapQuiz extends ZContest {
         'vars' => array($this->container_guid, $this->guid, $title)
     ));
   }
+
   /**
    * returns the thumb of the quiz
-   * @return <string>  $image
+   * 
+   * @return  <string>  $image
    */
   public function getThumb() {
     $image = '<div>';
-    $image .= '<img src="' . elgg_get_site_url().'mod/izap-contest/content.php?id='.$this->guid.'&size=medium' . '"/>';
+    $image .= '<img src="' . elgg_get_site_url() . 'mod/izap-contest/content.php?id=' . $this->guid . '&size=medium' . '"/>';
     $image .= '</div>';
     return $image;
   }

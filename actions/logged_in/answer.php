@@ -13,10 +13,13 @@
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
-// Make sure we're logged in
+// checks if the user's logged in
 izapbase::gatekeeper();
+
+// this page saves the current answer of the user while the test is ongoing
 // Get input data
 $quiz_form = get_input('quiz');
+
 // Cache to the session
 // Make sure the title isn't blank
 $quiz_entity = new IzapQuiz($quiz_form['guid']);
@@ -28,7 +31,7 @@ if (!$challenge_entity->can_play()) {
   forward($challenge_entity->getURL());
 }
 
-// check time... if user can ansser
+// check time... if user can answer
 if (!$challenge_entity->timeLeft()) {
   register_error(elgg_echo('izap-contest:challenge:error:timeout'));
   $result = $challenge_entity->save_results(FALSE);
@@ -71,7 +74,7 @@ if ($quiz_form['answer'] == 'Answer' && $quiz_entity->correct_option == $quiz_fo
       $_SESSION['challenge'][$challenge_entity->guid]['totals']--;
     }
   } elseif ($quiz_form['skip'] == 'Skip') {
-
+    
   }
 }
 
@@ -88,7 +91,7 @@ forward(izapbase::setHref(array(
             'context' => GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER,
             'action' => 'play',
             'page_owner' => FALSE,
-            'vars' => array($challenge_entity->guid, elgg_get_friendly_title($challenge_entity->title),false)
+            'vars' => array($challenge_entity->guid, elgg_get_friendly_title($challenge_entity->title), false)
                 )
         )
 );

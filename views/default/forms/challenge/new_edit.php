@@ -1,9 +1,9 @@
 <?php
-/***************************************************
+/* * ***********************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- ***************************************************
+ * *************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -12,10 +12,10 @@
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
-
+// this is the form for adding/editing a new challenge
 IzapBase::loadLib(array('plugin' => GLOBAL_IZAP_CONTEST_PLUGIN, 'lib' => 'izap-contest'));
 
-$challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $vars['challenge_entity']: array('access_id' => defined('ACCESS_DEFAULT') ? ACCESS_DEFAULT : 1));
+$challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $vars['challenge_entity'] : array('access_id' => defined('ACCESS_DEFAULT') ? ACCESS_DEFAULT : 1));
 ?>
 
 <div>
@@ -53,14 +53,14 @@ $challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $var
         <?php echo elgg_view("input/text", array("name" => "attributes[timer]", "value" => $challenge_entity->timer)) ?>
       </label>
       <?php echo elgg_view('output/notice', array('izap_notice' => elgg_echo('izap-contest:challenge:timer:notice'))); ?>
-      </p>
+    </p>
 
-      <p>
-        <label>
-          <?php echo elgg_echo('izap-contest:challenge:reattempt'); ?>
+    <p>
+      <label>
+        <?php echo elgg_echo('izap-contest:challenge:reattempt'); ?>
         <?php echo elgg_view("input/text", array("name" => "attributes[re_attempt]", "value" => $challenge_entity->re_attempt)) //, "options" => array(elgg_echo('izap-contest:challenge:reattempt') => 1)?>
       </label>
-        <?php echo elgg_view('output/notice', array('izap_notice' => elgg_echo('izap-contest:leave_empty'))); ?>
+      <?php echo elgg_view('output/notice', array('izap_notice' => elgg_echo('izap-contest:leave_empty'))); ?>
     </p>
 
     <p>
@@ -91,27 +91,30 @@ $challenge_entity = izap_array_to_object(isset($vars['challenge_entity']) ? $var
     </p>
     <p>
       <label>
-        <?php echo elgg_echo('izap-contest:comments');?>
-        <?php echo elgg_view('input/dropdown',array(
-    'name' => 'attributes[comments_on]',
-    'value' => $challenge_entity->comments_on,
-    'options_values' => array('1' => elgg_echo('izap-contest:on'), '0' => elgg_echo('izap-contest:off'))
-));?>
+        <?php echo elgg_echo('izap-contest:comments'); ?>
+        <?php
+        echo elgg_view('input/dropdown', array(
+            'name' => 'attributes[comments_on]',
+            'value' => $challenge_entity->comments_on,
+            'options_values' => array('1' => elgg_echo('izap-contest:on'), '0' => elgg_echo('izap-contest:off'))
+        ));
+        ?>
       </label>
     </p>
     <p>
       <label><?php echo elgg_echo('access'); ?></label>
       <?php echo elgg_view('input/access', array('name' => 'attributes[access_id]', 'value' => $challenge_entity->access_id)) ?>
-      </p>
+    </p>
     <?php
-        if ($vars['challenge_entity']):
-          echo elgg_view('input/hidden', array('name' => 'attributes[guid]', 'value' => $challenge_entity->guid));
-        else:
-          echo elgg_view('input/hidden', array('name' => 'attributes[container_guid]', 'value' => elgg_get_page_owner_guid()));
-     endif;
-     echo elgg_view('input/hidden',array('name' => 'attributes[plugin]','value' => GLOBAL_IZAP_CONTEST_PLUGIN));?>
-          <p>
-            <?php echo elgg_view('input/submit' ,array('name' => 'submit','value' =>elgg_echo('save')));?>
+    if ($vars['challenge_entity']):
+      echo elgg_view('input/hidden', array('name' => 'attributes[guid]', 'value' => $challenge_entity->guid));
+    else:
+      echo elgg_view('input/hidden', array('name' => 'attributes[container_guid]', 'value' => elgg_get_page_owner_guid()));
+    endif;
+    echo elgg_view('input/hidden', array('name' => 'attributes[plugin]', 'value' => GLOBAL_IZAP_CONTEST_PLUGIN));
+    ?>
+    <p>
+      <?php echo elgg_view('input/submit', array('name' => 'submit', 'value' => elgg_echo('save'))); ?>
     </p>
   </form>
 </div>

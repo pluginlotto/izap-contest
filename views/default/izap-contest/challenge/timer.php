@@ -11,10 +11,12 @@
  * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
  * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
+
+// this is the page that starts the timer of the challenge
 $challenge = $vars['challenge'];
 $left_time = $vars['left_time'];
-if(isset($vars['redirect']) && $vars['redirect'] !=''){
-  $timeout_action = 'window.location.href ="'.$vars['redirect'].'"';
+if (isset($vars['redirect']) && $vars['redirect'] != '') {
+  $timeout_action = 'window.location.href ="' . $vars['redirect'] . '"';
 }
 ?>
 <script type="text/javascript">
@@ -28,36 +30,36 @@ if(isset($vars['redirect']) && $vars['redirect'] !=''){
       mytime=setTimeout('display_ct()',refresh)
     }
     else {
-<?php echo $timeout_action;?>;
-        }
+<?php echo $timeout_action; ?>;
+    }
   }
 
-        function display_ct() {
+  function display_ct() {
 
-          // Calculate the number of days left
-          var days=Math.floor(startTime / 86400);
+    // Calculate the number of days left
+    var days=Math.floor(startTime / 86400);
 
-          // After deducting the days calculate the number of hours left
-          var hours = Math.floor((startTime - (days * 86400 ))/3600)
-          // After days and hours , how many minutes are left
-          var minutes = Math.floor((startTime - (days * 86400 ) - (hours *3600 ))/60)
-          // Finally how many seconds left after removing days, hours and minutes.
-          var secs = Math.floor((startTime - (days * 86400 ) - (hours *3600 ) - (minutes*60)))
+    // After deducting the days calculate the number of hours left
+    var hours = Math.floor((startTime - (days * 86400 ))/3600)
+    // After days and hours , how many minutes are left
+    var minutes = Math.floor((startTime - (days * 86400 ) - (hours *3600 ))/60)
+    // Finally how many seconds left after removing days, hours and minutes.
+    var secs = Math.floor((startTime - (days * 86400 ) - (hours *3600 ) - (minutes*60)))
 
-          var x =  (days>0 ?days + " Days ":'') + (hours>0? hours + " Hours ":'')  + (minutes>0?minutes + " Minutes ":'')  + secs + " Seconds ";
+    var x =  (days>0 ?days + " Days ":'') + (hours>0? hours + " Hours ":'')  + (minutes>0?minutes + " Minutes ":'')  + secs + " Seconds ";
 
 
 
-          document.getElementById('ct').innerHTML = x;
-          startTime= startTime- 1;
+    document.getElementById('ct').innerHTML = x;
+    startTime= startTime- 1;
 
-          tt=display_c(startTime);
-        }
-        $(document).ready(function(){
+    tt=display_c(startTime);
+  }
+  $(document).ready(function(){
 
-          display_c(<?php echo $left_time ?>);
-        });
+    display_c(<?php echo $left_time ?>);
+  });
 </script>
-<div class="<?php echo $vars['class']?>">
+<div class="<?php echo $vars['class'] ?>">
   <b><span id="ct"></span></b>
 </div>

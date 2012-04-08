@@ -1,9 +1,10 @@
 <?php
-/***************************************************
+
+/* * *************************************************
  * PluginLotto.com                                 *
  * Copyrights (c) 2005-2011. iZAP                  *
  * All rights reserved                             *
- ***************************************************
+ * **************************************************
  * @author iZAP Team "<support@izap.in>"
  * @link http://www.izap.in/
  * Under this agreement, No one has rights to sell this script further.
@@ -19,9 +20,8 @@ if (get_subtype_id('object', GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE)) {
   add_subtype('object', GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, GLOBAL_IZAP_CONTEST_CHALLENGE_CLASS);
 }
 
-if(get_subtype_id('object',GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE)){
-  update_subtype('object',GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE,GLOBAL_IZAP_CONTEST_QUIZ_CLASS);
-}
- else {
-  add_subtype('object',GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE,GLOBAL_IZAP_CONTEST_QUIZ_CLASS);
+if (get_subtype_id('object', GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE)) {
+  update_subtype('object', GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE, GLOBAL_IZAP_CONTEST_QUIZ_CLASS);
+} else {
+  add_subtype('object', GLOBAL_IZAP_CONTEST_QUIZ_SUBTYPE, GLOBAL_IZAP_CONTEST_QUIZ_CLASS);
 }
