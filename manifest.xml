@@ -7,7 +7,7 @@
   <description>This plugin provides a quiz contest functionality` to elgg.</description>
   <website>http://www.pluginlotto.com/pg/store</website>
   <copyright>(C) iZAP Web Solutions</copyright>
-  <license>GNU Public License version 2</license>
+  <license>GNU Public License version 3</license>
 
   <requires>
     <type>elgg_version</type>
@@ -25,7 +25,47 @@
     <plugin>izap-elgg-bridge</plugin>
     <priority>after</priority>
   </requires>
-
+  
+  <screenshot>
+    <description>iZAP Challenge</description>  
+    <path>_graphics/challenge.PNG</path>
+  </screenshot>
+    
+  <screenshot>
+    <description>Add New Challenge</description>  
+    <path>_graphics/add_new_challenge.PNG</path>
+  </screenshot>
+  
+  <screenshot>
+    <description>Accept Challenge</description>  
+    <path>_graphics/take_challenge.PNG</path>
+  </screenshot>
+  
+  <screenshot>
+    <description>View Result</description>  
+    <path>_graphics/challenge_result.PNG</path>
+  </screenshot>
+  
+  <screenshot>
+    <description>Complete Challenge in Time</description>  
+    <path>_graphics/face_challenge.PNG</path>
+  </screenshot>
+  
+  <screenshot>
+    <description>Add Quiz to Challenges</description>  
+    <path>_graphics/add_quiz.PNG</path>
+  </screenshot>
+  
+  <screenshot>
+    <description>Image Quiz</description>  
+    <path>_graphics/image_challenge.PNG</path>
+  </screenshot>
+  
+  <screenshot>
+    <description>Audio Quiz</description>  
+    <path>_graphics/audio_quiz.PNG</path>
+  </screenshot>
+  
   <category>iZAP</category>
   <admin_interface>advanced</admin_interface>
 </plugin_manifest>

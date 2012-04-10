@@ -32,7 +32,7 @@ function izap_zcontest_init() {
 
   // asking group to include the izap_files
   if (is_callable('add_group_tool_option')) {
-    add_group_tool_option(GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, elgg_echo('izap-contest:challenge:group:enable'), True);
+    add_group_tool_option(GLOBAL_IZAP_CONTEST_CHALLENGE_SUBTYPE, elgg_echo('izap-contest:challenge:group:enable'), true);
     elgg_extend_view('groups/tool_latest', GLOBAL_IZAP_CONTEST_PLUGIN . '/group_module');
   }
   elgg_register_page_handler(GLOBAL_IZAP_CONTEST_CHALLENGE_PAGEHANDLER, GLOBAL_IZAP_PAGEHANDLER);
