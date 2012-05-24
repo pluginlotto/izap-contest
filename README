@@ -1,0 +1,25 @@
+iZAP-contest
+--------------
+### Description
+   iZAP-contest plugin is created to allow users to create challenges and quiz contests with questions
+   of there own. Users can now make there site more exciting and popular as new users would come to 
+   check there Intelligence Quotient.
+
+### Features
+1. Now you can create your own quiz contest and share with your friends!
+2. Do not be limited to asking only Text Questions, let the contestants use there 'Ears and Eyes' to explore the answer. Add sound clips, videos and images to create illusions!
+3. Check the IQs of your friends, see if they are up to the challenge!
+4. Check your results, see where you stand. Share your results and score with your friends!
+
+>Note: For creating a question involving video clips, you need to install izap-videos plugin.
+ You can download it from https://github.com/pluginlotto/izap-videos
+
+### Dependencies and other important instruction    
+1. Izap-elgg-bridge must be acvtivated and the same can be get from > [Pluginlotto](http://www.pluginlotto.com).
+2. Read INSTALL.txt before installation.
+
+ * For more information. Contact "Tarun Jangra<tarun@izap.in>"
+ * For discussion about corresponding plugins, visit http://www.pluginlotto.com/forum/
+ * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
+ * Copyrights (c) 2005-2011. iZAP
+ * All rights reserved  
